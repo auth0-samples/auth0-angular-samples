@@ -17,6 +17,8 @@ export class AuthService {
     responseType: 'token id_token'
   });
 
+  userProfile: any;
+
   constructor(private router: Router) {
 
     let authResult = this.auth0.parseHash(window.location.hash);
@@ -24,8 +26,8 @@ export class AuthService {
     if (authResult && authResult.accessToken && authResult.idToken) {
       window.location.hash = '';
       localStorage.setItem('access_token', authResult.accessToken);
-      localStorage.setItem('id_token', authResult.idToken);      
-      this.router.navigate(['/home']);
+      localStorage.setItem('id_token', authResult.idToken);
+      this.router.navigate(['/profile']);
     } else if (authResult && authResult.error) {
       alert(`Error: ${authResult.error}`);
     }
@@ -61,6 +63,21 @@ export class AuthService {
     });
   }
 
+  public getProfile(cb): void {
+    let accessToken = localStorage.getItem('access_token');
+    if (!accessToken) {
+      throw 'Access token must exist to fetch profile';
+    }
+
+    let self = this;    
+    this.auth0.client.userInfo(accessToken, function(err, profile) {
+      if (profile) {
+        self.userProfile = profile;
+      }
+      cb(err, profile);
+    });
+  }
+
   public isAuthenticated(): boolean {
     // Check whether the id_token is expired or not
     return tokenNotExpired();
@@ -70,5 +87,7 @@ export class AuthService {
     // Remove token from localStorage
     localStorage.removeItem('access_token');
     localStorage.removeItem('id_token');
-  }
+    // Go back to the home route
+    this.router.navigate(['/home']);
+  };
 }
