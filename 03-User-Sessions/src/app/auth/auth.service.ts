@@ -33,7 +33,7 @@ export class AuthService {
       }
     });
   }
-  
+
   public login(): void {
     this.lock.show();
   }
