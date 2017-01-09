@@ -23,7 +23,7 @@ If you download the sample from the quickstart page, it will come pre-populated 
 The development server that comes with the Angular CLI can be used to serve the application.
 
 ```bash
-ng serve
+npm start
 ```
 
 The application will be served at `http://localhost:4200`.

@@ -19,7 +19,7 @@
       <button
         class="btn btn-primary btn-margin"
         *ngIf="!auth.isAuthenticated()"
-        routerLink="/login">
+        (click)="auth.login()">
           Log In
       </button>
 

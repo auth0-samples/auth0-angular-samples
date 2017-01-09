@@ -4,7 +4,7 @@ This sample demonstrates how to add authentication with a custom login form to a
 
 ## Getting Started
 
-If you haven't already done so, [sign up](https://auth0.com) for your free Auth0 account and create a new client in the [dashboard](https://manage.auth0.com). Find the **domain** and **client ID** from the settings area and add the URL for your application to the **Allowed Callback URLs** box.
+If you haven't already done so, [sign up](https://auth0.com) for your free Auth0 account and create a new client in the [dashboard](https://manage.auth0.com). Find the **domain** and **client ID** from the settings area and add the URL for your application to the **Allowed Callback URLs** box. If you are using the server provided by the Angular CLI, that URL is `http://localhost:4200`.
 
 Clone the repo or download it from the Angular quickstart page in Auth0's documentation. Install the Angular CLI and the dependencies for the app.
 
@@ -23,7 +23,7 @@ If you download the sample from the quickstart page, it will come pre-populated 
 The development server that comes with the Angular CLI can be used to serve the application.
 
 ```bash
-ng serve
+npm start
 ```
 
 The application will be served at `http://localhost:4200`.
