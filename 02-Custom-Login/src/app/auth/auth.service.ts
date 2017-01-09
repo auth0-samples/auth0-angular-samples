@@ -22,7 +22,7 @@ export class AuthService {
   }
 
   public handleAuthentication(): void {
-    let authResult = this.auth0.parseHash((err, authResult) => {
+    this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         window.location.hash = '';
         localStorage.setItem('access_token', authResult.accessToken);
@@ -33,7 +33,7 @@ export class AuthService {
       }
     });
   }
-  
+
   public login(username: string, password: string): void {
     this.auth0.client.login({
       realm: 'Username-Password-Authentication',
@@ -55,7 +55,9 @@ export class AuthService {
       email,
       password,
     }, function(err) {
-      if (err) alert(`Error: ${err.description}`);
+      if (err) {
+        alert(`Error: ${err.description}`);
+      }
     });
   }
 
@@ -63,7 +65,9 @@ export class AuthService {
     this.auth0.authorize({
       connection: 'google-oauth2',
     }, function(err) {
-      if (err) alert(`Error: ${err.description}`);
+      if (err) {
+        alert(`Error: ${err.description}`);
+      }
     });
   }
 
