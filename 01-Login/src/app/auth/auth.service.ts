@@ -16,7 +16,7 @@ export class AuthService {
   });
 
   constructor() {}
-  
+
   public login(): void {
     this.lock.show();
   }

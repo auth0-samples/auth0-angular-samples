@@ -33,7 +33,7 @@ export class AuthService {
       }
     });
   }
-  
+
   public login(): void {
     this.lock.show();
   }
@@ -44,7 +44,7 @@ export class AuthService {
       throw 'Access token must exist to fetch profile';
     }
 
-    let self = this;    
+    let self = this;
     this.lock.getUserInfo(accessToken, function(err, profile) {
       if (profile) {
         self.userProfile = profile;

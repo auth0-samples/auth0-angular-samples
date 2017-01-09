@@ -34,7 +34,7 @@ export class PingComponent implements OnInit {
     this.authHttp.get(`${this.API_URL}/private`)
       .map(res => res.json())
       .subscribe(
-        data => this.message= data.message,
+        data => this.message = data.message,
         error => this.message = error
       );
   }
@@ -44,7 +44,7 @@ export class PingComponent implements OnInit {
     this.authHttp.get(`${this.API_URL}/private/admin`)
       .map(res => res.json())
       .subscribe(
-        data => this.message= data.message,
+        data => this.message = data.message,
         error => this.message = error
       );
   }
