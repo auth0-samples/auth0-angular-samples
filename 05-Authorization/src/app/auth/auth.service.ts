@@ -36,7 +36,7 @@ export class AuthService {
     });
   }
   
-  public login(username: string, password: string): void {
+  public login(): void {
     this.lock.show();
   }
 
