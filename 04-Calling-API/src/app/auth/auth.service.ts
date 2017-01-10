@@ -11,12 +11,10 @@ export class AuthService {
 
   lock = new Auth0Lock(AUTH_CONFIG.clientID, AUTH_CONFIG.domain, {
     auth: {
+      oidcConformant: true,
+      audience: AUTH_CONFIG.apiUrl,
       redirectUri: AUTH_CONFIG.callbackURL,
-      responseType: 'token id_token',
-      params: {
-        oidcConformant: true,
-        audience: AUTH_CONFIG.apiUrl
-      }
+      responseType: 'token id_token'
     }
   });
 
