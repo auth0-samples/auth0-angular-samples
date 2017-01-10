@@ -14,7 +14,7 @@ export class PingComponent implements OnInit {
   API_URL: string = 'http://localhost:3001/api';
   message: string;
 
-  constructor(private auth: AuthService, private http: Http, private authHttp: AuthHttp) {}
+  constructor(public auth: AuthService, public http: Http, public authHttp: AuthHttp) {}
 
   ngOnInit() {
   }
