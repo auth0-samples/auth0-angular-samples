@@ -11,8 +11,8 @@ declare var jwt_decode: any;
 export class AuthService {
 
   lock = new Auth0Lock(AUTH_CONFIG.clientID, AUTH_CONFIG.domain, {
+    oidcConformant: true,
     auth: {
-      oidcConformant: true,
       audience: AUTH_CONFIG.apiUrl,
       redirectUri: AUTH_CONFIG.callbackURL,
       responseType: 'token id_token',

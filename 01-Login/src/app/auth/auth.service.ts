@@ -9,6 +9,8 @@ declare var Auth0Lock: any;
 export class AuthService {
 
   lock = new Auth0Lock(AUTH_CONFIG.clientID, AUTH_CONFIG.domain, {
+    oidcConformant: true,
+    autoclose: true,
     auth: {
       redirectUri: AUTH_CONFIG.callbackURL,
       responseType: 'token id_token'
