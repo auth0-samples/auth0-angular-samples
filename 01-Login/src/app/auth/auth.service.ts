@@ -13,7 +13,8 @@ export class AuthService {
     autoclose: true,
     auth: {
       redirectUri: AUTH_CONFIG.callbackURL,
-      responseType: 'token id_token'
+      responseType: 'token id_token',
+      audience: `https://${AUTH_CONFIG.domain}/userinfo`
     }
   });
 

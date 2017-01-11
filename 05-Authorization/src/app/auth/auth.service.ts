@@ -12,6 +12,7 @@ export class AuthService {
 
   lock = new Auth0Lock(AUTH_CONFIG.clientID, AUTH_CONFIG.domain, {
     oidcConformant: true,
+    autoclose: true,
     auth: {
       audience: AUTH_CONFIG.apiUrl,
       redirectUri: AUTH_CONFIG.callbackURL,
