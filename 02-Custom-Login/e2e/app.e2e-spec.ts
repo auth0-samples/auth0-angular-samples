@@ -1,10 +1,10 @@
-import { CustomPage } from './app.po';
+import { CustomLoginPage } from './app.po';
 
-describe('custom App', function() {
-  let page: CustomPage;
+describe('custom login App', function() {
+  let page: CustomLoginPage;
 
   beforeEach(() => {
-    page = new CustomPage();
+    page = new CustomLoginPage();
   });
 
   it('should display message saying app works', () => {
