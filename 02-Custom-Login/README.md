@@ -9,7 +9,7 @@ If you haven't already done so, [sign up](https://auth0.com) for your free Auth0
 Clone the repo or download it from the Angular quickstart page in Auth0's documentation. Install the Angular CLI and the dependencies for the app.
 
 ```bash
-npm install -g angular-cli
+npm install -g @angular/cli
 cd 02-Custom-Login
 npm install
 ```
@@ -55,5 +55,6 @@ If you have found a bug or if you have a feature request, please report them at 
 ## License
 
 This project is licensed under the MIT license. See the [LICENSE](LICENSE.txt) file for more info.
+
 
 

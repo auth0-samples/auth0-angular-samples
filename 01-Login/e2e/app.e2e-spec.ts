@@ -1,10 +1,10 @@
-import { LoginPage } from './app.po';
+import { Login } from './app.po';
 
 describe('login App', function() {
-  let page: LoginPage;
+  let page: Login;
 
   beforeEach(() => {
-    page = new LoginPage();
+    page = new Login();
   });
 
   it('should display message saying app works', () => {

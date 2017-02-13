@@ -29,7 +29,7 @@ export class AuthService {
   public handleAuthentication(): void {
     this.lock.on('authenticated', (authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
-        this.setUser(authResult);
+        this.setSession(authResult);
       } else if (authResult && authResult.error) {
         alert(`Error: ${authResult.error}`);
       }
@@ -57,19 +57,23 @@ export class AuthService {
 
   public isAuthenticated(): boolean {
     // Check whether the id_token is expired or not
-    return tokenNotExpired();
+    let expiresAt = JSON.parse(localStorage.getItem('expires_at'));
+    return new Date().getTime() < expiresAt;
   }
 
   public logout(): void {
     // Remove token from localStorage
     localStorage.removeItem('access_token');
     localStorage.removeItem('id_token');
+    localStorage.removeItem('expires_at');
     // Go back to the home route
     this.router.navigate(['/home']);
   }
 
-  private setUser(authResult): void {
+  private setSession(authResult): void {
+    let expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
+    localStorage.setItem('expires_at', expiresAt);
   }
 }

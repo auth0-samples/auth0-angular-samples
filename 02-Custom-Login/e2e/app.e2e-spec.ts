@@ -1,6 +1,6 @@
 import { CustomLoginPage } from './app.po';
 
-describe('custom-login App', function() {
+describe('custom login App', function() {
   let page: CustomLoginPage;
 
   beforeEach(() => {

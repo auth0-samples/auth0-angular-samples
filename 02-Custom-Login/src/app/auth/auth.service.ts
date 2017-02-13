@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { tokenNotExpired } from 'angular2-jwt';
 import { Router } from '@angular/router';
 import { AUTH_CONFIG } from './auth0-variables';
 
@@ -8,7 +7,7 @@ declare var auth0: any;
 
 @Injectable()
 export class AuthService {
-
+  
   // Configure Auth0
   auth0 = new auth0.WebAuth({
     domain: AUTH_CONFIG.domain,
@@ -25,8 +24,7 @@ export class AuthService {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         window.location.hash = '';
-        localStorage.setItem('access_token', authResult.accessToken);
-        localStorage.setItem('id_token', authResult.idToken);
+        this.setSession(authResult);
         this.router.navigate(['/home']);
       } else if (authResult && authResult.error) {
         alert(`Error: ${authResult.error}`);
@@ -39,12 +37,14 @@ export class AuthService {
       realm: 'Username-Password-Authentication',
       username,
       password
-    }, (err, data) => {
+    }, (err, authResult) => {
       if (err) {
         alert(`Error: ${err.description}`);
         return;
       }
-      this.setUser(data);
+      if (authResult && authResult.accessToken && authResult.idToken) {
+        this.setSession(authResult);
+      }
       this.router.navigate(['/home']);
     });
   }
@@ -72,18 +72,26 @@ export class AuthService {
   }
 
   public isAuthenticated(): boolean {
-    // Check whether the id_token is expired or not
-    return tokenNotExpired();
+    // Check whether the current time is past the 
+    // access token's expiry time
+    let expiresAt = JSON.parse(localStorage.getItem('expires_at'));
+    return new Date().getTime() < expiresAt;
   }
 
   public logout(): void {
-    // Remove token from localStorage
+    // Remove tokens and expiry time from localStorage
     localStorage.removeItem('access_token');
     localStorage.removeItem('id_token');
+    localStorage.removeItem('expires_at');
+    // Go back to the home route
+    this.router.navigate(['/home']);
   }
 
-  private setUser(authResult): void {
+  private setSession(authResult): void {
+    // Set the time that the access token will expire at
+    let expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
+    localStorage.setItem('expires_at', expiresAt);
   }
 }
