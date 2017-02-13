@@ -9,7 +9,14 @@ import { AuthService } from './auth/auth.service';
 export class AppComponent {
 
   constructor(public auth: AuthService) {
+    console.log('hey there')
+    // Comment out this method call if using
+    // hash-based routing
     auth.handleAuthentication();
+    
+    // Uncomment this method call if using
+    // hash-based routing
+    // auth.handleAuthenticationWithHash();
   }
 
 }

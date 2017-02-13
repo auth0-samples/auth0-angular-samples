@@ -1,10 +1,10 @@
-import { LoginPage } from './app.po';
+import { Login.UpdatePage } from './app.po';
 
-describe('login App', function() {
-  let page: LoginPage;
+describe('login.update App', function() {
+  let page: Login.UpdatePage;
 
   beforeEach(() => {
-    page = new LoginPage();
+    page = new Login.UpdatePage();
   });
 
   it('should display message saying app works', () => {
