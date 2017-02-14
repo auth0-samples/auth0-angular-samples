@@ -1,6 +1,6 @@
 import { CallingApiPage } from './app.po';
 
-describe('calling-api App', function() {
+describe('calling api App', function() {
   let page: CallingApiPage;
 
   beforeEach(() => {

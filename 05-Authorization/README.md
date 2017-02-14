@@ -11,7 +11,7 @@ You must ensure that the APIs section is enabled in your Auth0 dashboard. To do 
 Clone the repo or download it from the Angular quickstart page in Auth0's documentation. Install the Angular CLI and the dependencies for the app.
 
 ```bash
-npm install -g angular-cli
+npm install -g @angular/cli
 cd 05-Authorization
 npm install
 ```
