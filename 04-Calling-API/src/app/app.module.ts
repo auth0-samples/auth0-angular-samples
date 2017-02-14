@@ -12,6 +12,7 @@ import { ROUTES } from './app.routes';
 import { AuthService } from './auth/auth.service';
 import { ProfileComponent } from './profile/profile.component';
 import { PingComponent } from './ping/ping.component';
+import { CallbackComponent } from './callback/callback.component';
 
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
 
@@ -27,7 +28,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     AppComponent,
     HomeComponent,
     ProfileComponent,
-    PingComponent
+    PingComponent,
+    CallbackComponent
   ],
   imports: [
     BrowserModule,

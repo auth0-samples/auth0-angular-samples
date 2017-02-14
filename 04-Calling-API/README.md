@@ -1,4 +1,4 @@
-# Auth0 Angular Authorization
+# Auth0 Angular Calling an API
 
 This sample demonstrates how to make secure calls to an API after authenticating a user with Auth0. The calls to the API are made with the user's `access_token`. The sample uses the Angular CLI.
 
@@ -11,7 +11,7 @@ You must ensure that the APIs section is enabled in your Auth0 dashboard. To do 
 Clone the repo or download it from the Angular quickstart page in Auth0's documentation. Install the Angular CLI and the dependencies for the app.
 
 ```bash
-npm install -g angular-cli
+npm install -g @angular/cli
 cd 04-Calling-API
 npm install
 ```

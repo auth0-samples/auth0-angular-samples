@@ -33,7 +33,7 @@ export class AuthService {
         this.setSession(authResult);
         this.router.events
           .filter(event => event.url === '/callback')
-          .subscribe(event => {
+          .subscribe(() => {
             this.router.navigate(['/']);
           });
       } else if (authResult && authResult.error) {
@@ -50,7 +50,7 @@ export class AuthService {
       .events
       .filter(event => event.constructor.name === 'NavigationStart')
       .filter(event => (/access_token|id_token|error/).test(event.url))
-      .subscribe(event => {
+      .subscribe(() => {
         this.lock.resumeAuth(window.location.hash, (error, authResult) => {
           if (error) return console.log(error);
           this.setSession(authResult);
