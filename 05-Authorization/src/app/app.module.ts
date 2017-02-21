@@ -14,6 +14,7 @@ import { PingComponent } from './ping/ping.component';
 
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
 import { AdminComponent } from './admin/admin.component';
+import { AuthGuardService } from './auth/auth-guard.service';
 import { CallbackComponent } from './callback/callback.component';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
@@ -39,6 +40,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   ],
   providers: [
     AuthService,
+    AuthGuardService,
     {
       provide: AuthHttp,
       useFactory: authHttpServiceFactory,
