@@ -11,6 +11,13 @@
 
       <button
         class="btn btn-primary btn-margin"
+        *ngIf="auth.isAuthenticated()"
+        routerLink="/profile">
+          Profile
+      </button>
+
+      <button
+        class="btn btn-primary btn-margin"
         *ngIf="auth.isAuthenticated() && auth.isAdmin()"
         routerLink="/admin">
           Admin Area
@@ -18,7 +25,8 @@
 
       <button
         class="btn btn-primary btn-margin"
-        routerLink="/ping">Ping
+        routerLink="/ping">
+          Ping
       </button>
 
       <button
