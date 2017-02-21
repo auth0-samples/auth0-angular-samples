@@ -7,7 +7,7 @@ declare var auth0: any;
 
 @Injectable()
 export class AuthService {
-  
+
   // Configure Auth0
   auth0 = new auth0.WebAuth({
     domain: AUTH_CONFIG.domain,
@@ -17,20 +17,7 @@ export class AuthService {
     responseType: 'token id_token'
   });
 
-  constructor(private router: Router) {
-  }
-
-  public handleAuthentication(): void {
-    this.auth0.parseHash((err, authResult) => {
-      if (authResult && authResult.accessToken && authResult.idToken) {
-        window.location.hash = '';
-        this.setSession(authResult);
-        this.router.navigate(['/home']);
-      } else if (authResult && authResult.error) {
-        alert(`Error: ${authResult.error}`);
-      }
-    });
-  }
+  constructor(private router: Router) { }
 
   public login(username: string, password: string): void {
     this.auth0.client.login({
@@ -54,7 +41,7 @@ export class AuthService {
       connection: 'Username-Password-Authentication',
       email,
       password,
-    }, function(err) {
+    }, function (err) {
       if (err) {
         alert(`Error: ${err.description}`);
       }
@@ -64,18 +51,33 @@ export class AuthService {
   public loginWithGoogle(): void {
     this.auth0.authorize({
       connection: 'google-oauth2',
-    }, function(err) {
+    }, function (err) {
       if (err) {
         alert(`Error: ${err.description}`);
       }
     });
   }
 
-  public isAuthenticated(): boolean {
-    // Check whether the current time is past the 
-    // access token's expiry time
-    let expiresAt = JSON.parse(localStorage.getItem('expires_at'));
-    return new Date().getTime() < expiresAt;
+  public handleAuthentication(): void {
+    this.auth0.parseHash((err, authResult) => {
+      if (authResult && authResult.accessToken && authResult.idToken) {
+        window.location.hash = '';
+        this.setSession(authResult);
+        this.router.navigate(['/home']);
+      } else if (authResult && authResult.error) {
+        alert(`Error: ${authResult.error}`);
+      }
+    });
+  }
+
+  private setSession(authResult): void {
+    // Set the time that the access token will expire at
+    let expiresAt = JSON.stringify(
+      (authResult.expiresIn * 1000) + new Date().getTime()
+    );
+    localStorage.setItem('access_token', authResult.accessToken);
+    localStorage.setItem('id_token', authResult.idToken);
+    localStorage.setItem('expires_at', expiresAt);
   }
 
   public logout(): void {
@@ -87,11 +89,11 @@ export class AuthService {
     this.router.navigate(['/home']);
   }
 
-  private setSession(authResult): void {
-    // Set the time that the access token will expire at
-    let expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
-    localStorage.setItem('access_token', authResult.accessToken);
-    localStorage.setItem('id_token', authResult.idToken);
-    localStorage.setItem('expires_at', expiresAt);
+  public isAuthenticated(): boolean {
+    // Check whether the current time is past the 
+    // access token's expiry time
+    let expiresAt = JSON.parse(localStorage.getItem('expires_at'));
+    return new Date().getTime() < expiresAt;
   }
+
 }

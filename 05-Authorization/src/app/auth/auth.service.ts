@@ -28,6 +28,10 @@ export class AuthService {
 
   constructor(private router: Router) {}
 
+  public login(): void {
+    this.lock.show();
+  }
+
   // Call this method in app.component
   // if using path-based routing
   public handleAuthentication(): void {
@@ -62,8 +66,12 @@ export class AuthService {
     });
   }
 
-  public login(): void {
-    this.lock.show();
+  private setSession(authResult): void {
+    // Set the time that the access token will expire at
+    let expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
+    localStorage.setItem('access_token', authResult.accessToken);
+    localStorage.setItem('id_token', authResult.idToken);
+    localStorage.setItem('expires_at', expiresAt);
   }
 
   public getProfile(cb): void {
@@ -91,13 +99,6 @@ export class AuthService {
     return this.getRole() === 'admin';
   }
 
-  public isAuthenticated(): boolean {
-    // Check whether the current time is past the 
-    // access token's expiry time
-    let expiresAt = JSON.parse(localStorage.getItem('expires_at'));
-    return new Date().getTime() < expiresAt;
-  }
-
   public logout(): void {
     // Remove tokens and expiry time from localStorage
     localStorage.removeItem('access_token');
@@ -107,11 +108,11 @@ export class AuthService {
     this.router.navigate(['/']);
   }
 
-  private setSession(authResult): void {
-    // Set the time that the access token will expire at
-    let expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
-    localStorage.setItem('access_token', authResult.accessToken);
-    localStorage.setItem('id_token', authResult.idToken);
-    localStorage.setItem('expires_at', expiresAt);
+  public isAuthenticated(): boolean {
+    // Check whether the current time is past the 
+    // access token's expiry time
+    let expiresAt = JSON.parse(localStorage.getItem('expires_at'));
+    return new Date().getTime() < expiresAt;
   }
+
 }
