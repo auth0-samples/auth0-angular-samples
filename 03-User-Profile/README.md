@@ -1,4 +1,4 @@
-# Auth0 Angular User Sessions
+# Auth0 Angular User Profile
 
 This sample demonstrates how to get a user's profile using Auth0 in an Angular application. It uses the Angular CLI.
 
@@ -10,7 +10,7 @@ Clone the repo or download it from the Angular quickstart page in Auth0's docume
 
 ```bash
 npm install -g @angular/cli
-cd 03-User-Sessions
+cd 03-User-Profile
 npm install
 ```
 

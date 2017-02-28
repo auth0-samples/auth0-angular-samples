@@ -41,7 +41,7 @@ export class AuthService {
       connection: 'Username-Password-Authentication',
       email,
       password,
-    }, function (err) {
+    }, err => {
       if (err) {
         alert(`Error: ${err.description}`);
       }
@@ -51,10 +51,6 @@ export class AuthService {
   public loginWithGoogle(): void {
     this.auth0.authorize({
       connection: 'google-oauth2',
-    }, function (err) {
-      if (err) {
-        alert(`Error: ${err.description}`);
-      }
     });
   }
 
@@ -64,8 +60,9 @@ export class AuthService {
         window.location.hash = '';
         this.setSession(authResult);
         this.router.navigate(['/home']);
-      } else if (authResult && authResult.error) {
-        alert(`Error: ${authResult.error}`);
+      } else if (err) {
+        this.router.navigate(['/home']);
+        alert(`Error: ${err.error}`);
       }
     });
   }

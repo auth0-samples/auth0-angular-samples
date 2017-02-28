@@ -1,4 +1,4 @@
-# Auth0 Angular Custom Login
+# Auth0 Angular Custom Login Form
 
 This sample demonstrates how to add authentication with a custom login form to an Angular application using Auth0. The sample uses the Angular CLI.
 
