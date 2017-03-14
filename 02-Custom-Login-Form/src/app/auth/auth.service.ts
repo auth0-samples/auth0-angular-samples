@@ -14,7 +14,8 @@ export class AuthService {
     clientID: AUTH_CONFIG.clientID,
     redirectUri: AUTH_CONFIG.callbackURL,
     audience: `https://${AUTH_CONFIG.domain}/userinfo`,
-    responseType: 'token id_token'
+    responseType: 'token id_token',
+    scope: 'openid'
   });
 
   constructor(private router: Router) { }
