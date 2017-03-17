@@ -1,6 +1,6 @@
-# Auth0 Angular Basic Login
+# Auth0 Angular Embedded Login
 
-This sample demonstrates how to add authentication to an Angular application using Auth0's Lock widget. The sample uses the Angular CLI.
+This sample demonstrates how to add authentication to an Angular application using Auth0's Lock widget embedded in your application. The sample uses the Angular CLI.
 
 ## Getting Started
 
@@ -10,7 +10,7 @@ Clone the repo or download it from the Angular quickstart page in Auth0's docume
 
 ```bash
 npm install -g @angular/cli
-cd 01-Login
+cd 01-Embedded-Login
 npm install
 ```
 
