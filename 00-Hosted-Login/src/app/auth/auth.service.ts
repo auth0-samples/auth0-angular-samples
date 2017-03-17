@@ -3,8 +3,6 @@ import { AUTH_CONFIG } from './auth0-variables';
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/filter';
 
-// Avoid name not found warnings
-declare var Auth0Lock: any;
 declare var auth0: any;
 
 @Injectable()
@@ -15,63 +13,27 @@ export class AuthService {
     domain: AUTH_CONFIG.domain
   });
 
-  lock = new Auth0Lock(AUTH_CONFIG.clientID, AUTH_CONFIG.domain, {
-    oidcConformant: true,
-    autoclose: true,
-    auth: {
-      redirectUrl: AUTH_CONFIG.callbackURL,
-      responseType: 'token id_token',
-      audience: `https://${AUTH_CONFIG.domain}/userinfo`,
-      params: {
-        scope: 'openid'
-      }
-    }
-  });
-
   constructor(public router: Router) {}
 
   public login(): void {
-    // this.lock.show();
     this.auth0.authorize({
       responseType: 'token id_token',
-      scope: 'openid',
       redirectUri: 'http://localhost:4200/callback',
       audience: `https://${AUTH_CONFIG.domain}/userinfo`,
+      scope: 'openid',
     });
-    // this.lock.show()
   }
 
-  // Call this method in app.component
-  // if using path-based routing
   public handleAuthentication(): void {
-    this.lock.on('authenticated', (authResult) => {
+    this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
+        window.location.hash = '';
         this.setSession(authResult);
-        this.router.events
-          .filter(event => event.url === '/callback')
-          .subscribe(() => {
-            this.router.navigate(['/']);
-          });
-      } else if (authResult && authResult.error) {
-        alert(`Error: ${authResult.error}`);
+        this.router.navigate(['/home']);
+      } else if (err) {
+        this.router.navigate(['/home']);
+        alert(`Error: ${err.error}`);
       }
-    });
-  }
-
-  // Call this method in app.component
-  // if using hash-based routing
-  public handleAuthenticationWithHash(): void {
-    this
-      .router
-      .events
-      .filter(event => event.constructor.name === 'NavigationStart')
-      .filter(event => (/access_token|id_token|error/).test(event.url))
-      .subscribe(() => {
-        this.lock.resumeAuth(window.location.hash, (error, authResult) => {
-          if (error) return console.log(error);
-          this.setSession(authResult);
-          this.router.navigate(['/']);
-        });
     });
   }
 
