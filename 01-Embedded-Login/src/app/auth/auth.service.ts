@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AUTH_CONFIG } from './auth0-variables';
-import { Router } from '@angular/router';
+import { Router, NavigationStart } from '@angular/router';
 import 'rxjs/add/operator/filter';
 
 // Avoid name not found warnings
@@ -48,7 +48,8 @@ export class AuthService {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
         this.router.events
-          .filter(event => event.url === '/callback')
+          .filter(event => event instanceof NavigationStart)
+          .filter((event: NavigationStart) => event.url === '/callback')
           .subscribe(() => {
             this.router.navigate(['/']);
           });
@@ -64,8 +65,8 @@ export class AuthService {
     this
       .router
       .events
-      .filter(event => event.constructor.name === 'NavigationStart')
-      .filter(event => (/access_token|id_token|error/).test(event.url))
+      .filter(event => event instanceof NavigationStart)
+      .filter((event: NavigationStart) => (/access_token|id_token|error/).test(event.url))
       .subscribe(() => {
         this.lock.resumeAuth(window.location.hash, (error, authResult) => {
           if (error) return console.log(error);
@@ -93,7 +94,7 @@ export class AuthService {
   }
 
   public isAuthenticated(): boolean {
-    // Check whether the current time is past the 
+    // Check whether the current time is past the
     // access token's expiry time
     let expiresAt = JSON.parse(localStorage.getItem('expires_at'));
     return new Date().getTime() < expiresAt;
