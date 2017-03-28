@@ -25,8 +25,8 @@
       "scripts": [
         "../node_modules/auth0-js/build/auth0.js"
       ],
+      "environmentSource": "environments/environment.ts",
       "environments": {
-        "source": "environments/environment.ts",
         "dev": "environments/environment.ts",
         "prod": "environments/environment.prod.ts"
       }
