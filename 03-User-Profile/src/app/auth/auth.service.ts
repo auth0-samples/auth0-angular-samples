@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AUTH_CONFIG } from './auth0-variables';
+import Auth0Lock from 'auth0-lock';
 import 'rxjs/add/operator/filter';
 
-// Avoid name not found warnings
-declare var Auth0Lock: any;
 
 @Injectable()
 export class AuthService {
@@ -98,7 +97,7 @@ export class AuthService {
   }
 
   public isAuthenticated(): boolean {
-    // Check whether the current time is past the 
+    // Check whether the current time is past the
     // access token's expiry time
     let expiresAt = JSON.parse(localStorage.getItem('expires_at'));
     return new Date().getTime() < expiresAt;
