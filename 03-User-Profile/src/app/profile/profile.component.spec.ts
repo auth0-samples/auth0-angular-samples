@@ -1,9 +1,8 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
 
 import { ProfileComponent } from './profile.component';
+import { AuthService } from '../auth/auth.service';
 
 describe('ProfileComponent', () => {
   let component: ProfileComponent;
@@ -11,6 +10,9 @@ describe('ProfileComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      providers: [
+        { provide: AuthService, useValue: { getProfile: () => {} } }
+      ],
       declarations: [ ProfileComponent ]
     })
     .compileComponents();
