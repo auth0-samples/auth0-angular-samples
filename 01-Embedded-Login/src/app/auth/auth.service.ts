@@ -2,18 +2,10 @@ import { Injectable } from '@angular/core';
 import { AUTH_CONFIG } from './auth0-variables';
 import { Router, NavigationStart } from '@angular/router';
 import 'rxjs/add/operator/filter';
-
-// Avoid name not found warnings
-declare var Auth0Lock: any;
-declare var auth0: any;
+import Auth0Lock from 'auth0-lock';
 
 @Injectable()
 export class AuthService {
-
-  auth0 = new auth0.WebAuth({
-    clientID: AUTH_CONFIG.clientID,
-    domain: AUTH_CONFIG.domain
-  });
 
   lock = new Auth0Lock(AUTH_CONFIG.clientID, AUTH_CONFIG.domain, {
     oidcConformant: true,
@@ -31,14 +23,7 @@ export class AuthService {
   constructor(public router: Router) {}
 
   public login(): void {
-    // this.lock.show();
-    this.auth0.authorize({
-      responseType: 'token id_token',
-      scope: 'openid',
-      redirectUri: 'http://localhost:4200/callback',
-      audience: `https://${AUTH_CONFIG.domain}/userinfo`,
-    });
-    // this.lock.show()
+    this.lock.show();
   }
 
   // Call this method in app.component
@@ -69,7 +54,9 @@ export class AuthService {
       .filter((event: NavigationStart) => (/access_token|id_token|error/).test(event.url))
       .subscribe(() => {
         this.lock.resumeAuth(window.location.hash, (error, authResult) => {
-          if (error) return console.log(error);
+          if (error) {
+            return console.log(error);
+          }
           this.setSession(authResult);
           this.router.navigate(['/']);
         });
@@ -78,7 +65,7 @@ export class AuthService {
 
   private setSession(authResult): void {
     // Set the time that the access token will expire at
-    let expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
+    const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
@@ -96,7 +83,7 @@ export class AuthService {
   public isAuthenticated(): boolean {
     // Check whether the current time is past the
     // access token's expiry time
-    let expiresAt = JSON.parse(localStorage.getItem('expires_at'));
+    const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
     return new Date().getTime() < expiresAt;
   }
 

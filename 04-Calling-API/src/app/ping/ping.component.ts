@@ -11,7 +11,7 @@ import 'rxjs/add/operator/map';
 })
 export class PingComponent implements OnInit {
 
-  API_URL: string = 'http://localhost:3001/api';
+  API_URL = 'http://localhost:3001/api';
   message: string;
 
   constructor(public auth: AuthService, public http: Http, public authHttp: AuthHttp) {}

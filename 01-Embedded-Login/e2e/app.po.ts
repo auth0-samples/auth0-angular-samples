@@ -1,6 +1,6 @@
 import { browser, element, by } from 'protractor';
 
-export class EmbeddedLogin {
+export class EmbeddedLoginPage {
   navigateTo() {
     return browser.get('/');
   }

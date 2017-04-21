@@ -1,10 +1,10 @@
-import { EmbeddedLogin } from './app.po';
+import { EmbeddedLoginPage } from './app.po';
 
-describe('login App', function() {
-  let page: EmbeddedLogin;
+describe('embedded-login App', () => {
+  let page: EmbeddedLoginPage;
 
   beforeEach(() => {
-    page = new EmbeddedLogin();
+    page = new EmbeddedLoginPage();
   });
 
   it('should display message saying app works', () => {

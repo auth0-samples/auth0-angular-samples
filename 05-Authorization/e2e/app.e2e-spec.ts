@@ -1,6 +1,6 @@
 import { AuthorizationPage } from './app.po';
 
-describe('authorization App', function() {
+describe('authorization App', () => {
   let page: AuthorizationPage;
 
   beforeEach(() => {

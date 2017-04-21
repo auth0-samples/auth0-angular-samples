@@ -1,12 +1,9 @@
 import { Injectable } from '@angular/core';
-import { tokenNotExpired } from 'angular2-jwt';
-import { Router } from '@angular/router';
+import { Router, NavigationStart } from '@angular/router';
 import { AUTH_CONFIG } from './auth0-variables';
 import 'rxjs/add/operator/filter';
-
-// Avoid name not found warnings
-declare var Auth0Lock: any;
-declare var jwt_decode: any;
+import Auth0Lock from 'auth0-lock';
+import jwt_decode from 'jwt-decode';
 
 @Injectable()
 export class AuthService {
@@ -39,7 +36,8 @@ export class AuthService {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
         this.router.events
-          .filter(event => event.url === '/callback')
+          .filter(event => event instanceof NavigationStart)
+          .filter((event: NavigationStart) => event.url === '/callback')
           .subscribe(() => {
             this.router.navigate(['/']);
           });
@@ -55,11 +53,13 @@ export class AuthService {
     this
       .router
       .events
-      .filter(event => event.constructor.name === 'NavigationStart')
-      .filter(event => (/access_token|id_token|error/).test(event.url))
+      .filter(event => event instanceof NavigationStart)
+      .filter((event: NavigationStart) => (/access_token|id_token|error/).test(event.url))
       .subscribe(() => {
         this.lock.resumeAuth(window.location.hash, (error, authResult) => {
-          if (error) return console.log(error);
+          if (error) {
+            return console.log(error);
+          }
           this.setSession(authResult);
           this.router.navigate(['/']);
         });
@@ -68,19 +68,19 @@ export class AuthService {
 
   private setSession(authResult): void {
     // Set the time that the access token will expire at
-    let expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
+    const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
   }
 
   public getProfile(cb): void {
-    let accessToken = localStorage.getItem('access_token');
+    const accessToken = localStorage.getItem('access_token');
     if (!accessToken) {
-      throw 'Access token must exist to fetch profile';
+      throw new Error('Access token must exist to fetch profile');
     }
 
-    let self = this;
+    const self = this;
     this.lock.getUserInfo(accessToken, function(err, profile) {
       if (profile) {
         self.userProfile = profile;
@@ -110,9 +110,9 @@ export class AuthService {
   }
 
   public isAuthenticated(): boolean {
-    // Check whether the current time is past the 
+    // Check whether the current time is past the
     // access token's expiry time
-    let expiresAt = JSON.parse(localStorage.getItem('expires_at'));
+    const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
     return new Date().getTime() < expiresAt;
   }
 

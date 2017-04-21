@@ -12,7 +12,7 @@ export class AppComponent {
     // Comment out this method call if using
     // hash-based routing
     auth.handleAuthentication();
-    
+
     // Uncomment this method call if using
     // hash-based routing
     // auth.handleAuthenticationWithHash();

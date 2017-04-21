@@ -1,6 +1,6 @@
 import { UserProfilePage } from './app.po';
 
-describe('user profile App', function() {
+describe('user-profile App', () => {
   let page: UserProfilePage;
 
   beforeEach(() => {

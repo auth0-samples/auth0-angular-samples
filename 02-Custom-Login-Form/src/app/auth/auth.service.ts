@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AUTH_CONFIG } from './auth0-variables';
-
-// Avoid name not found warnings
-declare var auth0: any;
+import auth0 from 'auth0-js';
 
 @Injectable()
 export class AuthService {
@@ -70,7 +68,7 @@ export class AuthService {
 
   private setSession(authResult): void {
     // Set the time that the access token will expire at
-    let expiresAt = JSON.stringify(
+    const expiresAt = JSON.stringify(
       (authResult.expiresIn * 1000) + new Date().getTime()
     );
     localStorage.setItem('access_token', authResult.accessToken);
@@ -88,9 +86,9 @@ export class AuthService {
   }
 
   public isAuthenticated(): boolean {
-    // Check whether the current time is past the 
+    // Check whether the current time is past the
     // access token's expiry time
-    let expiresAt = JSON.parse(localStorage.getItem('expires_at'));
+    const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
     return new Date().getTime() < expiresAt;
   }
 
