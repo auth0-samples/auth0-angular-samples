@@ -9,18 +9,17 @@ export class AuthService {
 
   auth0 = new auth0.WebAuth({
     clientID: AUTH_CONFIG.clientID,
-    domain: AUTH_CONFIG.domain
+    domain: AUTH_CONFIG.domain,
+    responseType: 'token id_token',
+    audience: `https://${AUTH_CONFIG.domain}/userinfo`,
+    redirectUri: 'http://localhost:4200/callback',      
+    scope: 'openid'
   });
 
   constructor(public router: Router) {}
 
   public login(): void {
-    this.auth0.authorize({
-      responseType: 'token id_token',
-      redirectUri: 'http://localhost:4200/callback',
-      audience: `https://${AUTH_CONFIG.domain}/userinfo`,
-      scope: 'openid',
-    });
+    this.auth0.authorize();
   }
 
   public handleAuthentication(): void {
