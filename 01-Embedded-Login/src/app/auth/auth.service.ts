@@ -32,12 +32,7 @@ export class AuthService {
     this.lock.on('authenticated', (authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
-        this.router.events
-          .filter(event => event instanceof NavigationStart)
-          .filter((event: NavigationStart) => event.url === '/callback')
-          .subscribe(() => {
-            this.router.navigate(['/']);
-          });
+        this.router.navigate(['/']);
       }
     });
     this.lock.on('authorization_error', (err) => {
