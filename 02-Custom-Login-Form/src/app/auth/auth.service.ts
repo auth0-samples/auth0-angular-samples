@@ -25,7 +25,8 @@ export class AuthService {
       password
     }, (err, authResult) => {
       if (err) {
-        alert(`Error: ${err.description}`);
+        console.log(err);
+        alert(`Error: ${err.description}. Check the console for further details.`);
         return;
       }
       if (authResult && authResult.accessToken && authResult.idToken) {
@@ -42,7 +43,9 @@ export class AuthService {
       password,
     }, err => {
       if (err) {
-        alert(`Error: ${err.description}`);
+        console.log(err);
+        alert(`Error: ${err.description}. Check the console for further details.`);
+        return;
       }
     });
   }
