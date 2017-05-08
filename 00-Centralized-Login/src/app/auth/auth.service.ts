@@ -31,7 +31,8 @@ export class AuthService {
         this.router.navigate(['/home']);
       } else if (err) {
         this.router.navigate(['/home']);
-        alert(`Error: ${err.error}`);
+        console.log(err);
+        alert(`Error: ${err.error}. Check the console for further details.`);
       }
     });
   }

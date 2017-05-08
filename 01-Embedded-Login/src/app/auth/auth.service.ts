@@ -38,9 +38,12 @@ export class AuthService {
           .subscribe(() => {
             this.router.navigate(['/']);
           });
-      } else if (authResult && authResult.error) {
-        alert(`Error: ${authResult.error}`);
       }
+    });
+    this.lock.on('authorization_error', (err) => {
+      this.router.navigate(['/']);
+      console.log(err);
+      alert(`Error: ${err.error}. Check the console for further details.`);
     });
   }
 
@@ -53,9 +56,12 @@ export class AuthService {
       .filter(event => event instanceof NavigationStart)
       .filter((event: NavigationStart) => (/access_token|id_token|error/).test(event.url))
       .subscribe(() => {
-        this.lock.resumeAuth(window.location.hash, (error, authResult) => {
-          if (error) {
-            return console.log(error);
+        this.lock.resumeAuth(window.location.hash, (err, authResult) => {
+          if (err) {
+            this.router.navigate(['/']);
+            console.log(err);
+            alert(`Error: ${err.error}. Check the console for further details.`);
+            return;
           }
           this.setSession(authResult);
           this.router.navigate(['/']);

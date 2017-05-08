@@ -41,6 +41,7 @@ export class AuthService {
             this.router.navigate(['/']);
           });
       } else if (authResult && authResult.error) {
+        this.router.navigate(['/']);
         alert(`Error: ${authResult.error}`);
       }
     });
