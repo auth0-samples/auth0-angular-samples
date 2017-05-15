@@ -22,7 +22,7 @@ import { CallbackComponent } from './callback/callback.component';
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(ROUTES)
+    RouterModule.forRoot(ROUTES, { useHash: true })
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

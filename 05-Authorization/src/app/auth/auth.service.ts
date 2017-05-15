@@ -7,13 +7,16 @@ import auth0 from 'auth0-js';
 @Injectable()
 export class AuthService {
 
+  userProfile: any;
+  requestedScopes: Array<string> = ['openid', 'profile', 'read:messages', 'write:messages'];
+
   auth0 = new auth0.WebAuth({
     clientID: AUTH_CONFIG.clientID,
     domain: AUTH_CONFIG.domain,
     responseType: 'token id_token',
-    audience: `https://api.test.com`,
-    redirectUri: 'http://localhost:4200/callback',
-    scope: 'openid read:messages'
+    audience: AUTH_CONFIG.apiUrl,
+    redirectUri: AUTH_CONFIG.callbackURL,
+    scope: this.requestedScopes.join(' ')
   });
 
   constructor(public router: Router) {}
@@ -24,11 +27,10 @@ export class AuthService {
 
   public handleAuthentication(): void {
     this.auth0.parseHash((err, authResult) => {
-      console.log(authResult);
       if (authResult && authResult.accessToken && authResult.idToken) {
-        // window.location.hash = '';
+        window.location.hash = '';
         this.setSession(authResult);
-        // this.router.navigate(['/home']);
+        this.router.navigate(['/home']);
       } else if (err) {
         this.router.navigate(['/home']);
         console.log(err);
@@ -37,12 +39,30 @@ export class AuthService {
     });
   }
 
+  public getProfile(cb): void {
+    const accessToken = localStorage.getItem('access_token');
+    if (!accessToken) {
+      throw new Error('Access token must exist to fetch profile');
+    }
+
+    const self = this;
+    this.auth0.client.userInfo(accessToken, (err, profile) => {
+      if (profile) {
+        self.userProfile = profile;
+      }
+      cb(err, profile);
+    });
+  }
+
   private setSession(authResult): void {
     // Set the time that the access token will expire at
     const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
+    const scopes = authResult.scope || this.requestedScopes;
+
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
+    localStorage.setItem('scopes', JSON.stringify(scopes));
   }
 
   public logout(): void {
@@ -50,6 +70,7 @@ export class AuthService {
     localStorage.removeItem('access_token');
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
+    localStorage.removeItem('scopes');
     // Go back to the home route
     this.router.navigate(['/']);
   }
@@ -61,4 +82,10 @@ export class AuthService {
     return new Date().getTime() < expiresAt;
   }
 
+  public userHasScopes(scopes: Array<string>): boolean {
+    const grantedScopes = JSON.parse(localStorage.getItem('scopes'));
+    return scopes.every(scope => grantedScopes.includes(scope));
+  }
+
 }
+
