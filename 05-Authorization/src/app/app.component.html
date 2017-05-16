@@ -1,7 +1,7 @@
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">Auth0 - Angular 2</a>
+      <a class="navbar-brand" href="#">Auth0 - Angular</a>
 
       <button
         class="btn btn-primary btn-margin"
@@ -18,15 +18,15 @@
 
       <button
         class="btn btn-primary btn-margin"
-        *ngIf="auth.isAuthenticated() && auth.userHasScopes(['write:messages'])"
-        routerLink="/admin">
-          Admin Area
+        routerLink="/ping">
+          Ping
       </button>
 
       <button
         class="btn btn-primary btn-margin"
-        routerLink="/ping">
-          Ping
+        *ngIf="auth.isAuthenticated() && auth.userHasScopes(['write:messages'])"
+        routerLink="/admin">
+          Admin Area
       </button>
 
       <button

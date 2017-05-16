@@ -8,7 +8,7 @@ import auth0 from 'auth0-js';
 export class AuthService {
 
   userProfile: any;
-  requestedScopes: Array<string> = ['openid', 'profile', 'read:messages', 'write:messages'];
+  requestedScopes: string = 'openid profile read:messages write:messages';
 
   auth0 = new auth0.WebAuth({
     clientID: AUTH_CONFIG.clientID,
@@ -16,7 +16,7 @@ export class AuthService {
     responseType: 'token id_token',
     audience: AUTH_CONFIG.apiUrl,
     redirectUri: AUTH_CONFIG.callbackURL,
-    scope: this.requestedScopes.join(' ')
+    scope: this.requestedScopes
   });
 
   constructor(public router: Router) {}
@@ -83,7 +83,7 @@ export class AuthService {
   }
 
   public userHasScopes(scopes: Array<string>): boolean {
-    const grantedScopes = JSON.parse(localStorage.getItem('scopes'));
+    const grantedScopes = JSON.parse(localStorage.getItem('scopes')).split(' ');
     return scopes.every(scope => grantedScopes.includes(scope));
   }
 
