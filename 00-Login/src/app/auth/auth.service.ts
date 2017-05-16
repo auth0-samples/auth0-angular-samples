@@ -13,7 +13,7 @@ export class AuthService {
     responseType: 'token id_token',
     audience: `https://api.test.com`,
     redirectUri: 'http://localhost:4200/callback',
-    scope: 'openid read:messages'
+    scope: 'openid'
   });
 
   constructor(public router: Router) {}
