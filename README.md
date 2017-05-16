@@ -2,9 +2,9 @@
 
 These samples demonstrate how to add authentication to an Angular application with Auth0. Each folder contains a distinct application so that various Auth0 features can be viewed in isolation.
 
-The samples show how to integrate Auth0 using [Auth0Lock](https://github.com/auth0/lock) >= 10.9.0 and [auth0.js](https://github.com/auth0/auth0.js) >= 8.0.0.
+These samples use Auth0's [centralized login page](https://auth0.com/docs/hosted-pages/login) which offers the fastest, most secure, and most feature-rich way to add authentication to your app.
 
-> Note: If you are receiving `Unsupported response type: id_token token` errors when using these samples please make sure that your account has been updated to support the new API Authorization flows. For details please see: [Configure your tenant for the new API Authorization flows](https://auth0.com/docs/api-auth/tutorials/configuring-tenant-for-api-auth)
+For examples which demonstrate embedding the Lock widget directly into your application, see the [embedded-login](tree/embedded-login) branch.
 
 ## What is Auth0?
 
