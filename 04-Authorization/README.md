@@ -12,7 +12,7 @@ Clone the repo or download it from the Angular quickstart page in Auth0's docume
 
 ```bash
 npm install -g @angular/cli
-cd 05-Authorization
+cd 04-Authorization
 npm install
 ```
 
