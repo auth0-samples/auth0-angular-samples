@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://cdn.auth0.com/js/auth0/8.6/auth0.min.js"></script>
+  <script>
+    var AUTH0_CLIENT_ID = 'YbmpMBI7n2iEm8StZ7uYCLNQ9hOuyt5z';
+    var AUTH0_DOMAIN = 'seiyria-auth0-samples.auth0.com';
+
+    if (!AUTH0_CLIENT_ID || !AUTH0_DOMAIN) {
+      alert('Make sure to set the AUTH0_CLIENT_ID and AUTH0_DOMAIN variables in silent.html.');
+    }
+
+    var auth0js = new auth0.WebAuth({
+      domain: AUTH0_DOMAIN,
+      clientID: AUTH0_CLIENT_ID,
+      audience: 'https://' + AUTH0_DOMAIN + '/userinfo',
+      scope: 'openid profile',
+      responseType: 'token',
+      redirectUri: 'http://localhost:4200'
+    });
+  </script>
+  <script>
+    auth0js.parseHash(window.location.hash, function (err, response) {
+      parent.postMessage(err || response, 'http://localhost:4200');
+    });
+  </script>
+</head>
+<body></body>
+</html>
+

@@ -1,0 +1,9 @@
+<h4 *ngIf="auth.isAuthenticated()">
+    You are logged in!
+    <span *ngIf="auth.userHasScopes(['write:messages'])">
+      You can now view your <a routerLink="/admin">admin area</a>.
+    </span>
+</h4>
+<h4 *ngIf="!auth.isAuthenticated()">
+  You are not logged in! Please <a (click)="auth.login()">Log In</a> to continue.
+</h4>
