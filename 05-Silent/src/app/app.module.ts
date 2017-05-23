@@ -10,12 +10,9 @@ import { HomeComponent } from './home/home.component';
 import { ROUTES } from './app.routes';
 
 import { AuthService } from './auth/auth.service';
-import { PingComponent } from './ping/ping.component';
 
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
-import { AdminComponent } from './admin/admin.component';
 import { ProfileComponent } from './profile/profile.component';
-import { AuthGuardService } from './auth/auth-guard.service';
 import { CallbackComponent } from './callback/callback.component';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
@@ -29,9 +26,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   declarations: [
     AppComponent,
     HomeComponent,
-    PingComponent,
     ProfileComponent,
-    AdminComponent,
     CallbackComponent
   ],
   imports: [
@@ -42,7 +37,6 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   ],
   providers: [
     AuthService,
-    AuthGuardService,
     {
       provide: AuthHttp,
       useFactory: authHttpServiceFactory,

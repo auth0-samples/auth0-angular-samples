@@ -14,7 +14,6 @@
     var auth0js = new auth0.WebAuth({
       domain: AUTH0_DOMAIN,
       clientID: AUTH0_CLIENT_ID,
-      audience: 'https://' + AUTH0_DOMAIN + '/userinfo',
       scope: 'openid profile',
       responseType: 'token',
       redirectUri: 'http://localhost:4200'

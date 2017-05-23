@@ -18,19 +18,6 @@
 
       <button
         class="btn btn-primary btn-margin"
-        routerLink="/ping">
-          Ping
-      </button>
-
-      <button
-        class="btn btn-primary btn-margin"
-        *ngIf="auth.isAuthenticated() && auth.userHasScopes(['write:messages'])"
-        routerLink="/admin">
-          Admin Area
-      </button>
-
-      <button
-        class="btn btn-primary btn-margin"
         *ngIf="auth.isAuthenticated()"
         (click)="auth.renew()">
         Renew
