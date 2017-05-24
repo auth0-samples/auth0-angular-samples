@@ -11,7 +11,7 @@
       alert('Make sure to set the AUTH0_CLIENT_ID and AUTH0_DOMAIN variables in silent.html.');
     }
 
-    var auth0js = new auth0.WebAuth({
+    var webAuth = new auth0.WebAuth({
       domain: AUTH0_DOMAIN,
       clientID: AUTH0_CLIENT_ID,
       scope: 'openid profile',
@@ -20,7 +20,7 @@
     });
   </script>
   <script>
-    auth0js.parseHash(window.location.hash, function (err, response) {
+    webAuth.parseHash(window.location.hash, function (err, response) {
       parent.postMessage(err || response, 'http://localhost:4200');
     });
   </script>

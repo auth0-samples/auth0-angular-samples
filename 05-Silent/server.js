@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-const jwt = require('express-jwt');
 const cors = require('cors');
 const staticFile = require('connect-static-file');
 

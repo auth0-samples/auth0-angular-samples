@@ -1,5 +1,5 @@
 {
-  "name": "authorization",
+  "name": "token-renewal",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
@@ -28,12 +28,7 @@
     "connect-static-file": "^1.2.0",
     "core-js": "^2.4.1",
     "cors": "^2.8.1",
-    "dotenv": "^4.0.0",
     "express": "^4.14.1",
-    "express-jwt": "^5.1.0",
-    "express-jwt-authz": "^1.0.0",
-    "jwks-rsa": "^1.1.1",
-    "jwt-decode": "^2.2.0",
     "npm-run-all": "^4.0.1",
     "rxjs": "^5.1.0",
     "zone.js": "^0.8.4"

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AUTH_CONFIG } from './auth0-variables';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import 'rxjs/add/operator/filter';
 import auth0 from 'auth0-js';
 
@@ -8,7 +9,7 @@ import auth0 from 'auth0-js';
 export class AuthService {
 
   userProfile: any;
-  timeoutId: any;
+  refreshSubscription: any;
 
   auth0 = new auth0.WebAuth({
     clientID: AUTH_CONFIG.clientID,
@@ -19,10 +20,7 @@ export class AuthService {
     scope: 'openid profile'
   });
 
-  constructor(public router: Router) {
-    // run this here as well, just to account for situations where you'd already be logged in
-    this.scheduleRenewal();
-  }
+  constructor(public router: Router) {}
 
   public login(): void {
     this.auth0.authorize();
@@ -73,6 +71,7 @@ export class AuthService {
     localStorage.removeItem('access_token');
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
+    this.unscheduleRenewal();
     // Go back to the home route
     this.router.navigate(['/']);
   }
@@ -84,15 +83,14 @@ export class AuthService {
     return Date.now() < expiresAt;
   }
 
-  public renew() {
+  public renewToken() {
     this.auth0.renewAuth({
       audience: AUTH_CONFIG.apiUrl,
       redirectUri: 'http://localhost:3001/silent',
       usePostMessage: true
     }, (err, result) => {
       if (err) {
-        alert(`Could not get a new token using silent authentication (${err.error}). Re-attempting login...`);
-        this.login();
+        alert(`Could not get a new token using silent authentication (${err.error}).`);
       } else {
         alert(`Successfully renewed auth!`);
         this.setSession(result);
@@ -101,17 +99,32 @@ export class AuthService {
   }
 
   public scheduleRenewal() {
-    if(this.timeoutId) clearTimeout(this.timeoutId);
+    if(!this.isAuthenticated()) return;
 
-    const now = Date.now();
     const expiresAt = JSON.parse(window.localStorage.getItem('expires_at'));
 
-    // if there is no expiresAt, there's no reason to schedule a renewal
-    if(!expiresAt) return;
+    const source = Observable.of(expiresAt).flatMap(
+      expiresAt => {
 
-    this.timeoutId = setTimeout(() => {
-      this.renew();
-    }, Math.max(1, expiresAt - now));
+        const now = Date.now();
+
+        // Use the delay in a timer to
+        // run the refresh at the proper time
+        return Observable.timer(Math.max(1, expiresAt - now));
+      });
+
+    // Once the delay time from above is
+    // reached, get a new JWT and schedule
+    // additional refreshes
+    source.subscribe(() => {
+      this.renewToken();
+      this.scheduleRenewal();
+    });
+  }
+
+  public unscheduleRenewal() {
+    if(!this.refreshSubscription) return;
+    this.refreshSubscription.unsubscribe();
   }
 
 }
