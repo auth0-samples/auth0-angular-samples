@@ -8,6 +8,7 @@ import auth0 from 'auth0-js';
 export class AuthService {
 
   userProfile: any;
+  timeoutId: any;
 
   auth0 = new auth0.WebAuth({
     clientID: AUTH_CONFIG.clientID,
@@ -15,11 +16,13 @@ export class AuthService {
     responseType: 'token id_token',
     audience: AUTH_CONFIG.apiUrl,
     redirectUri: AUTH_CONFIG.callbackURL,
-    scope: 'openid profile',
-    leeway: 30
+    scope: 'openid profile'
   });
 
-  constructor(public router: Router) {}
+  constructor(public router: Router) {
+    // run this here as well, just to account for situations where you'd already be logged in
+    this.scheduleRenewal();
+  }
 
   public login(): void {
     this.auth0.authorize();
@@ -56,11 +59,13 @@ export class AuthService {
 
   private setSession(authResult): void {
     // Set the time that the access token will expire at
-    const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
+    const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + Date.now());
 
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
+
+    this.scheduleRenewal();
   }
 
   public logout(): void {
@@ -76,7 +81,7 @@ export class AuthService {
     // Check whether the current time is past the
     // access token's expiry time
     const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
-    return new Date().getTime() < expiresAt;
+    return Date.now() < expiresAt;
   }
 
   public renew() {
@@ -93,6 +98,20 @@ export class AuthService {
         this.setSession(result);
       }
     });
+  }
+
+  public scheduleRenewal() {
+    if(this.timeoutId) clearTimeout(this.timeoutId);
+
+    const now = Date.now();
+    const expiresAt = JSON.parse(window.localStorage.getItem('expires_at'));
+
+    // if there is no expiresAt, there's no reason to schedule a renewal
+    if(!expiresAt) return;
+
+    this.timeoutId = setTimeout(() => {
+      this.renew();
+    }, Math.max(1, expiresAt - now));
   }
 
 }

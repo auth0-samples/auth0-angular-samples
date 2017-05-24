@@ -22,14 +22,8 @@ If you download the sample from the quickstart page, it will come pre-populated 
 
 You should also provide the identifier for the API you create in the Auth0 dashboard as your `apiUrl`.
 
-## Set Up the `.env` File
-
-In addition to the above-mentioned `auth0-variables.ts` file, a `.env` file is provided at the root of the application. This file provides your application's credentials to the small Node server located in `server.js`.
-
-This file has two values, `AUTH0_AUDIENCE` and `AUTH0_DOMAIN`. If you download this sample from the quickstart page, the value for `AUTH0_DOMAIN` will be populated automatically, but you will still need to populate `AUTH0_AUDIENCE` manually. The value for `AUTH0_AUDIENCE` is the identifier used for an API that you create in the Auth0 dashboard.
-
 ## Set Up the `silent.html` File
--> set variables
+If you download the sample from the quickstart page, it will come pre-populated with the **client ID** and **domain** for your application. If you clone the repo directly from Github, edit `silent.html` and add your **client ID** and **domain**.
 
 ## Run the Application
 
@@ -40,6 +34,9 @@ npm start
 ```
 
 The application will be served at `http://localhost:4200`.
+
+## Troubleshooting
+If you see an error on renewal saying `login_required`, that means you may be using the Auth0 dev keys for whatever social login you're testing. You'll need to add your own keys for this to work.
 
 ## What is Auth0?
 
