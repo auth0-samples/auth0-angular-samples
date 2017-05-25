@@ -18,7 +18,7 @@ export class AdminComponent implements OnInit {
 
   public adminPing(): void {
     this.message = '';
-    this.authHttp.get(`${this.API_URL}/admin`)
+    this.authHttp.post(`${this.API_URL}/admin`, {})
       .map(res => res.json())
       .subscribe(
         data => this.message = data.message,

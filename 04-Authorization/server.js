@@ -38,9 +38,9 @@ app.get('/api/private', checkJwt, checkScopes, function(req, res) {
   res.json({ message: "Hello from a private endpoint! You need to be authenticated and have a scope of read:messages to see this." });
 });
 
-app.get('/api/admin', checkJwt, checkScopesAdmin, function(req, res) {
-  res.json({ message: "Hello from a private endpoint! You need to be authenticated and have a scope of write:messages to see this." });
+app.post('/api/admin', checkJwt, checkScopesAdmin, function(req, res) {
+  res.json({ message: "Hello from an admin endpoint! You need to be authenticated and have a scope of write:messages to see this." });
 });
 
 app.listen(3001);
-console.log('Listening on http://localhost:3001');
+console.log('Server listening on http://localhost:3001. The Angular app will be built and served at http://localhost:4200.');

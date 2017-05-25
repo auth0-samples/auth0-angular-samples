@@ -7,4 +7,4 @@ app.use(cors());
 app.use('/silent', staticFile(`${__dirname}/silent.html`));
 
 app.listen(3001);
-console.log('Listening on http://localhost:3001');
+console.log('Server listening on http://localhost:3001. The Angular app will be built and served at http://localhost:4200.');
