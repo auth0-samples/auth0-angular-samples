@@ -19,34 +19,31 @@ export class AuthService {
   constructor(private router: Router) { }
 
   public login(username: string, password: string): void {
-    this.auth0.client.login({
+    this.auth0.crossOriginAuthentication.login({
       realm: 'Username-Password-Authentication',
       username,
       password
-    }, (err, authResult) => {
-      if (err) {
-        console.log(err);
-        alert(`Error: ${err.description}. Check the console for further details.`);
-        return;
-      }
-      if (authResult && authResult.accessToken && authResult.idToken) {
-        this.setSession(authResult);
-      }
-      this.router.navigate(['/home']);
-    });
-  }
-
-  public signup(email, password): void {
-    this.auth0.redirect.signupAndLogin({
-      connection: 'Username-Password-Authentication',
-      email,
-      password,
     }, err => {
       if (err) {
         console.log(err);
+        alert(`Error: ${err.error_description}. Check the console for further details.`);
+        return;
+      }
+    });
+  }
+
+  public signup(email: string, password: string): void {
+    this.auth0.signup({
+      connection: 'Username-Password-Authentication',
+      email,
+      password,
+    }, (err, result) => {
+      if (err) {
+        console.log(err);
         alert(`Error: ${err.description}. Check the console for further details.`);
         return;
       }
+      this.login(email, password);
     });
   }
 
