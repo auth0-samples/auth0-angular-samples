@@ -8,7 +8,7 @@ import auth0 from 'auth0-js';
 export class AuthService {
 
   userProfile: any;
-  requestedScopes: string = 'openid profile read:messages write:messages foo';
+  requestedScopes: string = 'openid profile read:messages write:messages';
 
   auth0 = new auth0.WebAuth({
     clientID: AUTH_CONFIG.clientID,

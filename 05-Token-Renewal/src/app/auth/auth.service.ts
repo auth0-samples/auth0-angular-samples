@@ -100,6 +100,7 @@ export class AuthService {
 
   public scheduleRenewal() {
     if(!this.isAuthenticated()) return;
+    this.unscheduleRenewal();
 
     const expiresAt = JSON.parse(window.localStorage.getItem('expires_at'));
 
@@ -116,7 +117,7 @@ export class AuthService {
     // Once the delay time from above is
     // reached, get a new JWT and schedule
     // additional refreshes
-    source.subscribe(() => {
+    this.refreshSubscription = source.subscribe(() => {
       this.renewToken();
       this.scheduleRenewal();
     });
