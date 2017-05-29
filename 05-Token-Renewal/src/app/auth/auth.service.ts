@@ -100,6 +100,7 @@ export class AuthService {
 
   public scheduleRenewal() {
     if(!this.isAuthenticated()) return;
+    this.unscheduleRenewal();
 
     const expiresAt = JSON.parse(window.localStorage.getItem('expires_at'));
 
