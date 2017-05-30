@@ -1,4 +1,4 @@
-# Auth0 Angular Centralized Login
+# Auth0 Angular Login
 
 This sample demonstrates how to add authentication to an Angular application using Auth0's Lock widget from the hosted login page. The sample uses the Angular CLI.
 
