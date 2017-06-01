@@ -20,7 +20,6 @@ export class ScopeGuardService implements CanActivate {
         return false;
       }
     }
-    return true
   }
 
 }
