@@ -9,12 +9,10 @@ export class AuthGuardService implements CanActivate {
 
   canActivate(): boolean {
     if (this.auth.isAuthenticated()) {
-      if (this.auth.userHasScopes(['write:messages'])) {
-        return true;
-      } else {
-        this.router.navigate(['']);
-        return false;
-      }
+      return true;
+    } else {
+      this.router.navigate(['']);
+      return false;
     }
   }
 
