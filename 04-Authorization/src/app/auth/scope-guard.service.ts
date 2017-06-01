@@ -3,7 +3,7 @@ import { Router, CanActivate, ActivatedRouteSnapshot } from '@angular/router';
 import { AuthService } from './auth.service';
 
 @Injectable()
-export class ScopeGuardService {
+export class ScopeGuardService implements CanActivate {
 
   constructor(public auth: AuthService, public router: Router) {
   }
