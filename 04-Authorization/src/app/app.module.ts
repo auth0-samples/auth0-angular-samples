@@ -11,12 +11,13 @@ import { ROUTES } from './app.routes';
 
 import { AuthService } from './auth/auth.service';
 import { PingComponent } from './ping/ping.component';
+import { CallbackComponent } from './callback/callback.component';
 
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
 import { AdminComponent } from './admin/admin.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthGuardService } from './auth/auth-guard.service';
-import { CallbackComponent } from './callback/callback.component';
+import { ScopeGuardService } from './auth/scope-guard.service';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig({
@@ -43,6 +44,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   providers: [
     AuthService,
     AuthGuardService,
+    ScopeGuardService,
     {
       provide: AuthHttp,
       useFactory: authHttpServiceFactory,

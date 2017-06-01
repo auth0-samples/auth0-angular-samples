@@ -18,7 +18,8 @@
 
       <button
         class="btn btn-primary btn-margin"
-        routerLink="/ping">
+        routerLink="/ping"
+        *ngIf="auth.isAuthenticated()">
           Ping
       </button>
 
