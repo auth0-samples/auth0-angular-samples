@@ -6,6 +6,18 @@ This sample demonstrates how to add authentication with a custom login form to a
 
 If you haven't already done so, [sign up](https://auth0.com) for your free Auth0 account and create a new client in the [dashboard](https://manage.auth0.com). Find the **domain** and **client ID** from the settings area and add the URL for your application to the **Allowed Callback URLs** box. If you are using the server provided by the Angular CLI, that URL is `http://localhost:4200`.
 
+### Configure Your Client for Cross Origin Auth
+
+To use the cross-origin auth flow demonstrated in this sample, you first need to configure your client to allow for it. At the present time, this is accomplished by sending a `PATCH` request to Auth0's Management API.
+
+1. **Get an Access Token**
+In the Auth0 dashboard, navigate to APIs > Auth0 Management API > API Explorer. Copy the token that is presented at the top of the page.
+
+2. **Send a `PATCH` Request**
+Using a REST client such as Postman, or simply by using cURL, send a `PATCH` request to `https://<your-tenant-name>.auth0.com/api/v2/clients/<your-client-id>` and include `cross_origin_auth: true` in the body. Include the access token copied in the previous step as the `Authorization` header with the `Bearer` scheme. The resulting header looks like this: `'Authorization': 'Bearer <access-token>'`.
+
+### Run the Sample
+
 Clone the repo or download it from the Angular quickstart page in Auth0's documentation. Install the Angular CLI and the dependencies for the app.
 
 ```bash
