@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AUTH_CONFIG } from './auth0-variables';
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/filter';
-import auth0 from 'auth0-js';
+import * as auth0 from 'auth0-js';
 
 @Injectable()
 export class AuthService {
@@ -24,7 +24,6 @@ export class AuthService {
 
   public handleAuthentication(): void {
     this.auth0.parseHash((err, authResult) => {
-      console.log(authResult);
       if (authResult && authResult.accessToken && authResult.idToken) {
         window.location.hash = '';
         this.setSession(authResult);
