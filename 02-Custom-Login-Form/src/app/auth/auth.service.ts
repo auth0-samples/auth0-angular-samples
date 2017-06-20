@@ -19,31 +19,32 @@ export class AuthService {
   constructor(private router: Router) { }
 
   public login(username: string, password: string): void {
-    this.auth0.login({
+    this.auth0.client.login({
       realm: 'Username-Password-Authentication',
       username,
       password
-    }, err => {
+    }, (err, authResult) => {
       if (err) {
         console.log(err);
         alert(`Error: ${err.error_description}. Check the console for further details.`);
         return;
+      } else if (authResult && authResult.accessToken && authResult.idToken) {
+        this.setSession(authResult);
       }
     });
   }
 
   public signup(email: string, password: string): void {
-    this.auth0.signup({
+    this.auth0.redirect.signupAndLogin({
       connection: 'Username-Password-Authentication',
       email,
       password,
-    }, (err, result) => {
+    }, err => {
       if (err) {
         console.log(err);
         alert(`Error: ${err.description}. Check the console for further details.`);
         return;
       }
-      this.login(email, password);
     });
   }
 
@@ -75,6 +76,7 @@ export class AuthService {
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
+    this.router.navigate(['home']);
   }
 
   public logout(): void {
