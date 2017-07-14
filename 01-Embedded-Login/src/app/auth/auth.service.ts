@@ -26,7 +26,7 @@ export class AuthService {
     this.lock.show();
   }
 
-  // Call this method in app.component
+  // Call this method in app.component.ts
   // if using path-based routing
   public handleAuthentication(): void {
     this.lock.on('authenticated', (authResult) => {
@@ -42,7 +42,7 @@ export class AuthService {
     });
   }
 
-  // Call this method in app.component
+  // Call this method in app.component.ts
   // if using hash-based routing
   public handleAuthenticationWithHash(): void {
     this
