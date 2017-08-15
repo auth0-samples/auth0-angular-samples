@@ -1,0 +1,20 @@
+{
+  "name": "06-single-sign-on",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "npm-run-all": "^4.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "npm-run-all --parallel run:app-one run:app-two run:server-one run:server-two",
+    "run:app-one": "cd sso-app-one && ng serve",
+    "run:app-two": "cd sso-app-two && ng serve --port='4201'",
+    "run:server-one": "cd sso-app-one && npm start",
+    "run:server-two": "cd sso-app-two && npm start",
+    "postinstall": "cd sso-app-one && npm i && cd .. && cd sso-app-two && npm i"
+  },
+  "author": "",
+  "license": "MIT"
+}
