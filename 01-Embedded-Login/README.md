@@ -12,7 +12,7 @@ Make sure you have Angular CLI installed
 npm install -g @angular/cli
 ```
 
-Clone the repo or download it from the Angular quickstart page in Auth0's documentation. Cd into the auth0-angular-samples directory, switch to the embedded-login branch, and cd into 01-Embedded-Login. Then install the dependencies.
+Clone the repo or download it from the Angular quickstart page in Auth0's documentation. Change directories into `auth0-angular-samples`, switch to the `embedded-login` branch, and change directories into `01-Embedded-Login`. Then install the dependencies.
 
 ```bash
 git clone https://github.com/auth0-samples/auth0-angular-samples.git
