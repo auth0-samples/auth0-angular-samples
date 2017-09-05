@@ -6,10 +6,18 @@ This sample demonstrates how to add authentication to an Angular application usi
 
 If you haven't already done so, [sign up](https://auth0.com) for your free Auth0 account and create a new client in the [dashboard](https://manage.auth0.com). Find the **domain** and **client ID** from the settings area and add the URL for your application to the **Allowed Callback URLs** box. If you are using the server provided by the Angular CLI, that URL is `http://localhost:4200`.
 
-Clone the repo or download it from the Angular quickstart page in Auth0's documentation. Install the Angular CLI and the dependencies for the app.
+Make sure you have Angular CLI installed
 
 ```bash
 npm install -g @angular/cli
+```
+
+Clone the repo or download it from the Angular quickstart page in Auth0's documentation. Cd into the auth0-angular-samples directory, switch to the embedded-login branch, and cd into 01-Embedded-Login. Then install the dependencies.
+
+```bash
+git clone https://github.com/auth0-samples/auth0-angular-samples.git
+cd auth0-angular-samples
+git checkout embedded-login
 cd 01-Embedded-Login
 npm install
 ```
