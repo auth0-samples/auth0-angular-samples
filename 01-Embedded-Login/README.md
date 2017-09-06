@@ -28,9 +28,11 @@ If you download the sample from the quickstart page, it will come pre-populated 
 
 ## Enable the Password Grant
 
-In order to be able to log-in with user and password you need to enable the [Password grant](https://auth0.com/docs/clients/client-grant-types). You need to set that in your Client settings in the [Auth0 Dashboard](https://auth0.com/docs/clients/client-grant-types). You need to 'Show Advanced Settings', click the 'Grant Types' tab, and check the 'Password' checkbox.
+In order to be able to log-in with user and password you need to enable the [Password grant](https://auth0.com/docs/clients/client-grant-types). Set it in your Client settings in the [Auth0 Dashboard](https://manage.auth0.com). 
 
-[!password-grant.png]
+Click 'Show Advanced Settings', click the 'Grant Types' tab, and check the 'Password' checkbox.
+
+![password grant](../../blob/embedded-login/01-Embedded-Login/password-grant.png/password-grant.png)
 
 ## Run the Application
 
