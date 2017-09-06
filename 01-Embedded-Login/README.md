@@ -32,7 +32,7 @@ In order to be able to log-in with user and password you need to enable the [Pas
 
 Click 'Show Advanced Settings', click the 'Grant Types' tab, and check the 'Password' checkbox.
 
-![password grant](../password-grant.png)
+![password grant](../../raw/embedded-login/01-Embedded-Login/password-grant.png)
 
 ## Run the Application
 
