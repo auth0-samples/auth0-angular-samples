@@ -26,6 +26,12 @@ npm install
 
 If you download the sample from the quickstart page, it will come pre-populated with the **client ID** and **domain** for your application. If you clone the repo directly from Github, rename the `auth0-variables.ts.example` file to `auth0-variables.ts` and provide the **client ID** and **domain** there. This file is located in `src/app/auth/`.
 
+## Enable the Password Grant
+
+In order to be able to log-in with user and password you need to enable the [Password grant](https://auth0.com/docs/clients/client-grant-types). You need to set that in your Client settings in the [Auth0 Dashboard](https://auth0.com/docs/clients/client-grant-types). You need to 'Show Advanced Settings', click the 'Grant Types' tab, and check the 'Password' checkbox.
+
+[!password-grant.png]
+
 ## Run the Application
 
 The development server that comes with the Angular CLI can be used to serve the application.
@@ -64,3 +70,4 @@ If you have found a bug or if you have a feature request, please report them at 
 
 This project is licensed under the MIT license. See the [LICENSE](LICENSE.txt) file for more info.
 
+{"error":"unauthorized_client","error_description":"Grant type 'http://auth0.com/oauth/grant-type/password-realm' not allowed for the client.","error_uri":"https://auth0.com/docs/clients/client-grant-types"}
