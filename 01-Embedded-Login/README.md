@@ -26,13 +26,11 @@ npm install
 
 If you download the sample from the quickstart page, it will come pre-populated with the **client ID** and **domain** for your application. If you clone the repo directly from Github, rename the `auth0-variables.ts.example` file to `auth0-variables.ts` and provide the **client ID** and **domain** there. This file is located in `src/app/auth/`.
 
-## Enable the Password Grant
+## Enable Cross Origin Authentication
 
-In order to be able to log-in with user and password you need to enable the [Password grant](https://auth0.com/docs/clients/client-grant-types). Set it in your Client settings in the [Auth0 Dashboard](https://manage.auth0.com). 
+In order to be able to log-in with user and password you need to enable the [Cross Origin Authentication](https://auth0.com/docs/cross-origin-authentication). 
 
-Click 'Show Advanced Settings', click the 'Grant Types' tab, and check the 'Password' checkbox.
-
-![password grant](/01-Embedded-Login/password-grant.png)
+Make sure you edit the contents of the `callback-cross-auth.html` file to match your Client Id, Domain and Callback settings.
 
 ## Run the Application
 
