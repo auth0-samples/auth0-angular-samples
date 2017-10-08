@@ -3,3 +3,4 @@ node_modules
 auth0-variables.ts
 .env
 npm-debug.log
+01-Login/package-lock\.json
