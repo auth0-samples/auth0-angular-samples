@@ -12,7 +12,7 @@ Make sure you have Angular CLI installed
 npm install -g @angular/cli
 ```
 
-Clone the repo or download it from the Angular quickstart page in Auth0's documentation. Change directories into `auth0-angular-samples`, switch to the `embedded-login` branch, and change directories into `01-Embedded-Login`. Then install the dependencies.
+Clone the repo, change directories into `auth0-angular-samples`, switch to the `embedded-login` branch, and change directories into `01-Embedded-Login`. Then install the dependencies.
 
 ```bash
 git clone https://github.com/auth0-samples/auth0-angular-samples.git
@@ -22,15 +22,15 @@ cd 01-Embedded-Login
 npm install
 ```
 
-## Set the Client ID and Domain
+## Set the Client ID and Domain 
 
-If you download the sample from the quickstart page, it will come pre-populated with the **client ID** and **domain** for your application. If you clone the repo directly from Github, rename the `auth0-variables.ts.example` file to `auth0-variables.ts` and provide the **client ID** and **domain** there. This file is located in `src/app/auth/`.
+To configure the application for your Auth0 account settings, rename the `auth0-variables.ts.example` file to `auth0-variables.ts` and provide the **client ID** and **domain** there. This file is located in `src/app/auth/`.
 
 ## Enable Cross Origin Authentication
 
-In order to be able to log-in with user and password you need to enable the [Cross Origin Authentication](https://auth0.com/docs/cross-origin-authentication). 
+In order to be able to log-in with user and password you need to enable the [Cross Origin Authentication](https://auth0.com/docs/cross-origin-authentication). This is not required for Social or Enterprise connections.
 
-Make sure you edit the contents of the `callback-cross-auth.html` file to match your Client Id, Domain and Callback settings.
+Make sure you edit the contents of the `callback-cross-auth.html` file to match your Client Id, Domain and Callback settings. This page will only be used when third-party cookies are disabled in the client browser, and *needs to be served over HTTPS*. Note that when third-party cookies are disabled, there are some browsers where the authentication flow will NOT work. 
 
 ## Run the Application
 
