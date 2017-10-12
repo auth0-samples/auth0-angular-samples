@@ -11,7 +11,7 @@ export class AuthService {
     domain: AUTH_CONFIG.domain,
     responseType: 'token id_token',
     audience: `https://${AUTH_CONFIG.domain}/userinfo`,
-    redirectUri: 'http://localhost:4200/callback',
+    redirectUri: AUTH_CONFIG.callbackURL,
     scope: 'openid'
   });
 
