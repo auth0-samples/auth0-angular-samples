@@ -19,7 +19,7 @@ export class AuthService {
   constructor(private router: Router) { }
 
   public login(username: string, password: string): void {
-    this.auth0.client.login({
+    this.auth0.login({
       realm: 'Username-Password-Authentication',
       username,
       password
