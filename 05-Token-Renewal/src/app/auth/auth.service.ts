@@ -20,7 +20,9 @@ export class AuthService {
     scope: 'openid profile'
   });
 
-  constructor(public router: Router) {}
+  constructor(public router: Router) {
+    this.checkServerSession();
+  }
 
   public login(): void {
     this.auth0.authorize();
@@ -40,19 +42,8 @@ export class AuthService {
     });
   }
 
-  public getProfile(cb): void {
-    const accessToken = localStorage.getItem('access_token');
-    if (!accessToken) {
-      throw new Error('Access token must exist to fetch profile');
-    }
-
-    const self = this;
-    this.auth0.client.userInfo(accessToken, (err, profile) => {
-      if (profile) {
-        self.userProfile = profile;
-      }
-      cb(err, profile);
-    });
+  public getProfile(cb): string {
+    return localStorage.getItem('user_profile');
   }
 
   private setSession(authResult): void {
@@ -60,7 +51,7 @@ export class AuthService {
     const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + Date.now());
 
     localStorage.setItem('access_token', authResult.accessToken);
-    localStorage.setItem('id_token', authResult.idToken);
+    localStorage.setItem('user_profile', authResult.idTokenPayload);
     localStorage.setItem('expires_at', expiresAt);
 
     this.scheduleRenewal();
@@ -69,11 +60,10 @@ export class AuthService {
   public logout(): void {
     // Remove tokens and expiry time from localStorage
     localStorage.removeItem('access_token');
-    localStorage.removeItem('id_token');
+    localStorage.removeItem('user_profile');
     localStorage.removeItem('expires_at');
     this.unscheduleRenewal();
-    // Go back to the home route
-    this.router.navigate(['/']);
+    window.location.href = 'https://' + AUTH_CONFIG.domain + "/v2/logout?client_id=" + AUTH_CONFIG.clientID + "&returnTo=" + window.location.href;
   }
 
   public isAuthenticated(): boolean {
@@ -84,22 +74,29 @@ export class AuthService {
   }
 
   public renewToken() {
-    this.auth0.renewAuth({
-      audience: AUTH_CONFIG.apiUrl,
-      redirectUri: 'http://localhost:3001/silent',
-      usePostMessage: true
-    }, (err, result) => {
+    this.auth0.checkSession({}, (err, result) => {
       if (err) {
-        alert(`Could not get a new token using silent authentication (${err.error}).`);
+          this.logout();
       } else {
-        alert(`Successfully renewed auth!`);
         this.setSession(result);
       }
     });
   }
 
+  private checkServerSession()
+  {
+    if (!this.isAuthenticated())
+    {
+      this.auth0.checkSession({}, (err, result) => {
+        if (!err) {
+          this.setSession(result);
+        }
+      })
+    };
+  }
+
   public scheduleRenewal() {
-    if(!this.isAuthenticated()) return;
+    if (!this.isAuthenticated()) return;
     this.unscheduleRenewal();
 
     const expiresAt = JSON.parse(window.localStorage.getItem('expires_at'));
@@ -124,9 +121,8 @@ export class AuthService {
   }
 
   public unscheduleRenewal() {
-    if(!this.refreshSubscription) return;
+    if (!this.refreshSubscription) return;
     this.refreshSubscription.unsubscribe();
   }
-
 }
 
