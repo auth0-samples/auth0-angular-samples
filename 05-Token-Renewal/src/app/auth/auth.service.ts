@@ -56,12 +56,17 @@ export class AuthService {
 
     this.scheduleRenewal();
   }
-
-  public logout(): void {
+  
+  private cleanLocalSession() : void
+  {
     // Remove tokens and expiry time from localStorage
     localStorage.removeItem('access_token');
     localStorage.removeItem('user_profile');
     localStorage.removeItem('expires_at');
+  }
+
+  public logout(): void {
+    this.cleanLocalSession();
     this.unscheduleRenewal();
     window.location.href = 'https://' + AUTH_CONFIG.domain + "/v2/logout?client_id=" + AUTH_CONFIG.clientID + "&returnTo=" + window.location.href;
   }
@@ -76,7 +81,7 @@ export class AuthService {
   public renewToken() {
     this.auth0.checkSession({}, (err, result) => {
       if (err) {
-          this.logout();
+          this.cleanLocalSession();
       } else {
         this.setSession(result);
       }
