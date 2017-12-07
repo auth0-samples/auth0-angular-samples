@@ -63,11 +63,12 @@ export class AuthService {
     localStorage.removeItem('access_token');
     localStorage.removeItem('user_profile');
     localStorage.removeItem('expires_at');
+    
+    this.unscheduleRenewal();    
   }
 
   public logout(): void {
     this.cleanLocalSession();
-    this.unscheduleRenewal();
     window.location.href = 'https://' + AUTH_CONFIG.domain + "/v2/logout?client_id=" + AUTH_CONFIG.clientID + "&returnTo=" + window.location.href;
   }
 
