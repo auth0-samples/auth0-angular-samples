@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AUTH_CONFIG } from './auth0-variables';
 import { Router } from '@angular/router';
-import { WebAuth } from 'auth0-js';
+import * as auth0 from 'auth0-js';
 
 @Injectable()
 export class AuthService {
 
-  private readonly auth0: WebAuth = new WebAuth({
+  auth0 = new auth0.WebAuth({
     clientID: AUTH_CONFIG.clientID,
     domain: AUTH_CONFIG.domain,
     responseType: 'token id_token',
