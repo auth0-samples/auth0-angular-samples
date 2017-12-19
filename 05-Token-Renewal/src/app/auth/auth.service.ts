@@ -15,7 +15,6 @@ export class AuthService {
     clientID: AUTH_CONFIG.clientID,
     domain: AUTH_CONFIG.domain,
     responseType: 'token id_token',
-    audience: AUTH_CONFIG.apiUrl,
     redirectUri: AUTH_CONFIG.callbackURL,
     scope: 'openid profile'
   });
@@ -29,7 +28,6 @@ export class AuthService {
   public handleAuthentication(): void {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
-        window.location.hash = '';
         this.setSession(authResult);
         this.router.navigate(['/home']);
       } else if (err) {
@@ -84,14 +82,9 @@ export class AuthService {
   }
 
   public renewToken() {
-    this.auth0.renewAuth({
-      audience: AUTH_CONFIG.apiUrl,
-      redirectUri: 'http://localhost:3001/silent',
-      usePostMessage: true,
-      postMessageOrigin: 'http://localhost:3001'
-    }, (err, result) => {
+    this.auth0.checkSession({}, (err, result) => {
       if (err) {
-        alert(`Could not get a new token using silent authentication (${err.error}).`);
+        alert(`Could not get a new token (${err.error}: ${err.error_description}).`);
       } else {
         alert(`Successfully renewed auth!`);
         this.setSession(result);

@@ -1,6 +1,6 @@
 # Auth0 Angular Token Renewal
 
-This sample demonstrates how to silently renew `access_token`s in an Angular application with Auth0. The sample uses the Angular CLI.
+This sample demonstrates how to renew `access_token`s in a React application with Auth0 using `checkSession`. For more information, read [our reference documentation](https://auth0.com/docs/libraries/auth0js#using-checksession-to-acquire-new-tokens). The sample uses the Angular CLI.
 
 ## Getting Started
 
@@ -18,10 +18,8 @@ npm install
 
 If you download the sample from the quickstart page, it will come pre-populated with the **client ID** and **domain** for your application. If you clone the repo directly from Github, rename the `auth0-variables.ts.example` file to `auth0-variables.ts` and provide the **client ID** and **domain** there. This file is located in `src/app/auth/`.
 
-You should also provide the identifier for the API you create in the Auth0 dashboard as your `apiUrl`.
-
-## Set Up the `silent.html` File
-If you download the sample from the quickstart page, it will come pre-populated with the **client ID** and **domain** for your application. If you clone the repo directly from Github, edit `silent.html` and add your **client ID** and **domain**.
+## Set Up `Allowed Web Origins` in the dashboard
+In order to make `checkSession` work, you need to add the URL where the authorization request originates from, to the Allowed Web Origins list of your Auth0 client in the Dashboard under your client's Settings.
 
 ## Run the Application
 
@@ -32,10 +30,6 @@ npm start
 ```
 
 The application will be served at `http://localhost:4200`.
-
-## Making It Live
-
-To make the silent authentication work on a live environment, you'll need to edit the two `localhost` urls in `silent.html` and `auth.service.ts` plus the one `localhost` url you have in the `auth0-variables.ts` file.
 
 ## Troubleshooting
 If you see an error on renewal saying `login_required`, that means you may be using the Auth0 dev keys for whichever social login you're testing. You'll need to add your own keys for this to work.

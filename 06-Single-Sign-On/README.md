@@ -20,8 +20,6 @@ npm install
 
 If you download the sample from the quickstart page, it will come pre-populated with the **Client ID** and **Domain** for your application. If you clone the repo directly from Github, rename the `auth0-variables.ts.example` files in each of the sample applications to `auth0-variables.ts` and provide the **Client ID** and **Domain** there. This file is located in `src/app/auth/`.
 
-You should also provide the identifier for the API you create in the Auth0 dashboard as your `apiUrl`.
-
 ## Run the Application
 
 The development server that comes with the Angular CLI can be used to serve the application.

@@ -2,12 +2,10 @@ interface AuthConfig {
   clientID: string;
   domain: string;
   callbackURL: string;
-  apiUrl: string;
 }
 
 export const AUTH_CONFIG: AuthConfig = {
   clientID: '{CLIENT_ID}',
   domain: '{DOMAIN}',
-  callbackURL: 'http://localhost:4201/callback',
-  apiUrl: '{API_IDENTIFIER}'
+  callbackURL: 'http://localhost:4201/callback'
 };
