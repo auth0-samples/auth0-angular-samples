@@ -21,7 +21,7 @@
     "@angular/platform-browser": "^4.2.4",
     "@angular/platform-browser-dynamic": "^4.2.4",
     "@angular/router": "^4.2.4",
-    "auth0-js": "^8.9.1",
+    "auth0-js": "^9.0.0",
     "bootstrap": "^3.3.7",
     "connect-static-file": "^1.2.0",
     "core-js": "^2.4.1",
