@@ -6,7 +6,7 @@
     "ng": "ng",
     "start": "npm-run-all --parallel server client",
     "server": "node server.js",
-    "client": "ng serve",
+    "client": "ng serve --host 0.0.0.0 --port 3000",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

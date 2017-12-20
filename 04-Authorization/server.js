@@ -43,4 +43,4 @@ app.post('/api/admin', checkJwt, checkScopesAdmin, function(req, res) {
 });
 
 app.listen(3001);
-console.log('Server listening on http://localhost:3001. The Angular app will be built and served at http://localhost:4200.');
+console.log('Server listening on http://localhost:3001. The Angular app will be built and served at http://localhost:3000.');
