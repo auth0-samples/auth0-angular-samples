@@ -8,7 +8,6 @@ import Auth0Lock from 'auth0-lock';
 export class AuthService {
 
   lock = new Auth0Lock(AUTH_CONFIG.clientID, AUTH_CONFIG.domain, {
-    oidcConformant: true,
     autoclose: true,
     auth: {
       redirectUrl: AUTH_CONFIG.callbackURL,
