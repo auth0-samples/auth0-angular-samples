@@ -2,7 +2,7 @@
 
 This sample contains two distinct Angular applications, **sso-app-one** and **sso-app-two**. The purpose of the sample is to demonstrate how to implement single sign-on in multiple applications. When a user authenticates in one of the applications, they will automatically be authenticated in the other when it loads. The sample uses the Angular CLI.
 
-Running this sample will result in both of the applications being served simultaneously. The first application will be served at `http://localhost:4200` and the second at `http://localhost:4201`.
+Running this sample will result in both of the applications being served simultaneously. The first application will be served at `http://localhost:3000` and the second at `http://localhost:3001`.
 
 ## Getting Started
 
@@ -28,7 +28,15 @@ The development server that comes with the Angular CLI can be used to serve the 
 npm start
 ```
 
-The first application will be served at `http://localhost:4200` and the second at `http://localhost:4201`.
+The first application will be served at `http://localhost:3000` and the second at `http://localhost:3001`.
+
+## Run the Application With Docker
+
+In order to run the example with docker you need to have `docker` installed.
+
+You also need to set the environment variables as explained [previously](#set-the-client-id-domain-and-api-url).
+
+Execute in command line `sh exec.sh` to run the Docker in Linux, or `.\exec.ps1` to run the Docker in Windows.
 
 ## What is Auth0?
 
@@ -52,7 +60,7 @@ If you have found a bug or if you have a feature request, please report them at 
 
 ## Author
 
-[Auth0](auth0.com)
+[Auth0](https://auth0.com)
 
 ## License
 

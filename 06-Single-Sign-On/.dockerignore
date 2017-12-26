@@ -1,0 +1,8 @@
+package-lock.json
+node_modules
+sso-app-one/node_modules
+sso-app-two/node_modules
+.gitignore
+exec.sh
+exec.ps1
+README.md
