@@ -1,6 +1,6 @@
 # Auth0 Angular Samples
 
-These samples demonstrate how to add authentication to an Angular application with Auth0. Each folder contains a distinct application so that various Auth0 features can be viewed in isolation.
+These samples demonstrate how to add authentication to an Angular application with Auth0. Each folder contains a distinct application so that various Auth0 features can be viewed in isolation. You can read about these examples in our [Angular Quickstart](https://auth0.com/docs/quickstart/spa/angular2).
 
 ## Embedded Integration Samples
 
