@@ -1,6 +1,6 @@
 # Auth0 Angular Token Renewal
 
-This sample demonstrates how to renew `access_token`s in a React application with Auth0 using `checkSession`. For more information, read [our reference documentation](https://auth0.com/docs/libraries/auth0js#using-checksession-to-acquire-new-tokens). The sample uses the Angular CLI.
+This sample demonstrates how to renew `access_token`s in a Angular application with Auth0 using `checkSession`. For more information, read [our reference documentation](https://auth0.com/docs/libraries/auth0js#using-checksession-to-acquire-new-tokens). The sample uses the Angular CLI.
 
 ## Getting Started
 
