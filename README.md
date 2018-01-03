@@ -4,7 +4,7 @@ These samples demonstrate how to embed Auth0's Lock widget or a custom login for
 
 For examples which demonstrate how to use Auth0's hosted login page, see the [master](https://github.com/auth0-samples/auth0-angular-samples) branch.
 
-These samples show how to integrate Auth0 using [Auth0Lock](https://github.com/auth0/lock) >= 10.22.0 and [auth0.js](https://github.com/auth0/auth0.js) >= 8.10.1.
+These samples show how to integrate Auth0 using [Auth0Lock](https://github.com/auth0/lock) >= 11.0.0 and [auth0.js](https://github.com/auth0/auth0.js) >= 9.0.0.
 
 ## What is Auth0?
 
