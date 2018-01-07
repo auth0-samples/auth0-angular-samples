@@ -40,7 +40,7 @@ The development server that comes with the Angular CLI can be used to serve the 
 npm start
 ```
 
-The application will be served at `http://localhost:4200`.
+The application will be served at `http://localhost:3000`.
 
 ## What is Auth0?
 
