@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthHttp } from 'angular2-jwt';
 import { Http } from '@angular/http';
+import { AuthService } from './../auth/auth.service';
 import 'rxjs/add/operator/map';
 
 @Component({
@@ -13,7 +14,7 @@ export class PingComponent implements OnInit {
   API_URL = 'http://localhost:3001/api';
   message: string;
 
-  constructor(public http: Http, public authHttp: AuthHttp) {}
+  constructor(public http: Http, public authHttp: AuthHttp, public auth: AuthService) {}
 
   ngOnInit() {
   }
