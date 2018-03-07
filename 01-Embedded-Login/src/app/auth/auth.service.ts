@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AUTH_CONFIG } from './auth0-variables';
 import { Router, NavigationStart } from '@angular/router';
-import 'rxjs/add/operator/filter';
+import { filter } from 'rxjs/filter';
 import Auth0Lock from 'auth0-lock';
 
 @Injectable()
@@ -47,8 +47,10 @@ export class AuthService {
     this
       .router
       .events
-      .filter(event => event instanceof NavigationStart)
-      .filter((event: NavigationStart) => (/access_token|id_token|error/).test(event.url))
+      .pipe(
+        filter(event => event instanceof NavigationStart),
+        filter((event: NavigationStart) => (/access_token|id_token|error/).test(event.url))
+      )
       .subscribe(() => {
         this.lock.resumeAuth(window.location.hash, (err, authResult) => {
           if (err) {
