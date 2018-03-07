@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthHttp } from 'angular2-jwt';
-import { Http } from '@angular/http';
-import 'rxjs/add/operator/map';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AuthService } from './../auth/auth.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-ping',
@@ -13,7 +13,7 @@ export class PingComponent implements OnInit {
   API_URL = 'http://localhost:3001/api';
   message: string;
 
-  constructor(public http: Http, public authHttp: AuthHttp) {}
+  constructor(public auth: AuthService, private http: HttpClient) {}
 
   ngOnInit() {
   }
@@ -21,7 +21,9 @@ export class PingComponent implements OnInit {
   public ping(): void {
     this.message = '';
     this.http.get(`${this.API_URL}/public`)
-      .map(res => res.json())
+      .pipe(
+        map(res => res.json())
+      )
       .subscribe(
         data => this.message = data.message,
         error => this.message = error
@@ -30,11 +32,16 @@ export class PingComponent implements OnInit {
 
   public securedPing(): void {
     this.message = '';
-    this.authHttp.get(`${this.API_URL}/private`)
-      .map(res => res.json())
+    this.http.get(`${this.API_URL}/private`, {
+      headers: new HttpHeaders()
+        .set('Authorization', `Bearer ${localStorage.getItem('access_token')}`)
+    })
+      .pipe(
+        map(res => res.json())
+      )
       .subscribe(
         data => this.message = data.message,
         error => this.message = error
       );
   }
-};
+}
