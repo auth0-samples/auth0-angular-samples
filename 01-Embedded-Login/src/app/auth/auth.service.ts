@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AUTH_CONFIG } from './auth0-variables';
 import { Router, NavigationStart } from '@angular/router';
-import { filter } from 'rxjs/filter';
+import { filter } from 'rxjs/operators';
 import Auth0Lock from 'auth0-lock';
 
 @Injectable()
