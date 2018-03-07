@@ -30,6 +30,8 @@ npm start
 
 The first application will be served at `http://localhost:3000` and the second at `http://localhost:3001`.
 
+> **Note:** The default Angular CLI port is `4200`, but Auth0 samples use custom ports instead.
+
 ## Run the Application With Docker
 
 In order to run the example with docker you need to have `docker` installed.
