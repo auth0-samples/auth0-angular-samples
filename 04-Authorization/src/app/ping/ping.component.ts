@@ -3,9 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from './../auth/auth.service';
 import { map } from 'rxjs/operators';
 
-interface IApiResponse
-{
-  message :string;
+interface IApiResponse {
+  message: string;
 }
 
 @Component({
