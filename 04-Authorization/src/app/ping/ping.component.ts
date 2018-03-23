@@ -3,6 +3,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from './../auth/auth.service';
 import { map } from 'rxjs/operators';
 
+interface IApiResponse
+{
+  message :string;
+}
+
 @Component({
   selector: 'app-ping',
   templateUrl: './ping.component.html',
@@ -21,11 +26,8 @@ export class PingComponent implements OnInit {
   public ping(): void {
     this.message = '';
     this.http.get(`${this.API_URL}/public`)
-      .pipe(
-        map(res => res.json())
-      )
       .subscribe(
-        data => this.message = data.message,
+        data => this.message = (data as IApiResponse).message,
         error => this.message = error
       );
   }
@@ -36,11 +38,8 @@ export class PingComponent implements OnInit {
       headers: new HttpHeaders()
         .set('Authorization', `Bearer ${localStorage.getItem('access_token')}`)
     })
-      .pipe(
-        map(res => res.json())
-      )
       .subscribe(
-        data => this.message = data.message,
+        data => this.message = (data as IApiResponse).message,
         error => this.message = error
       );
   }
