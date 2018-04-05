@@ -1,34 +1,30 @@
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-dark bg-dark">
   <div class="container-fluid">
-    <div class="navbar-header">
       <a class="navbar-brand" href="#">Auth0 - Angular</a>
+      <form class="form-inline">
+        <button class="btn btn-primary my-2 my-sm-0 mr-2"
+          routerLink="/" type="button">
+            Home
+        </button>
 
-      <button
-        class="btn btn-primary btn-margin"
-        routerLink="/">
-          Home
-      </button>
+        <button id="qsLoginBtn"
+          class="btn btn-primary my-2 my-sm-0"
+          *ngIf="!auth.isAuthenticated()"
+          (click)="auth.login()" type="button">
+            Log In
+        </button>
 
-      <button
-        id="qsLoginBtn"
-        class="btn btn-primary btn-margin"
-        *ngIf="!auth.isAuthenticated()"
-        (click)="auth.login()">
-          Log In
-      </button>
+        <button id="qsLogoutBtn"
+          class="btn btn-primary my-2 my-sm-0"
+          *ngIf="auth.isAuthenticated()"
+          (click)="auth.logout()" type="button">
+            Log Out
+        </button>
 
-      <button
-        id="qsLogoutBtn"
-        class="btn btn-primary btn-margin"
-        *ngIf="auth.isAuthenticated()"
-        (click)="auth.logout()">
-          Log Out
-      </button>
-
-    </div>
+      </form>
   </div>
 </nav>
 
-<main class="container">
+<main role="main" class="container">
   <router-outlet></router-outlet>
 </main>
