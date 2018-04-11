@@ -91,7 +91,7 @@ workflows:
   version: 2
   quickstarts_login:
     jobs:
-      - checkout
+      - checkout:
           context: Quickstart SPA Test
       - 01-login:
           context: Quickstart SPA Test
