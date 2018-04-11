@@ -23,6 +23,7 @@
       </button>
 
       <button
+        id="qsLoginBtn"
         class="btn btn-primary btn-margin"
         *ngIf="!auth.isAuthenticated()"
         (click)="auth.login()">
@@ -30,6 +31,7 @@
       </button>
 
       <button
+        id="qsLogoutBtn"
         class="btn btn-primary btn-margin"
         *ngIf="auth.isAuthenticated()"
         (click)="auth.logout()">
