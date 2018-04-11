@@ -86,7 +86,7 @@ export class AuthService {
   }
 
   public renewToken() {
-    this.auth0.renewAuth({},
+    this.auth0.checkSession({},
       (err, result) => {
         if (err) {
           alert(
