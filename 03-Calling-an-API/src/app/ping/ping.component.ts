@@ -42,4 +42,16 @@ export class PingComponent implements OnInit {
         error => this.message = error
       );
   }
+
+  public securedScopedPing(): void {
+    this.message = '';
+    this.http.get(`${this.API_URL}/private-scoped`, {
+      headers: new HttpHeaders()
+        .set('Authorization', `Bearer ${localStorage.getItem('access_token')}`)
+    })
+      .subscribe(
+        data => this.message = (data as IApiResponse).message,
+        error => this.message = error
+      );
+  }
 }

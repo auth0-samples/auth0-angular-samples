@@ -5,16 +5,23 @@
 </p>
 
 <button
-  class="btn btn-primary" 
+  class="btn btn-primary"
   (click)="ping()">
     Call Public
 </button>
 
-<button 
+<button
   class="btn btn-primary"
-  (click)="securedPing()" 
+  (click)="securedPing()"
   *ngIf="auth.isAuthenticated()">
     Call Private
+</button>
+
+<button
+  class="btn btn-primary"
+  (click)="securedScopedPing()"
+  *ngIf="auth.isAuthenticated()">
+    Call Private Scoped
 </button>
 
 <h2>{{ message }}</h2>
