@@ -24,21 +24,21 @@ export class PingComponent implements OnInit {
 
   public ping(): void {
     this.message = '';
-    this.http.get(`${this.API_URL}/public`)
+    this.http.get<IApiResponse>(`${this.API_URL}/public`)
       .subscribe(
-        data => this.message = (data as IApiResponse).message,
+        data => this.message = data.message,
         error => this.message = error
       );
   }
 
   public securedPing(): void {
     this.message = '';
-    this.http.get(`${this.API_URL}/private`, {
+    this.http.get<IApiResponse>(`${this.API_URL}/private`, {
       headers: new HttpHeaders()
         .set('Authorization', `Bearer ${localStorage.getItem('access_token')}`)
     })
       .subscribe(
-        data => this.message = (data as IApiResponse).message,
+        data => this.message = data.message,
         error => this.message = error
       );
   }
