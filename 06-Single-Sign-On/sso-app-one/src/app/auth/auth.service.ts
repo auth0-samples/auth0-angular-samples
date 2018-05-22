@@ -5,6 +5,8 @@ import { Observable, Observer } from 'rxjs';
 import 'rxjs/add/operator/filter';
 import * as auth0 from 'auth0-js';
 
+(window as any).global = window;
+
 @Injectable()
 export class AuthService {
   auth0 = new auth0.WebAuth({
@@ -105,7 +107,7 @@ export class AuthService {
     if (!this.isAuthenticated()) return;
     this.unscheduleRenewal();
 
-    const expiresAt = JSON.parse(window.localStorage.getItem('expires_at'));
+    const expiresAt = JSON.parse(window.localStorage.getItem('expires_at') || '{}');
 
     const source = Observable.of(expiresAt).flatMap(expiresAt => {
       const now = Date.now();
