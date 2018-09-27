@@ -2,6 +2,7 @@
 # AUTH0_TEST_CLIENT_ID = Client id to use in test
 # AUTH0_TEST_DOMAIN = Domain to use in test
 # AUTH0_TEST_API_IDENTIFIER = API Audience to use in test
+# dummy
 
 # Common logic
 defaults: &defaults
