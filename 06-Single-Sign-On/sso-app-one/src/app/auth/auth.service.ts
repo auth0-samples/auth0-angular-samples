@@ -17,6 +17,10 @@ export class AuthService {
     scope: 'openid profile'
   });
 
+  private _idToken: string;
+  private _accessToken: string;
+  private _expiresAt: string;
+
   userProfile: any;
   refreshSubscription: any;
   observer: Observer<boolean>;
@@ -24,7 +28,19 @@ export class AuthService {
     obs => (this.observer = obs)
   );
 
-  constructor(public router: Router) {}
+  constructor(public router: Router) {
+    this._idToken = '';
+    this._accessToken = '';
+    this._expiresAt = '';
+  }
+
+  get accessToken(): string {
+    return this._accessToken;
+  }
+
+  get idToken(): string {
+    return this._idToken;
+  }
 
   public login(): void {
     this.auth0.authorize();
@@ -44,13 +60,12 @@ export class AuthService {
   }
 
   public getProfile(cb): void {
-    const accessToken = localStorage.getItem('access_token');
-    if (!accessToken) {
+    if (!this._accessToken) {
       throw new Error('Access token must exist to fetch profile');
     }
 
     const self = this;
-    this.auth0.client.userInfo(accessToken, (err, profile) => {
+    this.auth0.client.userInfo(this._accessToken, (err, profile) => {
       if (profile) {
         self.userProfile = profile;
       }
@@ -63,18 +78,20 @@ export class AuthService {
     const expiresAt = JSON.stringify(
       authResult.expiresIn * 1000 + new Date().getTime()
     );
-    localStorage.setItem('access_token', authResult.accessToken);
-    localStorage.setItem('id_token', authResult.idToken);
-    localStorage.setItem('expires_at', expiresAt);
+    localStorage.setItem('isLoggedIn', 'true');
+    this._accessToken = authResult.accessToken;
+    this._idToken = authResult.idToken;
+    this._expiresAt = expiresAt;
 
     this.scheduleRenewal();
   }
 
   public logout(): void {
-    // Remove tokens and expiry time from localStorage
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('id_token');
-    localStorage.removeItem('expires_at');
+    localStorage.removeItem('isLoggedIn');
+    // Remove tokens and expiry time
+    this._accessToken = '';
+    this._idToken = '';
+    this._expiresAt = '';
     this.unscheduleRenewal();
     // Go back to the home route
     this.router.navigate(['/']);
@@ -83,7 +100,7 @@ export class AuthService {
   public isAuthenticated(): boolean {
     // Check whether the current time is past the
     // access token's expiry time
-    const expiresAt = JSON.parse(localStorage.getItem('expires_at') || '{}');
+    const expiresAt = JSON.parse(this._expiresAt || '{}');
     return new Date().getTime() < expiresAt;
   }
 
@@ -107,7 +124,7 @@ export class AuthService {
     if (!this.isAuthenticated()) return;
     this.unscheduleRenewal();
 
-    const expiresAt = JSON.parse(window.localStorage.getItem('expires_at'));
+    const expiresAt = JSON.parse(this._expiresAt);
 
     const source = Observable.of(expiresAt).flatMap(expiresAt => {
       const now = Date.now();
