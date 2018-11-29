@@ -9,7 +9,7 @@ export class AuthService {
 
   private _idToken: string;
   private _accessToken: string;
-  private _expiresAt: string;
+  private _expiresAt: number;
   private _scopes: string;
 
   userProfile: any;
@@ -27,7 +27,7 @@ export class AuthService {
   constructor(public router: Router) {
     this._idToken = '';
     this._accessToken = '';
-    this._expiresAt = '';
+    this._expiresAt = 0;
     this._scopes = '';
   }
 
@@ -74,7 +74,7 @@ export class AuthService {
     // Set isLoggedIn flag in localStorage
     localStorage.setItem('isLoggedIn', 'true');
     // Set the time that the access token will expire at
-    const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
+    const expiresAt = (authResult.expiresIn * 1000) + new Date().getTime();
 
     // If there is a value on the `scope` param from the authResult,
     // use it to set scopes in the session for the user. Otherwise
@@ -102,7 +102,7 @@ export class AuthService {
     // Remove tokens and expiry time
     this._idToken = '';
     this._accessToken = '';
-    this._expiresAt = '';
+    this._expiresAt = 0;
     this._scopes = '';
     // Remove isLoggedIn flag from localStorage
     localStorage.removeItem('isLoggedIn');
@@ -113,8 +113,7 @@ export class AuthService {
   public isAuthenticated(): boolean {
     // Check whether the current time is past the
     // access token's expiry time
-    const expiresAt = JSON.parse(this._expiresAt || '{}');
-    return new Date().getTime() < expiresAt;
+    return new Date().getTime() < this._expiresAt;
   }
 
   public userHasScopes(scopes: Array<string>): boolean {

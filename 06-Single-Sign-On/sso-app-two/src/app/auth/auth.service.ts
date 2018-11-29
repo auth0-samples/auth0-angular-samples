@@ -5,8 +5,6 @@ import { Observable, Observer } from 'rxjs';
 import 'rxjs/add/operator/filter';
 import * as auth0 from 'auth0-js';
 
-(window as any).global = window;
-
 @Injectable()
 export class AuthService {
   auth0 = new auth0.WebAuth({
@@ -19,7 +17,7 @@ export class AuthService {
 
   private _idToken: string;
   private _accessToken: string;
-  private _expiresAt: string;
+  private _expiresAt: number;
 
   userProfile: any;
   refreshSubscription: any;
@@ -31,7 +29,7 @@ export class AuthService {
   constructor(public router: Router) {
     this._idToken = '';
     this._accessToken = '';
-    this._expiresAt = '';
+    this._expiresAt = 0;
   }
 
   get accessToken(): string {
@@ -75,9 +73,7 @@ export class AuthService {
 
   private setSession(authResult): void {
     // Set the time that the access token will expire at
-    const expiresAt = JSON.stringify(
-      authResult.expiresIn * 1000 + new Date().getTime()
-    );
+    const expiresAt = authResult.expiresIn * 1000 + new Date().getTime();
     localStorage.setItem('isLoggedIn', 'true');
     this._accessToken = authResult.accessToken;
     this._idToken = authResult.idToken;
@@ -91,7 +87,7 @@ export class AuthService {
     // Remove tokens and expiry time
     this._accessToken = '';
     this._idToken = '';
-    this._expiresAt = '';
+    this._expiresAt = 0;
     this.unscheduleRenewal();
     // Go back to the home route
     this.router.navigate(['/']);
@@ -100,8 +96,7 @@ export class AuthService {
   public isAuthenticated(): boolean {
     // Check whether the current time is past the
     // access token's expiry time
-    const expiresAt = JSON.parse(this._expiresAt || '{}');
-    return new Date().getTime() < expiresAt;
+    return new Date().getTime() < this._expiresAt;
   }
 
   public renewToken() {
@@ -124,7 +119,7 @@ export class AuthService {
     if (!this.isAuthenticated()) return;
     this.unscheduleRenewal();
 
-    const expiresAt = JSON.parse(this._expiresAt);
+    const expiresAt = this._expiresAt;
 
     const source = Observable.of(expiresAt).flatMap(expiresAt => {
       const now = Date.now();

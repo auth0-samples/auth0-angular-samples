@@ -9,7 +9,7 @@ export class AuthService {
 
   private _idToken: string;
   private _accessToken: string;
-  private _expiresAt: string;
+  private _expiresAt: number;
 
   auth0 = new auth0.WebAuth({
     clientID: AUTH_CONFIG.clientID,
@@ -24,7 +24,7 @@ export class AuthService {
   constructor(public router: Router) {
     this._idToken = '';
     this._accessToken = '';
-    this._expiresAt = '';
+    this._expiresAt = 0;
   }
 
   get accessToken(): string {
@@ -70,7 +70,7 @@ export class AuthService {
     // Set isLoggedIn flag in localStorage
     localStorage.setItem('isLoggedIn', 'true');
     // Set the time that the access token will expire at
-    const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
+    const expiresAt = (authResult.expiresIn * 1000) + new Date().getTime();
     this._accessToken = authResult.accessToken;
     this._idToken = authResult.idToken;
     this._expiresAt = expiresAt;
@@ -91,7 +91,7 @@ export class AuthService {
     // Remove tokens and expiry time
     this._idToken = '';
     this._accessToken = '';
-    this._expiresAt = '';
+    this._expiresAt = 0;
     // Remove isLoggedIn flag from localStorage
     localStorage.removeItem('isLoggedIn');
     // Go back to the home route
@@ -101,8 +101,7 @@ export class AuthService {
   public isAuthenticated(): boolean {
     // Check whether the current time is past the
     // access token's expiry time
-    const expiresAt = JSON.parse(this._expiresAt || '{}');
-    return new Date().getTime() < expiresAt;
+    return new Date().getTime() < this._expiresAt;
   }
 
 }
