@@ -1,6 +1,6 @@
-FROM node:8.7-alpine
+FROM node:8.14-alpine
 
-RUN npm install -g @angular/cli
+RUN npm install -g @angular/cli@~7.1.2
 
 WORKDIR /home/app/sso-app-one
 
