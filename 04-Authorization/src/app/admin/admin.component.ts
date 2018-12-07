@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {AuthService} from "../auth/auth.service";
 
 interface IApiResponse {
   message: string;
@@ -16,7 +17,7 @@ export class AdminComponent implements OnInit {
   API_URL = 'http://localhost:3001/api';
   message: string;
 
-  constructor(private http: HttpClient) { }
+  constructor(public auth: AuthService, private http: HttpClient) { }
 
   ngOnInit() {
   }
@@ -26,7 +27,7 @@ export class AdminComponent implements OnInit {
     this.http
       .post<IApiResponse>(`${this.API_URL}/admin`, {}, {
         headers: new HttpHeaders()
-          .set('Authorization', `Bearer ${localStorage.getItem('access_token')}`)
+          .set('Authorization', `Bearer ${this.auth.accessToken}`)
       })
       .subscribe(
         data => this.message = data.message,

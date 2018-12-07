@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from './auth/auth.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { AuthService } from './auth/auth.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent  implements OnInit {
 
   constructor(public auth: AuthService) {
     // Comment out this method call if using
@@ -16,6 +16,12 @@ export class AppComponent {
     // Uncomment this method call if using
     // hash-based routing
     // auth.handleAuthenticationWithHash();
+  }
+
+  ngOnInit() {
+    if (localStorage.getItem('isLoggedIn') === 'true') {
+      this.auth.renewSession();
+    }
   }
 
 }

@@ -4,10 +4,13 @@ import { Router } from '@angular/router';
 import 'rxjs/add/operator/filter';
 import * as auth0 from 'auth0-js';
 
-(window as any).global = window;
-
 @Injectable()
 export class AuthService {
+
+  private _idToken: string;
+  private _accessToken: string;
+  private _expiresAt: number;
+  private _scopes: string;
 
   userProfile: any;
   requestedScopes: string = 'openid profile read:messages write:messages';
@@ -21,7 +24,20 @@ export class AuthService {
     scope: this.requestedScopes
   });
 
-  constructor(public router: Router) {}
+  constructor(public router: Router) {
+    this._idToken = '';
+    this._accessToken = '';
+    this._expiresAt = 0;
+    this._scopes = '';
+  }
+
+  get accessToken(): string {
+    return this._accessToken;
+  }
+
+  get idToken(): string {
+    return this._idToken;
+  }
 
   public login(): void {
     this.auth0.authorize();
@@ -41,13 +57,12 @@ export class AuthService {
   }
 
   public getProfile(cb): void {
-    const accessToken = localStorage.getItem('access_token');
-    if (!accessToken) {
+    if (!this._accessToken) {
       throw new Error('Access token must exist to fetch profile');
     }
 
     const self = this;
-    this.auth0.client.userInfo(accessToken, (err, profile) => {
+    this.auth0.client.userInfo(this._accessToken, (err, profile) => {
       if (profile) {
         self.userProfile = profile;
       }
@@ -56,27 +71,41 @@ export class AuthService {
   }
 
   private setSession(authResult): void {
+    // Set isLoggedIn flag in localStorage
+    localStorage.setItem('isLoggedIn', 'true');
     // Set the time that the access token will expire at
-    const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
+    const expiresAt = (authResult.expiresIn * 1000) + new Date().getTime();
 
     // If there is a value on the `scope` param from the authResult,
     // use it to set scopes in the session for the user. Otherwise
     // use the scopes as requested. If no scopes were requested,
     // set it to nothing
     const scopes = authResult.scope || this.requestedScopes || '';
+    this._accessToken = authResult.accessToken;
+    this._idToken = authResult.idToken;
+    this._expiresAt = expiresAt;
+    this._scopes = JSON.stringify(scopes);
+  }
 
-    localStorage.setItem('access_token', authResult.accessToken);
-    localStorage.setItem('id_token', authResult.idToken);
-    localStorage.setItem('expires_at', expiresAt);
-    localStorage.setItem('scopes', JSON.stringify(scopes));
+  public renewSession(): void {
+    this.auth0.checkSession({}, (err, authResult) => {
+      if (authResult && authResult.accessToken && authResult.idToken) {
+        this.setSession(authResult);
+      } else if (err) {
+        alert(`Could not get a new token (${err.error}: ${err.error_description}).`);
+        this.logout();
+      }
+    });
   }
 
   public logout(): void {
-    // Remove tokens and expiry time from localStorage
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('id_token');
-    localStorage.removeItem('expires_at');
-    localStorage.removeItem('scopes');
+    // Remove tokens and expiry time
+    this._idToken = '';
+    this._accessToken = '';
+    this._expiresAt = 0;
+    this._scopes = '';
+    // Remove isLoggedIn flag from localStorage
+    localStorage.removeItem('isLoggedIn');
     // Go back to the home route
     this.router.navigate(['/']);
   }
@@ -84,12 +113,11 @@ export class AuthService {
   public isAuthenticated(): boolean {
     // Check whether the current time is past the
     // access token's expiry time
-    const expiresAt = JSON.parse(localStorage.getItem('expires_at') || '{}');
-    return new Date().getTime() < expiresAt;
+    return new Date().getTime() < this._expiresAt;
   }
 
   public userHasScopes(scopes: Array<string>): boolean {
-    const grantedScopes = JSON.parse(localStorage.getItem('scopes')).split(' ');
+    const grantedScopes = JSON.parse(this._scopes).split(' ');
     return scopes.every(scope => grantedScopes.includes(scope));
   }
 
