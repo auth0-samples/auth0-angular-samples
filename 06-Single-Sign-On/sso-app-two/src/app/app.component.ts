@@ -17,7 +17,7 @@ export class AppComponent {
     if (auth.isAuthenticated()) {
       this.shouldDisplayOverlay = false;
     } else {
-      auth.renewToken();
+      auth.renewTokens();
     }
     // Hide the overlay when single sign-on auth is complete
     auth.ssoAuthComplete$.subscribe(

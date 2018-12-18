@@ -47,7 +47,7 @@ export class AuthService {
   public handleAuthentication(): void {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
-        this.setSession(authResult);
+        this.localLogin(authResult);
         this.router.navigate(['/home']);
       } else if (err) {
         this.router.navigate(['/home']);
@@ -71,7 +71,7 @@ export class AuthService {
     });
   }
 
-  private setSession(authResult): void {
+  private localLogin(authResult): void {
     // Set the time that the access token will expire at
     const expiresAt = authResult.expiresIn * 1000 + new Date().getTime();
     localStorage.setItem('isLoggedIn', 'true');
@@ -99,7 +99,7 @@ export class AuthService {
     return new Date().getTime() < this._expiresAt;
   }
 
-  public renewToken() {
+  public renewTokens() {
     this.auth0.checkSession({},
       (err, result) => {
         if (err) {
@@ -108,7 +108,7 @@ export class AuthService {
           );
           this.login();
         } else {
-          this.setSession(result);
+          this.localLogin(result);
           this.observer.next(true);
         }
       }
@@ -133,7 +133,7 @@ export class AuthService {
     // reached, get a new JWT and schedule
     // additional refreshes
     this.refreshSubscription = source.subscribe(() => {
-      this.renewToken();
+      this.renewTokens();
       this.scheduleRenewal();
     });
   }
