@@ -44,7 +44,7 @@ export class AuthService {
   public handleAuthentication(): void {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
-        this.setSession(authResult);
+        this.localLogin(authResult);
         this.router.navigate(['/home']);
       } else if (err) {
         this.router.navigate(['/home']);
@@ -68,7 +68,7 @@ export class AuthService {
     });
   }
 
-  private setSession(authResult): void {
+  private localLogin(authResult): void {
     // Set isLoggedIn flag in localStorage
     localStorage.setItem('isLoggedIn', 'true');
     // Set the time that the access token will expire at
@@ -92,10 +92,10 @@ export class AuthService {
     this.router.navigate(['/']);
   }
 
-  public renewSession(): void {
+  public renewTokens(): void {
     this.auth0.checkSession({}, (err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
-        this.setSession(authResult);
+        this.localLogin(authResult);
       } else if (err) {
         alert(`Could not get a new token (${err.error}: ${err.error_description}).`);
         this.logout();
@@ -107,18 +107,6 @@ export class AuthService {
     // Check whether the current time is past the
     // access token's expiry time
     return Date.now() < this._expiresAt;
-  }
-
-  public renewToken() {
-    this.auth0.checkSession({}, (err, result) => {
-      if (err) {
-        alert(`Could not get a new token (${err.error}: ${err.error_description}).`);
-        this.logout();
-      } else {
-        alert(`Successfully renewed auth!`);
-        this.setSession(result);
-      }
-    });
   }
 
   public scheduleRenewal() {
@@ -141,7 +129,7 @@ export class AuthService {
     // reached, get a new JWT and schedule
     // additional refreshes
     this.refreshSubscription = source.subscribe(() => {
-      this.renewToken();
+      this.renewTokens();
       this.scheduleRenewal();
     });
   }
