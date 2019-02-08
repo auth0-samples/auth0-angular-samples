@@ -11,7 +11,7 @@ export class HomeComponent {
   constructor(public auth: AuthService) { }
 
   get expiresAt() {
-    return JSON.parse(window.localStorage.getItem('expires_at'));
+    return this.auth.expiresAt;
   }
 
 }

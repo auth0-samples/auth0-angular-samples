@@ -37,6 +37,10 @@ export class AuthService {
     return this._idToken;
   }
 
+  get expiresAt(): number {
+    return this._expiresAt;
+  }
+
   public login(): void {
     this.auth0.authorize();
   }
