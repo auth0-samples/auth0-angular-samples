@@ -76,6 +76,7 @@ export class AuthService {
     this._accessToken = authResult.accessToken;
     this._idToken = authResult.idToken;
     this._expiresAt = expiresAt;
+    localStorage.setItem('expires_at', String(expiresAt));
 
     this.scheduleRenewal();
   }
@@ -85,6 +86,7 @@ export class AuthService {
     this._idToken = '';
     this._accessToken = '';
     this._expiresAt = 0;
+    localStorage.removeItem('expires_at');
     // Remove isLoggedIn flag from localStorage
     localStorage.removeItem('isLoggedIn');
     this.unscheduleRenewal();
