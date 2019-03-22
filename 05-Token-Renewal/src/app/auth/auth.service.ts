@@ -92,6 +92,11 @@ export class AuthService {
     // Remove isLoggedIn flag from localStorage
     localStorage.removeItem('isLoggedIn');
     this.unscheduleRenewal();
+
+    this.auth0.logout({
+      return_to: window.location.origin
+    });
+
     // Go back to the home route
     this.router.navigate(['/']);
   }
