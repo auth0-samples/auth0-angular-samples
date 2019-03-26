@@ -67,10 +67,8 @@ export class AuthService {
   }
 
   private localLogin(authResult): void {
-    // Set isLoggedIn flag in localStorage
-    localStorage.setItem('isLoggedIn', 'true');
     // Set the time that the access token will expire at
-    const expiresAt = (authResult.expiresIn * 1000) + new Date().getTime();
+    const expiresAt = (authResult.expiresIn * 1000) + Date.now();
     this._accessToken = authResult.accessToken;
     this._idToken = authResult.idToken;
     this._expiresAt = expiresAt;
@@ -92,8 +90,6 @@ export class AuthService {
     this._idToken = '';
     this._accessToken = '';
     this._expiresAt = 0;
-    // Remove isLoggedIn flag from localStorage
-    localStorage.removeItem('isLoggedIn');
     // Go back to the home route
     this.router.navigate(['/']);
   }
@@ -101,7 +97,7 @@ export class AuthService {
   public isAuthenticated(): boolean {
     // Check whether the current time is past the
     // access token's expiry time
-    return new Date().getTime() < this._expiresAt;
+    return this._accessToken && Date.now() < this._expiresAt;
   }
 
 }
