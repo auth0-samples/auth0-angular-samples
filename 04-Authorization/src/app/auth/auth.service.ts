@@ -71,10 +71,8 @@ export class AuthService {
   }
 
   private localLogin(authResult): void {
-    // Set isLoggedIn flag in localStorage
-    localStorage.setItem('isLoggedIn', 'true');
     // Set the time that the access token will expire at
-    const expiresAt = (authResult.expiresIn * 1000) + new Date().getTime();
+    const expiresAt = (authResult.expiresIn * 1000) + Date.now();
 
     // If there is a value on the `scope` param from the authResult,
     // use it to set scopes in the session for the user. Otherwise
@@ -104,21 +102,16 @@ export class AuthService {
     this._accessToken = '';
     this._expiresAt = 0;
     this._scopes = '';
-    // Remove isLoggedIn flag from localStorage
-    localStorage.removeItem('isLoggedIn');
 
     this.auth0.logout({
       return_to: window.location.origin
     });
-
-    // Go back to the home route
-    this.router.navigate(['/']);
   }
 
   public isAuthenticated(): boolean {
     // Check whether the current time is past the
     // access token's expiry time
-    return new Date().getTime() < this._expiresAt;
+    return this._accessToken && Date.now() < this._expiresAt;
   }
 
   public userHasScopes(scopes: Array<string>): boolean {

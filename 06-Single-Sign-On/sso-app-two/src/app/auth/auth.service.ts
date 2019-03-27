@@ -73,8 +73,7 @@ export class AuthService {
 
   private localLogin(authResult): void {
     // Set the time that the access token will expire at
-    const expiresAt = authResult.expiresIn * 1000 + new Date().getTime();
-    localStorage.setItem('isLoggedIn', 'true');
+    const expiresAt = authResult.expiresIn * 1000 + Date.now();
     this._accessToken = authResult.accessToken;
     this._idToken = authResult.idToken;
     this._expiresAt = expiresAt;
@@ -83,7 +82,6 @@ export class AuthService {
   }
 
   public logout(): void {
-    localStorage.removeItem('isLoggedIn');
     // Remove tokens and expiry time
     this._accessToken = '';
     this._idToken = '';
@@ -101,7 +99,7 @@ export class AuthService {
   public isAuthenticated(): boolean {
     // Check whether the current time is past the
     // access token's expiry time
-    return new Date().getTime() < this._expiresAt;
+    return this._accessToken && Date.now() < this._expiresAt;
   }
 
   public renewTokens() {
