@@ -91,9 +91,6 @@ export class AuthService {
     this.auth0.logout({
       return_to: window.location.origin
     });
-
-    // Go back to the home route
-    this.router.navigate(['/']);
   }
 
   public isAuthenticated(): boolean {
