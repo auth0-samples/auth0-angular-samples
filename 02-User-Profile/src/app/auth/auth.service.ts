@@ -90,8 +90,10 @@ export class AuthService {
     this._idToken = '';
     this._accessToken = '';
     this._expiresAt = 0;
-    // Go back to the home route
-    this.router.navigate(['/']);
+
+    this.auth0.logout({
+      return_to: window.location.origin
+    });
   }
 
   public isAuthenticated(): boolean {
