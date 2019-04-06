@@ -90,7 +90,7 @@ export class AuthService {
     this.unscheduleRenewal();
 
     this.auth0.logout({
-      return_to: window.location.origin
+      returnTo: window.location.origin
     });
   }
 
