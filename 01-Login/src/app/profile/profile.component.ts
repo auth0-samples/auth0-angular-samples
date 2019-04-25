@@ -14,6 +14,5 @@ export class ProfileComponent implements OnInit {
   async ngOnInit() {
     const client = await this.authService.getAuth0Client();
     this.profile = await client.getUser();
-    console.log(this.profile);
   }
 }

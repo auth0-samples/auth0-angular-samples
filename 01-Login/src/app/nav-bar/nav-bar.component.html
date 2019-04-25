@@ -60,7 +60,12 @@
               >
                 <span class="icon icon-profile"></span> Profile
               </a>
-              <a href="#" (click)="logout()" class="dropdown-item">
+              <a
+                href="#"
+                (click)="logout()"
+                class="dropdown-item"
+                id="qsLogoutBtn"
+              >
                 <span class="icon icon-power"></span> Log out
               </a>
             </div>
@@ -70,7 +75,13 @@
 
         <!-- Responsive login button: show if NOT authenticated -->
         <ul class="navbar-nav d-md-none">
-          <button class="btn btn-primary btn-block">Log in</button>
+          <button
+            class="btn btn-primary btn-block"
+            id="qsLoginBtn"
+            (click)="login()"
+          >
+            Log in
+          </button>
         </ul>
         <!-- /Responsive login button -->
 
@@ -94,7 +105,7 @@
 
           <li>
             <span class="icon icon-power"></span>
-            <a href="#">Log out</a>
+            <a href="#" id="qsLogoutBtn">Log out</a>
           </li>
         </ul>
       </div>

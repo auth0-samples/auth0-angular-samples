@@ -22,8 +22,6 @@ export class NavBarComponent implements OnInit {
 
     if (this.isAuthenticated) {
       this.profile = await this.auth0Client.getUser();
-
-      console.log(this.profile);
     }
   }
 
