@@ -32,4 +32,8 @@ export class NavBarComponent implements OnInit {
       redirect_uri: `${window.location.origin}/callback`
     });
   }
+
+  logout() {
+    this.auth0Client.logout();
+  }
 }
