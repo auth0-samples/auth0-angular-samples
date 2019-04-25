@@ -11,12 +11,14 @@ export class AuthService {
 
   constructor() {}
 
-  getAuth0Client(): Promise<Auth0Client> {
+  async getAuth0Client(): Promise<Auth0Client> {
     if (!this.auth0Client) {
-      return createAuth0Client({
+      this.auth0Client = await createAuth0Client({
         domain: config.domain,
         client_id: config.clientId
       });
+
+      return this.auth0Client;
     }
 
     return Promise.resolve(this.auth0Client);
