@@ -8,13 +8,18 @@
         data-toggle="collapse"
         data-target="#navbarNav"
         aria-controls="navbarNav"
-        aria-expanded="false"
+        [attr.aria-expanded]="!isCollapsed"
         aria-label="Toggle navigation"
+        (click)="isCollapsed = !isCollapsed"
       >
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse" id="navbarNav">
+      <div
+        class="collapse navbar-collapse"
+        id="navbarNav"
+        [ngbCollapse]="isCollapsed"
+      >
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
             <a [routerLink]="['']" class="nav-link">Home</a>
@@ -74,7 +79,7 @@
         </ul>
 
         <!-- Responsive login button: show if NOT authenticated -->
-        <ul class="navbar-nav d-md-none">
+        <ul class="navbar-nav d-md-none" *ngIf="!isAuthenticated">
           <button
             class="btn btn-primary btn-block"
             id="qsLoginBtn"
@@ -88,19 +93,20 @@
         <!-- Responsive profile dropdown: show if authenticated -->
         <ul class="navbar-nav d-md-none">
           <li class="nav-item">
-            <span class="user-info">
+            <span class="user-info" *ngIf="profile">
               <!-- Profile image should be set to the profile picture from the id token -->
               <img
                 alt="Profile picture"
                 class="nav-user-profile d-inline-block"
+                [src]="profile.picture"
               />
               <!-- Show the user's full name from the id token here -->
-              <h6 class="d-inline-block">User's full name here</h6>
+              <h6 class="d-inline-block">{{ profile.name }}</h6>
             </span>
           </li>
           <li>
             <span class="icon icon-profile"></span>
-            <a href="/profile">Profile</a>
+            <a [routerLink]="['/profile']">Profile</a>
           </li>
 
           <li>

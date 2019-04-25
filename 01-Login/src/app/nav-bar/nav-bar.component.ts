@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class NavBarComponent implements OnInit {
   isAuthenticated = false;
+  isCollapsed = true;
   profile: any;
 
   private auth0Client: Auth0Client;
