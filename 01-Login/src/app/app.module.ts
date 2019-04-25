@@ -9,6 +9,8 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { HeroComponent } from './hero/hero.component';
 import { FooterComponent } from './footer/footer.component';
 import { HomeContentComponent } from './home-content/home-content.component';
+import { CallbackComponent } from './callback/callback.component';
+import { LoadingComponent } from './loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { HomeContentComponent } from './home-content/home-content.component';
     NavBarComponent,
     HeroComponent,
     FooterComponent,
-    HomeContentComponent
+    HomeContentComponent,
+    CallbackComponent,
+    LoadingComponent
   ],
   imports: [BrowserModule, AppRoutingModule, NgbModule],
   providers: [],

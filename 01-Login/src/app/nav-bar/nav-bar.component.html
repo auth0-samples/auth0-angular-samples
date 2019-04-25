@@ -24,7 +24,11 @@
         <ul class="navbar-nav d-none d-md-block">
           <!-- Login button: show if NOT authenticated -->
           <li class="nav-item" *ngIf="!isAuthenticated">
-            <button id="qsLoginBtn" class="btn btn-primary btn-margin">
+            <button
+              id="qsLoginBtn"
+              class="btn btn-primary btn-margin"
+              (click)="login()"
+            >
               Log in
             </button>
           </li>
@@ -40,7 +44,7 @@
             >
               <!-- Profile image should be set to the profile picture from the id token -->
               <img
-                src="profile.jpg"
+                [src]="profile.picture"
                 alt="Profile picture"
                 class="nav-user-profile"
                 ng-if="isAuthenticated"
