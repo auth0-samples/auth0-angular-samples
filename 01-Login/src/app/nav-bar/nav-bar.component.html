@@ -17,7 +17,7 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a href="/" class="nav-link">Home</a>
+            <a [routerLink]="['']" class="nav-link">Home</a>
           </li>
         </ul>
 
@@ -35,8 +35,9 @@
           <!-- / Login button -->
 
           <!-- Fullsize dropdown: show if authenticated -->
-          <li class="nav-item dropdown" *ngIf="isAuthenticated">
+          <li class="nav-item dropdown" *ngIf="isAuthenticated" ngbDropdown>
             <a
+              ngbDropdownToggle
               class="nav-link dropdown-toggle"
               href="#"
               id="profileDropDown"
@@ -50,10 +51,13 @@
                 ng-if="isAuthenticated"
               />
             </a>
-            <div class="dropdown-menu dropdown-menu-right">
+            <div class="dropdown-menu dropdown-menu-right" ngbDropdownMenu>
               <!-- Show the user's full name from the id token here -->
               <div class="dropdown-header">User's full name here</div>
-              <a href="/profile" class="dropdown-item dropdown-profile">
+              <a
+                [routerLink]="['/profile']"
+                class="dropdown-item dropdown-profile"
+              >
                 <span class="icon icon-profile"></span> Profile
               </a>
               <a href="#" class="dropdown-item">
