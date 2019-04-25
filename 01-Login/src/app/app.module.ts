@@ -11,6 +11,7 @@ import { FooterComponent } from './footer/footer.component';
 import { HomeContentComponent } from './home-content/home-content.component';
 import { CallbackComponent } from './callback/callback.component';
 import { LoadingComponent } from './loading/loading.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { LoadingComponent } from './loading/loading.component';
     FooterComponent,
     HomeContentComponent,
     CallbackComponent,
-    LoadingComponent
+    LoadingComponent,
+    ProfileComponent
   ],
   imports: [BrowserModule, AppRoutingModule, NgbModule],
   providers: [],
