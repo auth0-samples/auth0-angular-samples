@@ -8,11 +8,13 @@ import { AuthService } from '../auth.service';
 })
 export class ProfileComponent implements OnInit {
   profile: any;
+  profileJson: string;
 
   constructor(private authService: AuthService) {}
 
   async ngOnInit() {
     const client = await this.authService.getAuth0Client();
     this.profile = await client.getUser();
+    this.profileJson = JSON.stringify(this.profile, null, 2);
   }
 }

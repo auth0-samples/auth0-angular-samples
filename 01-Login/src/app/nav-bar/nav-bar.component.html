@@ -58,7 +58,7 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right" ngbDropdownMenu>
               <!-- Show the user's full name from the id token here -->
-              <div class="dropdown-header">User's full name here</div>
+              <div class="dropdown-header">{{ profile.name }}</div>
               <a
                 [routerLink]="['/profile']"
                 class="dropdown-item dropdown-profile"

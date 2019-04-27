@@ -12,10 +12,10 @@
     </div>
   </div>
 
-  <div class="row">
+  <div class="row" *ngIf="profileJson">
     <pre
       v-highlightjs
       class="rounded"
-    ><code class="json">{{ profile | json }}</code></pre>
+    ><code class="json" [highlight]="profileJson"></code></pre>
   </div>
 </div>

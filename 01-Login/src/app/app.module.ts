@@ -13,6 +13,13 @@ import { CallbackComponent } from './callback/callback.component';
 import { LoadingComponent } from './loading/loading.component';
 import { ProfileComponent } from './profile/profile.component';
 
+import { HighlightModule } from 'ngx-highlightjs';
+import json from 'highlight.js/lib/languages/json';
+
+function hljsLanguages() {
+  return [{ name: 'json', func: json }];
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +32,14 @@ import { ProfileComponent } from './profile/profile.component';
     LoadingComponent,
     ProfileComponent
   ],
-  imports: [BrowserModule, AppRoutingModule, NgbModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    NgbModule,
+    HighlightModule.forRoot({
+      languages: hljsLanguages
+    })
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
