@@ -42,4 +42,8 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-module.exports = app;
+console.log(process.env);
+
+const port = process.env.NODE_ENV === 'production' ? 3000 : 3001;
+
+app.listen(port, () => console.log(`Server started on port ${port}`));
