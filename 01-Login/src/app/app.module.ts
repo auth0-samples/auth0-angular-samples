@@ -1,6 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HighlightModule } from 'ngx-highlightjs';
+import json from 'highlight.js/lib/languages/json';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,9 +15,6 @@ import { HomeContentComponent } from './home-content/home-content.component';
 import { CallbackComponent } from './callback/callback.component';
 import { LoadingComponent } from './loading/loading.component';
 import { ProfileComponent } from './profile/profile.component';
-
-import { HighlightModule } from 'ngx-highlightjs';
-import json from 'highlight.js/lib/languages/json';
 
 function hljsLanguages() {
   return [{ name: 'json', func: json }];
@@ -38,7 +38,8 @@ function hljsLanguages() {
     NgbModule,
     HighlightModule.forRoot({
       languages: hljsLanguages
-    })
+    }),
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
