@@ -15,7 +15,8 @@ export class AuthService {
     if (!this.auth0Client) {
       this.auth0Client = await createAuth0Client({
         domain: config.domain,
-        client_id: config.clientId
+        client_id: config.clientId,
+        audience: config.audience
       });
 
       return this.auth0Client;

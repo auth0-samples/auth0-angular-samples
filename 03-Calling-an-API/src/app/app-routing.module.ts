@@ -5,6 +5,7 @@ import { CallbackComponent } from './callback/callback.component';
 import { ProfileComponent } from './profile/profile.component';
 import { LoginGuard } from './login.guard';
 import { LoginComponent } from './login/login.component';
+import { ExternalApiComponent } from './external-api/external-api.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,11 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'external-api',
+    component: ExternalApiComponent,
+    canActivate: [LoginGuard]
   }
 ];
 

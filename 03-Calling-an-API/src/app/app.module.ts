@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HighlightModule } from 'ngx-highlightjs';
 import json from 'highlight.js/lib/languages/json';
@@ -16,6 +17,7 @@ import { CallbackComponent } from './callback/callback.component';
 import { LoadingComponent } from './loading/loading.component';
 import { ProfileComponent } from './profile/profile.component';
 import { LoginComponent } from './login/login.component';
+import { ExternalApiComponent } from './external-api/external-api.component';
 
 function hljsLanguages() {
   return [{ name: 'json', func: json }];
@@ -32,10 +34,12 @@ function hljsLanguages() {
     CallbackComponent,
     LoadingComponent,
     ProfileComponent,
-    LoginComponent
+    LoginComponent,
+    ExternalApiComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     NgbModule,
     HighlightModule.forRoot({
