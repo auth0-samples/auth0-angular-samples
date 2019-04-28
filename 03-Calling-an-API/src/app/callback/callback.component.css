@@ -1,0 +1,6 @@
+.container {
+  display: flex;
+  min-height: 500px;
+  align-items: center;
+  justify-content: center;
+}
