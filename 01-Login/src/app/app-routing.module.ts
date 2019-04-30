@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { CallbackComponent } from './callback/callback.component';
-import { ProfileComponent } from './profile/profile.component';
+import { HomeComponent } from './containers/home/home.component';
+import { CallbackComponent } from './containers/callback/callback.component';
+import { ProfileComponent } from './containers/profile/profile.component';
 import { LoginGuard } from './auth/login.guard';
 
 const routes: Routes = [
