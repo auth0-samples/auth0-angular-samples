@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../auth/auth.service';
 import Auth0Client from '@auth0/auth0-spa-js/dist/typings/src/Auth0Client';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav-bar',
@@ -15,15 +14,18 @@ export class NavBarComponent implements OnInit {
 
   private auth0Client: Auth0Client;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService) {}
 
   async ngOnInit() {
     this.auth0Client = await this.authService.getAuth0Client();
-    this.isAuthenticated = await this.auth0Client.isAuthenticated();
 
-    if (this.isAuthenticated) {
-      this.profile = await this.auth0Client.getUser();
-    }
+    this.authService.isAuthenticated.subscribe(value => {
+      this.isAuthenticated = value;
+    });
+
+    this.authService.profile.subscribe(profile => {
+      this.profile = profile;
+    });
   }
 
   logout() {

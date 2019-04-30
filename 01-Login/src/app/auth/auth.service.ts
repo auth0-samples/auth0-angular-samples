@@ -1,15 +1,17 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import createAuth0Client from '@auth0/auth0-spa-js';
 import Auth0Client from '@auth0/auth0-spa-js/dist/typings/src/Auth0Client';
 import * as config from '../../../auth_config.json';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private auth0Client: Auth0Client;
+  isAuthenticated = new BehaviorSubject(false);
+  profile = new BehaviorSubject<any>(null);
 
-  constructor() {}
+  private auth0Client: Auth0Client;
 
   async getAuth0Client(): Promise<Auth0Client> {
     if (!this.auth0Client) {
@@ -18,9 +20,23 @@ export class AuthService {
         client_id: config.clientId
       });
 
+      try {
+        await this.auth0Client.getTokenSilently();
+
+        this.isAuthenticated.next(await this.auth0Client.isAuthenticated());
+
+        this.isAuthenticated.subscribe(async isAuthenticated => {
+          if (isAuthenticated) {
+            return this.profile.next(await this.auth0Client.getUser());
+          }
+
+          this.profile.next(null);
+        });
+      } catch {}
+
       return this.auth0Client;
     }
 
-    return Promise.resolve(this.auth0Client);
+    return this.auth0Client;
   }
 }

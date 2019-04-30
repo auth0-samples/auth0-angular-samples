@@ -13,8 +13,15 @@ export class ProfileComponent implements OnInit {
   constructor(private authService: AuthService) {}
 
   async ngOnInit() {
-    const client = await this.authService.getAuth0Client();
-    this.profile = await client.getUser();
-    this.profileJson = JSON.stringify(this.profile, null, 2);
+    this.authService.profile.subscribe(profile => {
+      if (profile) {
+        this.profile = profile;
+        this.profileJson = JSON.stringify(this.profile, null, 2);
+        return;
+      }
+
+      this.profile = null;
+      this.profileJson = null;
+    });
   }
 }
