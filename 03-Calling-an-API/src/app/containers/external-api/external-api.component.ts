@@ -12,23 +12,22 @@ export class ExternalApiComponent implements OnInit {
   client: Auth0Client;
   responseJson: string;
   hasResponse = false;
+  token: string;
 
   constructor(
     private authService: AuthService,
     private httpClient: HttpClient
   ) {}
 
-  async ngOnInit() {
-    this.client = await this.authService.getAuth0Client();
+  ngOnInit() {
+    this.authService.token.subscribe(token => (this.token = token));
   }
 
   async pingApi() {
-    const token = await this.client.getTokenSilently();
-
     this.httpClient
       .get('/api/external', {
         headers: {
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${this.token}`
         }
       })
       .subscribe((response: any) => {

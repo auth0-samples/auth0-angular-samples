@@ -51,15 +51,18 @@
                 [src]="profile.picture"
                 alt="Profile picture"
                 class="nav-user-profile"
-                ng-if="isAuthenticated"
+                *ngIf="isAuthenticated && profile"
               />
             </a>
             <div class="dropdown-menu dropdown-menu-right" ngbDropdownMenu>
               <!-- Show the user's full name from the id token here -->
-              <div class="dropdown-header">{{ profile.name }}</div>
+              <div class="dropdown-header" *ngIf="profile">
+                {{ profile.name }}
+              </div>
               <a
                 [routerLink]="['/profile']"
                 class="dropdown-item dropdown-profile"
+                *ngIf="profile"
               >
                 <span class="icon icon-profile"></span> Profile
               </a>
