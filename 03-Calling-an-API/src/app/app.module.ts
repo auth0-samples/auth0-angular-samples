@@ -16,7 +16,6 @@ import { HomeContentComponent } from './home-content/home-content.component';
 import { CallbackComponent } from './callback/callback.component';
 import { LoadingComponent } from './loading/loading.component';
 import { ProfileComponent } from './profile/profile.component';
-import { LoginComponent } from './login/login.component';
 import { ExternalApiComponent } from './external-api/external-api.component';
 
 function hljsLanguages() {
@@ -34,7 +33,6 @@ function hljsLanguages() {
     CallbackComponent,
     LoadingComponent,
     ProfileComponent,
-    LoginComponent,
     ExternalApiComponent
   ],
   imports: [

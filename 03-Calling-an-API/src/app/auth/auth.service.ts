@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import createAuth0Client from '@auth0/auth0-spa-js';
 import Auth0Client from '@auth0/auth0-spa-js/dist/typings/src/Auth0Client';
-import * as config from '../../auth_config.json';
+import * as config from '../../../auth_config.json';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,8 @@ export class AuthService {
     if (!this.auth0Client) {
       this.auth0Client = await createAuth0Client({
         domain: config.domain,
-        client_id: config.clientId
+        client_id: config.clientId,
+        audience: config.audience
       });
 
       return this.auth0Client;

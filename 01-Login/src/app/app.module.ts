@@ -15,7 +15,6 @@ import { HomeContentComponent } from './home-content/home-content.component';
 import { CallbackComponent } from './callback/callback.component';
 import { LoadingComponent } from './loading/loading.component';
 import { ProfileComponent } from './profile/profile.component';
-import { LoginComponent } from './login/login.component';
 
 function hljsLanguages() {
   return [{ name: 'json', func: json }];
@@ -31,8 +30,7 @@ function hljsLanguages() {
     HomeContentComponent,
     CallbackComponent,
     LoadingComponent,
-    ProfileComponent,
-    LoginComponent
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

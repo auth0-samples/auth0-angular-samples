@@ -29,7 +29,11 @@ export class LoginGuard implements CanActivate {
           return true;
         }
 
-        return this.router.parseUrl('/login');
+        client.loginWithRedirect({
+          redirect_uri: `${window.location.origin}/callback`
+        });
+
+        return false;
       });
     });
   }

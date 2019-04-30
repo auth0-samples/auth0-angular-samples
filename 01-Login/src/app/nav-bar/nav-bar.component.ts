@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../auth/auth.service';
 import Auth0Client from '@auth0/auth0-spa-js/dist/typings/src/Auth0Client';
 import { Router } from '@angular/router';
 
@@ -24,14 +24,6 @@ export class NavBarComponent implements OnInit {
     if (this.isAuthenticated) {
       this.profile = await this.auth0Client.getUser();
     }
-  }
-
-  async login() {
-    this.auth0Client.loginWithRedirect({
-      redirect_uri: `${window.location.origin}/callback`
-    });
-
-    return false;
   }
 
   logout() {
