@@ -100,6 +100,33 @@ In the root of your Angular application, create a new file called `auth_config.j
 }
 ```
 
+In order for TypeScript to be able to import this JSON file, make a small tweak to the `tsconfig.json` file by adding the `resolveJsonModule` flag. The resulting file should look something like the following:
+
+```json
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "module": "es2015",
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es5",
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2018", "dom"],
+    "resolveJsonModule": true
+  }
+}
+```
+
+Notice that the `resolveJsonModule` key has been added to the `compilerOptions` node, with a value of `true`.
+
+> **Note**: A JSON file is being used here instead of a TypeScript file, as it will be shared in the next part of the tutorial by the backend server.
+
 Finally, configure the application to start on port 3000. Open `package.json` and modify the start script to look like the following:
 
 ```json
