@@ -13,7 +13,8 @@ export class CallbackComponent implements OnInit {
   async ngOnInit() {
     const client = await this.authService.getAuth0Client();
     const result = await client.handleRedirectCallback();
-    const targetRoute = result.appState.target ? result.appState.target : '';
+    const targetRoute =
+      result.appState && result.appState.target ? result.appState.target : '';
 
     this.router.navigate([targetRoute]);
   }
