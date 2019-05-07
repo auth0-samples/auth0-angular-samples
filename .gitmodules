@@ -1,3 +1,0 @@
-[submodule "01-Login/src/theme"]
-	path = 01-Login/src/theme
-	url = git@github.com:auth0-samples/samples-bootstrap-theme
