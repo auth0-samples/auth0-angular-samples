@@ -20,7 +20,7 @@
             "tsConfig": "src/tsconfig.app.json",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
-              "src/theme/dist/css/auth0-theme.min.css",
+              "node_modules/samples-bootstrap-theme/dist/css/auth0-theme.css",
               "src/styles.css",
               "node_modules/highlight.js/styles/monokai-sublime.css"
             ],
