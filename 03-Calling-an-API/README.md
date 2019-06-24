@@ -48,16 +48,144 @@ You also need to set the environment variables as explained [previously](#set-th
 
 Execute in command line `sh exec.sh` to run the Docker in Linux, or `.\exec.ps1` to run the Docker in Windows.
 
+## Tutorial
+
+Most single-page apps use resources from data APIs. You may want to restrict access to those resources, so that only authenticated users with sufficient privileges can access them. Auth0 lets you manage access to these resources using [API Authorization](https://auth0.com/docs/api-auth).
+
+This tutorial shows you how to access protected resources in your API.
+
+> **Note:** This tutorial does not show you how to add protection to your API. Read the [Backend/API quickstart documentation](https://auth0.com/docs/quickstart/backend) for instructions on how to protect your API.
+
+## Create an API
+
+In the [APIs section](https://manage.auth0.com/#/apis) of the Auth0 dashboard, click **Create API**. Provide a name and an identifier for your API.
+You will use the identifier later when you're configuring your Javascript Auth0 application instance.
+For **Signing Algorithm**, select **RS256**.
+
+### Add a Scope
+
+By default, the Access Token does not contain any authorization information. To limit access to your resources based on authorization, you must use scopes. Read more about scopes in the [scopes documentation](https://auth0.com/docs/scopes).
+
+In the Auth0 dashboard, in the [APIs section](https://manage.auth0.com/#/apis), click **Scopes**. Add any scopes you need to limit access to your API resources.
+
+> **Note**: You can give any names to your scopes. A common pattern is `<action>:<resource>`. The example below uses the name `read:messages` for a scope.
+
+## Configure your Application
+
+In your `auth0.WebAuth` instance, enter your API identifier as the value for `audience`.
+Add your scopes to the `scope` key.
+
+```ts
+// src/app/auth/auth.service.ts
+
+auth0 = new auth0.WebAuth({
+  // ...
+  audience: "YOUR AUTH0 API IDENTIFIER",
+  scope: "openid profile read:messages"
+});
+```
+
+## Checkpoint
+
+Try to log in to your application again. Look at how the Access Token differs from before. It is no longer an opaque token. It is now a JSON Web Token with a payload that contains your API identifier as the value for `audience`, and the scopes you created. Read more about this token in the [JSON Web Tokens documentation](https://auth0.com/docs/jwt).
+
+> **Note:** By default, any user can ask for any scope you defined. You can implement access policies to limit this behavior using [Rules](https://auth0.com/docs/rules).
+
+## Add `HttpClientModule`
+
+To give the authenticated user access to secured resources in your API, include the user's Access Token in the requests you send to your API.
+There are two common ways to do this.
+
+- Store the Access Token in a cookie. The Access Token is then included in all requests.
+- Send `access_token` in the `Authorization` header using the `Bearer` scheme.
+
+> **Note:** The examples below use the `Bearer` scheme.
+
+You can use the Angular HttpClientModule to attach JSON Web Tokens to requests you make with Angular's `HttpClient` class.
+
+Import the `HttpClientModule` in your AppModule:
+
+```ts
+// src/app/app.module.ts
+
+// ...
+
+import { HttpClientModule } from '@angular/common/http';
+
+@NgModule({
+  declarations: [...],
+  imports: [
+    ...,
+    HttpClientModule
+  ],
+  providers: [...],
+  bootstrap: [...]
+})
+```
+
+## Call the API
+
+You can now use `HttpClient` and `HttpHeaders` to make secure calls to your API from anywhere in the application.
+
+If you have an API that sends messages from the protected `/private` endpoint, you can create an API call. Set the `headers` option to a new instance of `HttpHeaders()` to attach an `Authorization` header with a value of `Bearer` and the Access token stored in memory.
+
+```ts
+// src/app/ping/ping.component.ts
+
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { map } from "rxjs/operators";
+
+interface IApiResponse {
+  message: string;
+}
+
+// ...
+export class PingComponent {
+  // Security note: API uses https to avoid bearer token leakage
+  API_URL: string = "https://<your-application-domain>/api";
+  message: string;
+
+  constructor(public auth: AuthService, private http: HttpClient) {}
+
+  public securedPing(): void {
+    this.message = "";
+    this.http
+      .get<IApiResponse>(`${this.API_URL}/private`, {
+        headers: new HttpHeaders().set(
+          "Authorization",
+          `Bearer ${this.auth.accessToken}`
+        )
+      })
+      .subscribe(
+        data => (this.message = data.message),
+        error => (this.message = error)
+      );
+  }
+}
+```
+
+> **Note:**Alternatively, as of version 4.3 of Angular, you could use [HTTP interceptors](https://angular.io/api/common/http/HttpInterceptor) to attach the token to all outgoing HTTP requests.
+
+## Protect Your API Resources
+
+To restrict access to the resources served by your API, check the incoming requests for valid authorization information.
+The authorization information is in the Access Token created for the user. To see if the token is valid, check it against the [JSON Web Key Set (JWKS)](https://auth0.com/docs/jwks) for your Auth0 account. To learn more about validating Access Tokens, read the [Verify Access Tokens tutorial](https://auth0.com/docs/api-auth/tutorials/verify-access-token).
+
+In each language and framework, you verify the Access Token differently.
+Typically, you use a middleware function to verify the token. If the token is valid, the request proceeds and the user gets access to resources in your API. If the token is invalid, the request is rejected with a `401 Unauthorized` error.
+
+> **Note:** The sample project shows how to implement this functionality using Node.js with the Express framework. To learn how to implement API protection for your server-side technology, see the [Backend/API quickstart documentation](https://auth0.com/docs/quickstart/backend).
+
 ## What is Auth0?
 
 Auth0 helps you to:
 
-* Add authentication with [multiple authentication sources](https://docs.auth0.com/identityproviders), either social like **Google, Facebook, Microsoft Account, LinkedIn, GitHub, Twitter, Box, Salesforce, among others**, or enterprise identity systems like **Windows Azure AD, Google Apps, Active Directory, ADFS or any SAML Identity Provider**.
-* Add authentication through more traditional **[username/password databases](https://docs.auth0.com/mysql-connection-tutorial)**.
-* Add support for **[linking different user accounts](https://docs.auth0.com/link-accounts)** with the same user.
-* Support for generating signed [Json Web Tokens](https://docs.auth0.com/jwt) to call your APIs and **flow the user identity** securely.
-* Analytics of how, when and where users are logging in.
-* Pull data from other sources and add it to the user profile, through [JavaScript rules](https://docs.auth0.com/rules).
+- Add authentication with [multiple authentication sources](https://docs.auth0.com/identityproviders), either social like **Google, Facebook, Microsoft Account, LinkedIn, GitHub, Twitter, Box, Salesforce, among others**, or enterprise identity systems like **Windows Azure AD, Google Apps, Active Directory, ADFS or any SAML Identity Provider**.
+- Add authentication through more traditional **[username/password databases](https://docs.auth0.com/mysql-connection-tutorial)**.
+- Add support for **[linking different user accounts](https://docs.auth0.com/link-accounts)** with the same user.
+- Support for generating signed [Json Web Tokens](https://docs.auth0.com/jwt) to call your APIs and **flow the user identity** securely.
+- Analytics of how, when and where users are logging in.
+- Pull data from other sources and add it to the user profile, through [JavaScript rules](https://docs.auth0.com/rules).
 
 ## Create a free Auth0 account
 
@@ -75,4 +203,3 @@ If you have found a bug or if you have a feature request, please report them at 
 ## License
 
 This project is licensed under the MIT license. See the [LICENSE](LICENSE.txt) file for more info.
-
