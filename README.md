@@ -2,9 +2,9 @@
 
 [![CircleCI](https://circleci.com/gh/auth0-samples/auth0-angular-samples.svg?style=svg)](https://circleci.com/gh/auth0-samples/auth0-angular-samples)
 
-These samples demonstrate how to add authentication to an Angular application with Auth0. Each folder contains a distinct application so that various Auth0 features can be viewed in isolation. You can read about these examples in our [Angular Quickstart](https://auth0.com/docs/quickstart/spa/angular2).
+These samples demonstrate how to add authentication to an Angular application with Auth0, using [auth0-spa-js](https://github.com/auth0/auth0-spa-js). Each folder contains a distinct application so that various Auth0 features can be viewed in isolation. You can read about these examples in our [Angular Quickstart](https://auth0.com/docs/quickstart/spa/angular2).
 
-> **Note**: These samples implement the new JS SDK, which is currently in an early access state and liable to change at any time.
+Read the [full tutorials on Auth0.com](https://auth0.com/docs/quickstart/spa/angular2).
 
 ## Embedded Integration Samples
 
