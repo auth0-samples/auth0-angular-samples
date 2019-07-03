@@ -51,11 +51,12 @@
               <img
                 [src]="profile.picture"
                 alt="Profile picture"
-                class="nav-user-profile"
+                class="nav-user-profile rounded-circle"
+                style="width: 75px"
                 *ngIf="isAuthenticated && profile"
               />
             </a>
-            <div class="dropdown-menu dropdown-menu-right" ngbDropdownMenu>
+            <div class="dropdown-menu dropdown-menu-left" ngbDropdownMenu>
               <!-- Show the user's full name from the id token here -->
               <div class="dropdown-header" *ngIf="profile">
                 {{ profile.name }}
@@ -65,7 +66,7 @@
                 class="dropdown-item dropdown-profile"
                 *ngIf="profile"
               >
-                <span class="icon icon-profile"></span> Profile
+                <fa-icon [icon]="faUser" class="mr-3"></fa-icon> Profile
               </a>
               <button
                 href="#"
@@ -73,7 +74,7 @@
                 class="btn btn-link dropdown-item"
                 id="qsLogoutBtn"
               >
-                <span class="icon icon-power"></span> Log out
+                <fa-icon [icon]="faPowerOff" class="mr-3"></fa-icon> Log out
               </button>
             </div>
           </li>
@@ -93,13 +94,18 @@
         <!-- /Responsive login button -->
 
         <!-- Responsive profile dropdown: show if authenticated -->
-        <ul class="navbar-nav d-md-none" *ngIf="isAuthenticated">
+        <ul
+          class="navbar-nav d-md-none justify-content-between"
+          *ngIf="isAuthenticated"
+          style="min-height: 170px"
+        >
           <li class="nav-item">
             <span class="user-info" *ngIf="profile">
               <!-- Profile image should be set to the profile picture from the id token -->
               <img
                 alt="Profile picture"
-                class="nav-user-profile d-inline-block"
+                class="nav-user-profile d-inline-block rounded-circle mr-3"
+                style="width: 75px"
                 [src]="profile.picture"
               />
               <!-- Show the user's full name from the id token here -->
@@ -107,13 +113,17 @@
             </span>
           </li>
           <li>
-            <span class="icon icon-profile"></span>
+            <fa-icon [icon]="faUser" class="mr-3"></fa-icon>
             <a [routerLink]="['/profile']">Profile</a>
           </li>
 
           <li>
-            <span class="icon icon-power"></span>
-            <button class="btn btn-link" id="qsLogoutBtn" (click)="logout()">
+            <fa-icon [icon]="faPowerOff" class="mr-3"></fa-icon>
+            <button
+              class="btn btn-link p-0"
+              id="qsLogoutBtn"
+              (click)="logout()"
+            >
               Log out
             </button>
           </li>
