@@ -1,3 +1,12 @@
 .result-block-container {
   min-height: 300px;
+  position: relative;
+}
+
+.result-block-container .result-block {
+  opacity: 0;
+}
+
+.result-block-container .result-block.show {
+  opacity: 1;
 }
