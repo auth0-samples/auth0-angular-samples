@@ -9,7 +9,7 @@
   <button class="btn btn-primary mb-5" (click)="pingApi()">Ping API</button>
 
   <div class="result-block-container">
-    <div [ngClass]="{ show: hasResponse }" class="result-block">
+    <div class="result-block" [ngClass]="{ show: hasResponse }">
       <h6 class="muted">Result</h6>
       <pre>
         <code class="js rounded" [highlight]="responseJson"></code>

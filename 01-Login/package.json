@@ -12,6 +12,7 @@
   "private": true,
   "dependencies": {},
   "devDependencies": {
+    "bootstrap": "^4.3.1",
     "@angular-devkit/build-angular": "~0.800.0",
     "@angular/animations": "^8.0.0",
     "@angular/cli": "~8.0.2",
