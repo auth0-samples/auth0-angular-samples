@@ -12,7 +12,6 @@
   "private": true,
   "dependencies": {},
   "devDependencies": {
-    "bootstrap": "^4.3.1",
     "@angular-devkit/build-angular": "~0.800.0",
     "@angular/animations": "^8.0.0",
     "@angular/cli": "~8.0.2",
@@ -46,7 +45,6 @@
     "ngx-highlightjs": "^3.0.3",
     "protractor": "~5.4.0",
     "rxjs": "~6.5.2",
-    "samples-bootstrap-theme": "github:auth0-samples/samples-bootstrap-theme",
     "ts-node": "~8.2.0",
     "tslib": "~1.10.0",
     "tslint": "5.17.0",
