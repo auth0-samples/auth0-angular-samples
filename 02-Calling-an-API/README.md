@@ -26,6 +26,18 @@ Run `npm test` to execute the unit tests via [Karma](https://karma-runner.github
 
 Run `npm e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
+## Run Using Docker
+
+You can build and run the sample in a Docker container by using the provided scripts:
+
+```bash
+# In Linux / MacOS
+sh exec.sh
+
+# Windows Powershell
+./exec.ps1
+```
+
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
