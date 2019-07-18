@@ -69,7 +69,7 @@
                 class="dropdown-item dropdown-profile"
                 *ngIf="profile"
               >
-                <fa-icon [icon]="faUser" class="mr-3"></fa-icon> Profile
+                <fa-icon icon="user" class="mr-3"></fa-icon> Profile
               </a>
               <button
                 href="#"
@@ -77,7 +77,7 @@
                 class="btn btn-link dropdown-item"
                 id="qsLogoutBtn"
               >
-                <fa-icon [icon]="faPowerOff" class="mr-3"></fa-icon> Log out
+                <fa-icon icon="power-off" class="mr-3"></fa-icon> Log out
               </button>
             </div>
           </li>
@@ -116,12 +116,12 @@
             </span>
           </li>
           <li>
-            <fa-icon [icon]="faUser" class="mr-3"></fa-icon>
+            <fa-icon icon="user" class="mr-3"></fa-icon>
             <a [routerLink]="['/profile']">Profile</a>
           </li>
 
           <li>
-            <fa-icon [icon]="faPowerOff" class="mr-3"></fa-icon>
+            <fa-icon icon="power-off" class="mr-3"></fa-icon>
             <button
               class="btn btn-link p-0"
               id="qsLogoutBtn"

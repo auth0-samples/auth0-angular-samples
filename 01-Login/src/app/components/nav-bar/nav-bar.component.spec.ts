@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { NavBarComponent } from './nav-bar.component';
 
@@ -11,7 +12,7 @@ describe('NavBarComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [NavBarComponent],
-      imports: [NgbModule, RouterTestingModule]
+      imports: [NgbModule, RouterTestingModule, FontAwesomeModule]
     }).compileComponents();
   }));
 
