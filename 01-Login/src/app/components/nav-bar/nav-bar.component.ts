@@ -15,8 +15,8 @@ export class NavBarComponent implements OnInit {
   constructor(public auth: AuthService) { }
 
   ngOnInit() {
-    // On initial load, check if the user is already logged in
-    this.auth.checkAuthOnInit();
+    // On initial load, set up local auth streams
+    this.auth.localAuthSetup();
   }
 
 }

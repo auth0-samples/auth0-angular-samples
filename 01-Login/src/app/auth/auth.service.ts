@@ -28,9 +28,6 @@ export class AuthService {
   isAuthenticated$ = this.auth0Client$.pipe(
     concatMap((client: Auth0Client) => from(client.isAuthenticated()))
   );
-  getUser$ = this.auth0Client$.pipe(
-    concatMap((client: Auth0Client) => from(client.getUser()))
-  );
   handleRedirectCallback$ = this.auth0Client$.pipe(
     concatMap((client: Auth0Client) => from(client.handleRedirectCallback()))
   );
@@ -42,14 +39,22 @@ export class AuthService {
 
   constructor(private router: Router) { }
 
-  checkAuthOnInit() {
+  // getUser$() is a method because options can be passed if desired
+  // https://auth0.github.io/auth0-spa-js/classes/auth0client.html#getuser
+  getUser$(options?): Observable<any> {
+    return this.auth0Client$.pipe(
+      concatMap((client: Auth0Client) => from(client.getUser(options)))
+    );
+  }
+
+  localAuthSetup() {
     // This should only be called on app initialization
     // Check if user already has an active session with Auth0
     const checkAuth$ = this.isAuthenticated$.pipe(
       concatMap((loggedIn: boolean) => {
         if (loggedIn) {
           // If authenticated, get user data
-          return this.getUser$;
+          return this.getUser$();
         }
         // If not authenticated, return stream that emits 'false'
         return of(loggedIn);
@@ -98,7 +103,7 @@ export class AuthService {
         // Redirect callback complete; create stream
         // returning user data and authentication status
         return combineLatest(
-          this.getUser$,
+          this.getUser$(),
           this.isAuthenticated$
         );
       })
