@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "login-demo": {
+    "ngqs-simple": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/login-demo",
+            "outputPath": "dist/ngqs-simple",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -59,19 +59,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "login-demo:build",
-            "proxyConfig": "proxy.conf.json"
+            "browserTarget": "ngqs-simple:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "login-demo:build:production"
+              "browserTarget": "ngqs-simple:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "login-demo:build"
+            "browserTarget": "ngqs-simple:build"
           }
         },
         "test": {
@@ -108,15 +107,15 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "login-demo:serve"
+            "devServerTarget": "ngqs-simple:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "login-demo:serve:production"
+              "devServerTarget": "ngqs-simple:serve:production"
             }
           }
         }
       }
     }},
-  "defaultProject": "login-demo"
+  "defaultProject": "ngqs-simple"
 }

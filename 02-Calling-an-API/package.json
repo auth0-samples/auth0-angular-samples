@@ -1,5 +1,5 @@
 {
-  "name": "login-demo",
+  "name": "ngqs-simple",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -7,9 +7,7 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "server": "node server.js",
-    "dev": "npm-run-all --parallel start server"
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {
@@ -25,13 +23,7 @@
     "@fortawesome/angular-fontawesome": "^0.4.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.19",
     "@fortawesome/free-solid-svg-icons": "^5.9.0",
-    "express": "^4.17.1",
-    "express-jwt": "^5.3.1",
-    "helmet": "^3.19.0",
-    "jwks-rsa": "^1.6.0",
-    "morgan": "^1.9.1",
     "ngx-highlightjs": "^3.0.3",
-    "npm-run-all": "^4.1.5",
     "rxjs": "~6.4.0",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"
@@ -54,7 +46,6 @@
     "karma-coverage-istanbul-reporter": "~2.0.1",
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.4.0",
-    "nodemon": "^1.19.1",
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",

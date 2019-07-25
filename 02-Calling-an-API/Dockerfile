@@ -22,16 +22,12 @@ RUN mkdir -p /app
 
 WORKDIR /app
 
-COPY package.json .
+COPY --from=build ./app/dist/login-demo .
 
-RUN npm install --production
-
-COPY --from=build ./app/dist/login-demo ./dist
-COPY ./server.js .
-COPY ./auth_config.json .
+RUN npm install -g live-server
 
 ENV NODE_ENV=production
 
 EXPOSE 3000
 
-CMD ["node", "server.js"]
+CMD ["live-server", "--port=3000", "--host=0.0.0.0", "--no-browser", "--entry-file=index.html"]
