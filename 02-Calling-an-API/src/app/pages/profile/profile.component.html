@@ -1,4 +1,4 @@
-<div class="container mt-5" *ngIf="profile">
+<div class="container mt-5" *ngIf="auth.userProfile$ | async as profile">
   <div
     class="row align-items-center profile-header mb-5 text-center text-md-left"
   >
@@ -15,8 +15,6 @@
   </div>
 
   <div class="row" *ngIf="profileJson">
-    <pre
-      class="rounded"
-    ><code class="json" [highlight]="profileJson"></code></pre>
+    <pre class="rounded"><code class="json" [highlight]="profileJson"></code></pre>
   </div>
 </div>
