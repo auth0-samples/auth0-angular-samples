@@ -29,9 +29,6 @@ export class AuthService {
   isAuthenticated$ = this.auth0Client$.pipe(
     concatMap((client: Auth0Client) => from(client.isAuthenticated()))
   );
-  getUser$ = this.auth0Client$.pipe(
-    concatMap((client: Auth0Client) => from(client.getUser()))
-  );
   getTokenSilently$ = this.auth0Client$.pipe(
     concatMap((client: Auth0Client) => from(client.getTokenSilently()))
   );
@@ -49,15 +46,23 @@ export class AuthService {
 
   constructor(private router: Router) { }
 
-  checkAuthOnInit() {
+  // getUser$() is a method because options can be passed if desired
+  // https://auth0.github.io/auth0-spa-js/classes/auth0client.html#getuser
+  getUser$(options?): Observable<any> {
+    return this.auth0Client$.pipe(
+      concatMap((client: Auth0Client) => from(client.getUser(options)))
+    );
+  }
+
+  localAuthSetup() {
     // This should only be called on app initialization
-    // Check if user already has an active session with Auth0
+    // Set up local authentication streams
     const checkAuth$ = this.isAuthenticated$.pipe(
       concatMap((loggedIn: boolean) => {
         if (loggedIn) {
           // If authenticated, return stream that emits user object and token
           return combineLatest(
-            this.getUser$,
+            this.getUser$(),
             this.getTokenSilently$
           );
         }
@@ -110,7 +115,7 @@ export class AuthService {
         // Redirect callback complete; create stream returning
         // user data, token, and authentication status
         return combineLatest(
-          this.getUser$,
+          this.getUser$(),
           this.getTokenSilently$,
           this.isAuthenticated$
         );

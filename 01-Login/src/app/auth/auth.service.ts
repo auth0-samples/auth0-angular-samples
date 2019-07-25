@@ -49,7 +49,7 @@ export class AuthService {
 
   localAuthSetup() {
     // This should only be called on app initialization
-    // Check if user already has an active session with Auth0
+    // Set up local authentication streams
     const checkAuth$ = this.isAuthenticated$.pipe(
       concatMap((loggedIn: boolean) => {
         if (loggedIn) {
