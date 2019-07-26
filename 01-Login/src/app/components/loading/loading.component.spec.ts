@@ -8,13 +8,15 @@ describe('LoadingComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [LoadingComponent]
-    }).compileComponents();
+      declarations: [ LoadingComponent ]
+    })
+    .compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(LoadingComponent);
     component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
   it('should create', () => {

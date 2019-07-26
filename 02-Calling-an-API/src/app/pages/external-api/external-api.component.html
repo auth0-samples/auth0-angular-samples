@@ -1,0 +1,19 @@
+<div class="container mt-5">
+  <h1>External API</h1>
+  <p class="mb-5">
+    Ping an external API by clicking the button below. This will call the
+    external API using an access token, and the API will validate it using the
+    API's audience value.
+  </p>
+
+  <button class="btn btn-primary mb-5" (click)="pingApi()">Ping API</button>
+
+  <div class="result-block-container" *ngIf="responseJson">
+    <div class="result-block" [ngClass]="{ show: !!responseJson }">
+      <h6 class="muted">Result</h6>
+      <pre>
+        <code class="js rounded" [highlight]="responseJson"></code>
+      </pre>
+    </div>
+  </div>
+</div>

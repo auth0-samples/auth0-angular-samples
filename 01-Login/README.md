@@ -2,7 +2,7 @@
 
 This sample app demonstrates how to log in, log out, and view profile information of the logged-in user. It uses [auth0-spa-js](https://github.com/auth0/auth0-spa-js).
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.8.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.1.2.
 
 ## Configuration
 
@@ -17,7 +17,7 @@ The sample needs to be configured with your Auth0 domain and client ID in order 
 
 ## Development server
 
-Run `npm start` for a dev server. Navigate to `http://localhost:3000/`. The app will automatically reload if you change any of the source files.
+Run `npm start` for a dev server. Navigate to `http://localhost:3000`. The app will automatically reload if you change any of the source files.
 
 ## Build
 

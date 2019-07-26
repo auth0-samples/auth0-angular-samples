@@ -2,29 +2,29 @@
 
 This sample app demonstrates how to call an API using the access token retrieved during authentication. It uses [auth0-spa-js](https://github.com/auth0/auth0-spa-js).
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.8.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.1.2.
+
+## Configuration
+
+The sample needs to be configured with your Auth0 domain and client ID in order to work. In the root of the sample, copy `auth_config.json.example` and rename it to `auth_config.json`. Open the file and replace the values with those from your Auth0 tenant:
+
+```json
+{
+  "domain": "<YOUR AUTH0 DOMAIN>",
+  "clientId": "<YOUR AUTH0 CLIENT ID>",
+  "audience": "<YOUR AUTH0 API AUDIENCE IDENTIFIER>"
+}
+```
 
 ## Development server
 
 Run `npm run dev` for a dev server. Navigate to `http://localhost:3000/`. The app will automatically reload if you change any of the source files.
 
-This will automatically start a Node + Express server as the backend on port 3001. THe Angular application is configured to proxy through to this on any `/api` route.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+This will automatically start a Node + Express server as the backend on port `3001`. The Angular application is configured to proxy through to this on any `/api` route.
 
 ## Build
 
 Run `npm build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `npm test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `npm e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
 ## Run Using Docker
 

@@ -1,15 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './containers/home/home.component';
-import { CallbackComponent } from './containers/callback/callback.component';
-import { ProfileComponent } from './containers/profile/profile.component';
+import { HomeComponent } from './pages/home/home.component';
+import { CallbackComponent } from './pages/callback/callback.component';
 import { AuthGuard } from './auth/auth.guard';
+import { ProfileComponent } from './pages/profile/profile.component';
 
-export const routes: Routes = [
-  {
-    path: '',
-    component: HomeComponent
-  },
+const routes: Routes = [
   {
     path: 'callback',
     component: CallbackComponent
@@ -20,9 +16,9 @@ export const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'login',
-    canActivate: [AuthGuard],
-    children: []
+    path: '',
+    component: HomeComponent,
+    pathMatch: 'full'
   }
 ];
 
@@ -30,4 +26,4 @@ export const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

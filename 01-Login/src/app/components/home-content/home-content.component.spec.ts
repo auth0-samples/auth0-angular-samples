@@ -1,23 +1,22 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HomeContentComponent } from './home-content.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { HeroComponent } from '../hero/hero.component';
 
-describe('ContentComponent', () => {
+describe('HomeContentComponent', () => {
   let component: HomeContentComponent;
   let fixture: ComponentFixture<HomeContentComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [FontAwesomeModule],
-      declarations: [HomeContentComponent, HeroComponent]
-    }).compileComponents();
+      declarations: [ HomeContentComponent ]
+    })
+    .compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(HomeContentComponent);
     component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
   it('should create', () => {
