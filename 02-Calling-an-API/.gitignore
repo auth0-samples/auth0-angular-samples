@@ -1,4 +1,5 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
+auth_config.json
 
 # compiled output
 /dist
@@ -25,7 +26,6 @@ speed-measure-plugin.json
 
 # IDE - VSCode
 .vscode/*
-!.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
@@ -44,5 +44,3 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
-
-auth_config.json

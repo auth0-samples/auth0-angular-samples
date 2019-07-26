@@ -9,7 +9,9 @@ import { faLink } from '@fortawesome/free-solid-svg-icons';
 export class HomeContentComponent implements OnInit {
   faLink = faLink;
 
-  constructor() {}
+  constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
+
 }

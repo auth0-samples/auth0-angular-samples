@@ -16,6 +16,7 @@ describe('HeroComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(HeroComponent);
     component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
   it('should create', () => {
