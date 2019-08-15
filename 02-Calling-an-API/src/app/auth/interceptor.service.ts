@@ -21,7 +21,6 @@ export class InterceptorService implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     return this.auth.getTokenSilently$().pipe(
-      filter(token => typeof token === 'string'),
       mergeMap(token => {
         const tokenReq = req.clone({
           setHeaders: { Authorization: `Bearer ${token}` }
