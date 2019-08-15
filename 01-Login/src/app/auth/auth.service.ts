@@ -26,7 +26,8 @@ export class AuthService {
   // concatMap: Using the client instance, call SDK method; SDK returns a promise
   // from: Convert that resulting promise into an observable
   isAuthenticated$ = this.auth0Client$.pipe(
-    concatMap((client: Auth0Client) => from(client.isAuthenticated()))
+    concatMap((client: Auth0Client) => from(client.isAuthenticated())),
+    tap(res => this.loggedIn = res)
   );
   handleRedirectCallback$ = this.auth0Client$.pipe(
     concatMap((client: Auth0Client) => from(client.handleRedirectCallback()))
@@ -39,11 +40,12 @@ export class AuthService {
 
   constructor(private router: Router) { }
 
-  // getUser$() is a method because options can be passed if desired
+  // When calling, options can be passed if desired
   // https://auth0.github.io/auth0-spa-js/classes/auth0client.html#getuser
   getUser$(options?): Observable<any> {
     return this.auth0Client$.pipe(
-      concatMap((client: Auth0Client) => from(client.getUser(options)))
+      concatMap((client: Auth0Client) => from(client.getUser(options))),
+      tap(user => this.userProfileSubject$.next(user))
     );
   }
 
@@ -53,7 +55,8 @@ export class AuthService {
     const checkAuth$ = this.isAuthenticated$.pipe(
       concatMap((loggedIn: boolean) => {
         if (loggedIn) {
-          // If authenticated, get user data
+          // If authenticated, get user and set in app
+          // NOTE: you could pass options here if needed
           return this.getUser$();
         }
         // If not authenticated, return stream that emits 'false'
@@ -63,11 +66,6 @@ export class AuthService {
     const checkAuthSub = checkAuth$.subscribe((response: { [key: string]: any } | boolean) => {
       // If authenticated, response will be user object
       // If not authenticated, response will be 'false'
-      // Set subjects appropriately
-      if (response) {
-        const user = response;
-        this.userProfileSubject$.next(user);
-      }
       this.loggedIn = !!response;
       // Clean up subscription
       checkAuthSub.unsubscribe();
@@ -91,17 +89,14 @@ export class AuthService {
     // Only the callback component should call this method
     // Call when app reloads after user logs in with Auth0
     let targetRoute: string; // Path to redirect to after login processsed
-    // Ensure Auth0 client instance exists
-    const authComplete$ = this.auth0Client$.pipe(
+    const authComplete$ = this.handleRedirectCallback$.pipe(
       // Have client, now call method to handle auth callback redirect
-      concatMap(() => this.handleRedirectCallback$),
       tap(cbRes => {
         // Get and set target redirect route from callback results
         targetRoute = cbRes.appState && cbRes.appState.target ? cbRes.appState.target : '/';
       }),
       concatMap(() => {
-        // Redirect callback complete; create stream
-        // returning user data and authentication status
+        // Redirect callback complete; get user and login status
         return combineLatest(
           this.getUser$(),
           this.isAuthenticated$
@@ -110,12 +105,11 @@ export class AuthService {
     );
     // Subscribe to authentication completion observable
     // Response will be an array of user and login status
-    authComplete$.subscribe(([user, loggedIn]) => {
-      // Update subjects and loggedIn property
-      this.userProfileSubject$.next(user);
-      this.loggedIn = loggedIn;
+    const authCompleteSub = authComplete$.subscribe(([user, loggedIn]) => {
       // Redirect to target route after callback processing
       this.router.navigate([targetRoute]);
+      // Clean up subscription
+      authCompleteSub.unsubscribe();
     });
   }
 

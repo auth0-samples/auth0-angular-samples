@@ -72,7 +72,7 @@ export class AuthService {
         return of(loggedIn);
       })
     );
-    const checkAuthSub = checkAuth$.subscribe((response: any) => {
+    const checkAuthSub = checkAuth$.subscribe((response: { [key: string]: any } | boolean) => {
       // If authenticated, response will be user object
       // If not authenticated, response will be 'false'
       this.loggedIn = !!response;
