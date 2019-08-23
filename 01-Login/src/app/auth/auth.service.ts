@@ -63,12 +63,10 @@ export class AuthService {
         return of(loggedIn);
       })
     );
-    const checkAuthSub = checkAuth$.subscribe((response: { [key: string]: any } | boolean) => {
+    checkAuth$.subscribe((response: { [key: string]: any } | boolean) => {
       // If authenticated, response will be user object
       // If not authenticated, response will be 'false'
       this.loggedIn = !!response;
-      // Clean up subscription
-      checkAuthSub.unsubscribe();
     });
   }
 
@@ -105,11 +103,9 @@ export class AuthService {
     );
     // Subscribe to authentication completion observable
     // Response will be an array of user and login status
-    const authCompleteSub = authComplete$.subscribe(([user, loggedIn]) => {
+    authComplete$.subscribe(([user, loggedIn]) => {
       // Redirect to target route after callback processing
       this.router.navigate([targetRoute]);
-      // Clean up subscription
-      authCompleteSub.unsubscribe();
     });
   }
 
