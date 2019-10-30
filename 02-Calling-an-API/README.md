@@ -24,7 +24,9 @@ This will automatically start a Node + Express server as the backend on port `30
 
 ## Build
 
-Run `npm build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Run `npm build` to build the project. The build artifacts will be stored in the `dist/login-demo` directory. Use the `--prod` flag for a production build.
+
+To build and run a production bundle and serve it, run `npm run prod`. The application will run on `http://localhost:3000`.
 
 ## Run Using Docker
 
