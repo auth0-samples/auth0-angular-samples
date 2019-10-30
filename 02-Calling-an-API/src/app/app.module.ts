@@ -7,7 +7,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CallbackComponent } from './pages/callback/callback.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
@@ -25,7 +24,6 @@ export function hljsLanguages() {
 @NgModule({
   declarations: [
     AppComponent,
-    CallbackComponent,
     HomeComponent,
     ProfileComponent,
     NavBarComponent,

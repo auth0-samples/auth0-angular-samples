@@ -14,7 +14,8 @@ export class AppComponent implements OnInit {
     // On initial load, check authentication state with authorization server
     // Set up local auth streams if user is already authenticated
     this.auth.localAuthSetup();
-
+    // Handle redirect from Auth0 login
+    this.auth.handleAuthCallback();
   }
 
 }
