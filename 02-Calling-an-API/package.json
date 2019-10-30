@@ -9,7 +9,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "server": "node server.js",
-    "dev": "npm-run-all --parallel start server"
+    "dev": "npm-run-all --parallel start server",
+    "prod": "ng build --prod --aot && NODE_ENV=production node server"
   },
   "private": true,
   "dependencies": {
