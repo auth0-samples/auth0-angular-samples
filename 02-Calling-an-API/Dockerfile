@@ -26,7 +26,7 @@ COPY package.json .
 
 RUN npm install --production
 
-COPY --from=build ./app/dist/login-demo ./dist
+COPY --from=build ./app/dist ./dist
 COPY ./server.js .
 COPY ./auth_config.json .
 
