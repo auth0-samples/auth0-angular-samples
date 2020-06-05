@@ -23,10 +23,17 @@
     "@fortawesome/angular-fontawesome": "^0.4.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.19",
     "@fortawesome/free-solid-svg-icons": "^5.9.0",
+    "apollo-angular": "^1.9.1",
+    "apollo-client": "^2.6.10",
     "ngx-highlightjs": "^3.0.3",
     "rxjs": "~6.5.3",
     "tslib": "^1.9.0",
-    "zone.js": "~0.9.1"
+    "zone.js": "~0.9.1",
+    "apollo-angular-link-http": "^1.10.0",
+    "apollo-link": "^1.2.11",
+    "apollo-cache-inmemory": "^1.6.0",
+    "graphql-tag": "^2.10.0",
+    "graphql": "^14.6.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.803.8",
