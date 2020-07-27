@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import createAuth0Client from '@auth0/auth0-spa-js';
+import createAuth0Client, { GetUserOptions } from '@auth0/auth0-spa-js';
 import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
 import * as config from '../../../auth_config.json';
 import { from, of, Observable, BehaviorSubject, combineLatest, throwError } from 'rxjs';
@@ -48,7 +48,7 @@ export class AuthService {
 
   // When calling, options can be passed if desired
   // https://auth0.github.io/auth0-spa-js/classes/auth0client.html#getuser
-  getUser$(options?): Observable<any> {
+  getUser$(options?: GetUserOptions): Observable<any> {
     return this.auth0Client$.pipe(
       concatMap((client: Auth0Client) => from(client.getUser(options))),
       tap(user => this.userProfileSubject$.next(user))
@@ -94,7 +94,7 @@ export class AuthService {
         // Have client, now call method to handle auth callback redirect
         tap(cbRes => {
           // Get and set target redirect route from callback results
-          targetRoute = cbRes.appState && cbRes.appState.target ? cbRes.appState.target : '/';
+          targetRoute = cbRes?.appState?.target || '/';
         }),
         concatMap(() => {
           // Redirect callback complete; get user and login status
