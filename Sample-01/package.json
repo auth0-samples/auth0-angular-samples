@@ -42,7 +42,7 @@
     "@angular/cli": "~9.1.12",
     "@angular/compiler-cli": "~9.1.12",
     "@angular/language-service": "~9.1.12",
-    "@ng-bootstrap/ng-bootstrap": "^5.1.1",
+    "@ng-bootstrap/ng-bootstrap": "^7.0.0",
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",
