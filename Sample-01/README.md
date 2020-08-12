@@ -1,8 +1,14 @@
-# Sample 02 - Calling an API
+# Auth0 Angular SDK sample
 
-This sample app demonstrates how to call an API using the access token retrieved during authentication. It uses [auth0-spa-js](https://github.com/auth0/auth0-spa-js).
+This sample app demonstrates the integration of the [Auth0 Angular SDK](https://github.com/auth0/auth0-angular) into an Angular application created using the Angular CLI. This sample is a companion to the [Auth0 Angular SDK Quickstart](https://auth0.com/docs/quickstart/spa/angular-next).
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.1.2.
+This sample demonstrates the following use cases:
+
+- Login
+- Log out
+- Showing the user profile
+- Protecting routes using the authentication guard
+- Calling APIs with automatically-attached bearer tokens
 
 ## Configuration
 
@@ -18,7 +24,7 @@ The sample needs to be configured with your Auth0 domain and client ID in order 
 
 ## Development server
 
-Run `npm run dev` for a dev server. Navigate to `http://localhost:3000/`. The app will automatically reload if you change any of the source files.
+Run `npm run dev` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 This will automatically start a Node + Express server as the backend on port `3001`. The Angular application is configured to proxy through to this on any `/api` route.
 
