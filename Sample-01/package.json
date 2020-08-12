@@ -10,7 +10,9 @@
     "e2e": "ng e2e",
     "server": "node server.js",
     "dev": "npm-run-all --parallel start server",
-    "prod": "ng build --prod --aot && NODE_ENV=production node server"
+    "prod": "ng build --prod --aot && NODE_ENV=production node server",
+    "postbuild": "npm run copy:server",
+    "copy:server": "cp server.js auth_config.json dist/login-demo"
   },
   "private": true,
   "dependencies": {

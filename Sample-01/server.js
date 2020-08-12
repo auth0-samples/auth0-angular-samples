@@ -3,7 +3,6 @@ const morgan = require('morgan');
 const helmet = require('helmet');
 const jwt = require('express-jwt');
 const jwksRsa = require('jwks-rsa');
-const { join } = require('path');
 const authConfig = require('./auth_config.json');
 
 const app = express();
@@ -34,14 +33,6 @@ app.get('/api/external', checkJwt, (req, res) => {
   });
 });
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(join(__dirname, 'dist', 'login-demo')));
-
-  app.get('/*', (_, res) => {
-    res.sendFile(join(__dirname, 'dist', 'login-demo', 'index.html'));
-  });
-}
-
-const port = process.env.NODE_ENV === 'production' ? 4200 : 3001;
+const port = process.env.PORT || 3001;
 
 app.listen(port, () => console.log(`Server started on port ${port}`));

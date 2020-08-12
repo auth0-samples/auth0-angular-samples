@@ -1,4 +1,4 @@
-FROM node:10-alpine AS build
+FROM node:12-alpine AS build
 
 RUN apk update && apk add git
 
@@ -7,31 +7,34 @@ RUN mkdir -p /app
 WORKDIR /app
 
 COPY package.json .
+COPY package-lock.json .
 
 RUN npm install
 
 COPY . .
 
-RUN npm run build
+RUN npm run build -- --prod
 
 # -----------------
 
-FROM node:10-alpine
+FROM node:12-alpine
 
 RUN mkdir -p /app
 
 WORKDIR /app
 
 COPY package.json .
+COPY package-lock.json .
 
 RUN npm install --production
 
-COPY --from=build ./app/dist/login-demo ./dist/login-demo/
+COPY --from=build ./app/dist/login-demo .
 COPY ./server.js .
 COPY ./auth_config.json .
 
 ENV NODE_ENV=production
 
-EXPOSE 3000
+EXPOSE 4200
+EXPOSE 3001
 
 CMD ["node", "server.js"]
