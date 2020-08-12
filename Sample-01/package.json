@@ -23,7 +23,7 @@
     "@angular/platform-browser-dynamic": "~9.1.12",
     "@angular/router": "~9.1.12",
     "@auth0/auth0-spa-js": "^1.2.4",
-    "@fortawesome/angular-fontawesome": "^0.4.0",
+    "@fortawesome/angular-fontawesome": "^0.7.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.19",
     "@fortawesome/free-solid-svg-icons": "^5.9.0",
     "express": "^4.17.1",
