@@ -15,7 +15,9 @@ import { HeroComponent } from './components/hero/hero.component';
 import { HomeContentComponent } from './components/home-content/home-content.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { ExternalApiComponent } from './pages/external-api/external-api.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthHttpInterceptor, AuthModule } from '@auth0/auth0-angular';
+import { environment as env } from '../environments/environment';
 
 export function hljsLanguages() {
   return [{ name: 'json', func: json }];
@@ -31,7 +33,7 @@ export function hljsLanguages() {
     HeroComponent,
     HomeContentComponent,
     LoadingComponent,
-    ExternalApiComponent
+    ExternalApiComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,11 +41,23 @@ export function hljsLanguages() {
     HttpClientModule,
     NgbModule,
     HighlightModule.forRoot({
-      languages: hljsLanguages
+      languages: hljsLanguages,
     }),
-    FontAwesomeModule
+    FontAwesomeModule,
+    AuthModule.forRoot({
+      ...env.auth,
+      httpInterceptor: {
+        ...env.httpInterceptor,
+      },
+    }),
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthHttpInterceptor,
+      multi: true,
+    },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

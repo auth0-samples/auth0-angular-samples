@@ -24,26 +24,33 @@
           <li class="nav-item">
             <a routerLink="/" class="nav-link">Home</a>
           </li>
-          <li class="nav-item" *ngIf="auth.loggedIn">
+          <li class="nav-item" *ngIf="auth.isAuthenticated$ | async">
             <a routerLink="external-api" class="nav-link">External API</a>
           </li>
         </ul>
 
-          <ul class="navbar-nav d-none d-md-block">
-            <!-- Login button: show if NOT authenticated -->
-            <li class="nav-item" *ngIf="auth.loggedIn === false">
-              <button
-                id="qsLoginBtn"
-                class="btn btn-primary btn-margin"
-                (click)="auth.login()"
-              >
-                Log in
-              </button>
-            </li>
-            <!-- / Login button -->
+        <ul class="navbar-nav d-none d-md-block">
+          <!-- Login button: show if NOT authenticated -->
+          <li
+            class="nav-item"
+            *ngIf="(auth.isAuthenticated$ | async) === false"
+          >
+            <button
+              id="qsLoginBtn"
+              class="btn btn-primary btn-margin"
+              (click)="loginWithRedirect()"
+            >
+              Log in
+            </button>
+          </li>
+          <!-- / Login button -->
 
           <!-- Fullsize dropdown: show if authenticated -->
-          <li class="nav-item dropdown" *ngIf="auth.userProfile$ | async as profile" ngbDropdown>
+          <li
+            class="nav-item dropdown"
+            *ngIf="auth.user$ | async as user"
+            ngbDropdown
+          >
             <a
               ngbDropdownToggle
               class="nav-link dropdown-toggle"
@@ -52,26 +59,22 @@
             >
               <!-- Profile image should be set to the profile picture from the id token -->
               <img
-                [src]="profile.picture"
+                [src]="user.picture"
                 alt="Profile picture"
                 class="nav-user-profile rounded-circle"
-                style="width: 75px"
+                style="width: 75px;"
               />
             </a>
             <div class="dropdown-menu dropdown-menu-left" ngbDropdownMenu>
               <!-- Show the user's full name from the id token here -->
-              <div class="dropdown-header" *ngIf="profile">
-                {{ profile.name }}
+              <div class="dropdown-header">
+                {{ user.name }}
               </div>
-              <a
-                routerLink="/profile"
-                class="dropdown-item dropdown-profile"
-                *ngIf="profile"
-              >
+              <a routerLink="/profile" class="dropdown-item dropdown-profile">
                 <fa-icon [icon]="faUser" class="mr-3"></fa-icon> Profile
               </a>
               <button
-                (click)="auth.logout()"
+                (click)="logout()"
                 class="btn btn-link dropdown-item"
                 id="qsLogoutBtn"
               >
@@ -82,35 +85,38 @@
           <!-- /Fullsize dropdown -->
         </ul>
 
-          <!-- Responsive login button: show if NOT authenticated -->
-          <ul class="navbar-nav d-md-none" *ngIf="auth.loggedIn === false">
-            <button
-              class="btn btn-primary btn-block"
-              id="qsLoginBtn"
-              (click)="auth.login()"
-            >
-              Log in
-            </button>
-          </ul>
-          <!-- /Responsive login button -->
+        <!-- Responsive login button: show if NOT authenticated -->
+        <ul
+          class="navbar-nav d-md-none"
+          *ngIf="(auth.isAuthenticated$ | async) === false"
+        >
+          <button
+            class="btn btn-primary btn-block"
+            id="qsLoginBtn"
+            (click)="loginWithRedirect()"
+          >
+            Log in
+          </button>
+        </ul>
+        <!-- /Responsive login button -->
 
         <!-- Responsive profile dropdown: show if authenticated -->
         <ul
           class="navbar-nav d-md-none justify-content-between"
-          *ngIf="auth.userProfile$ | async as profile"
-          style="min-height: 170px"
+          *ngIf="auth.user$ | async as user"
+          style="min-height: 170px;"
         >
           <li class="nav-item">
-            <span class="user-info" *ngIf="profile">
+            <span class="user-info">
               <!-- Profile image should be set to the profile picture from the id token -->
               <img
                 alt="Profile picture"
                 class="nav-user-profile d-inline-block rounded-circle mr-3"
-                style="width: 75px"
-                [src]="profile.picture"
+                style="width: 75px;"
+                [src]="user.picture"
               />
               <!-- Show the user's full name from the id token here -->
-              <h6 class="d-inline-block">{{ profile.name }}</h6>
+              <h6 class="d-inline-block">{{ user.name }}</h6>
             </span>
           </li>
           <li>
@@ -123,7 +129,7 @@
             <button
               class="btn btn-link p-0"
               id="qsLogoutBtn"
-              (click)="auth.logout()"
+              (click)="logout()"
             >
               Log out
             </button>

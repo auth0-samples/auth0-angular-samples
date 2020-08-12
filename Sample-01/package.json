@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --port 3000",
+    "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -19,10 +19,11 @@
     "@angular/compiler": "~10.0.8",
     "@angular/core": "~10.0.8",
     "@angular/forms": "~10.0.8",
+    "@angular/localize": "^10.0.8",
     "@angular/platform-browser": "~10.0.8",
     "@angular/platform-browser-dynamic": "~10.0.8",
     "@angular/router": "~10.0.8",
-    "@auth0/auth0-spa-js": "^1.2.4",
+    "@auth0/auth0-angular": "file:../../../../auth0-auth0-angular-0.1.0.tgz",
     "@fortawesome/angular-fontawesome": "^0.7.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.19",
     "@fortawesome/free-solid-svg-icons": "^5.9.0",
@@ -59,5 +60,8 @@
     "ts-node": "~7.0.0",
     "tslint": "~6.1.0",
     "typescript": "~3.9.7"
+  },
+  "prettier": {
+    "singleQuote": true
   }
 }

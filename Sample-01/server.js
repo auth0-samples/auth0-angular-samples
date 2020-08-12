@@ -20,17 +20,17 @@ const checkJwt = jwt({
     cache: true,
     rateLimit: true,
     jwksRequestsPerMinute: 5,
-    jwksUri: `https://${authConfig.domain}/.well-known/jwks.json`
+    jwksUri: `https://${authConfig.domain}/.well-known/jwks.json`,
   }),
 
   audience: authConfig.audience,
   issuer: `https://${authConfig.domain}/`,
-  algorithm: ['RS256']
+  algorithm: ['RS256'],
 });
 
 app.get('/api/external', checkJwt, (req, res) => {
   res.send({
-    msg: 'Your access token was successfully validated!'
+    msg: 'Your access token was successfully validated!',
   });
 });
 
@@ -42,6 +42,6 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-const port = process.env.NODE_ENV === 'production' ? 3000 : 3001;
+const port = process.env.NODE_ENV === 'production' ? 4200 : 3001;
 
 app.listen(port, () => console.log(`Server started on port ${port}`));
