@@ -57,6 +57,10 @@ export function hljsLanguages() {
       useClass: AuthHttpInterceptor,
       multi: true,
     },
+    {
+      provide: Window,
+      useValue: window,
+    },
   ],
   bootstrap: [AppComponent],
 })

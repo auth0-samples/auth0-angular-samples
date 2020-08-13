@@ -12,7 +12,7 @@ export class NavBarComponent implements OnInit {
   faUser = faUser;
   faPowerOff = faPowerOff;
 
-  constructor(public auth: AuthService) {}
+  constructor(public auth: AuthService, private window: Window) {}
 
   ngOnInit() {}
 
@@ -21,6 +21,6 @@ export class NavBarComponent implements OnInit {
   }
 
   logout() {
-    this.auth.logout({ returnTo: window.location.origin });
+    this.auth.logout({ returnTo: this.window.location.origin });
   }
 }
