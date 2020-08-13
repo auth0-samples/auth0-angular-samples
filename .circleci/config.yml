@@ -33,9 +33,9 @@ jobs:
           name: Replace Auth0 test credentials
           command: |
             sed \
-              -e 's/AUTH0_DOMAIN/$AUTH0_TEST_DOMAIN/g' \
-              -e 's/AUTH0_CLIENT_ID/$AUTH0_TEST_CLIENT_ID/g' \
-              -e 's/AUTH0_API_IDENTIFIER/$AUTH0_TEST_API_IDENTIFIER/g' \
+              -e "s/AUTH0_DOMAIN/$AUTH0_TEST_DOMAIN/g" \
+              -e "s/AUTH0_CLIENT_ID/$AUTH0_TEST_CLIENT_ID/g" \
+              -e "s/AUTH0_API_IDENTIFIER/$AUTH0_TEST_API_IDENTIFIER/g" \
               $AUTH0_EXAMPLE_CFG > $AUTH0_CFG
 
       - run:
