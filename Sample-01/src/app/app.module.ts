@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { HighlightModule } from 'ngx-highlightjs';
+import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import json from 'highlight.js/lib/languages/json';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
@@ -18,10 +18,6 @@ import { ExternalApiComponent } from './pages/external-api/external-api.componen
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthHttpInterceptor, AuthModule } from '@auth0/auth0-angular';
 import { environment as env } from '../environments/environment';
-
-export function hljsLanguages() {
-  return [{ name: 'json', func: json }];
-}
 
 @NgModule({
   declarations: [
@@ -40,9 +36,7 @@ export function hljsLanguages() {
     AppRoutingModule,
     HttpClientModule,
     NgbModule,
-    HighlightModule.forRoot({
-      languages: hljsLanguages,
-    }),
+    HighlightModule,
     FontAwesomeModule,
     AuthModule.forRoot({
       ...env.auth,
@@ -60,6 +54,15 @@ export function hljsLanguages() {
     {
       provide: Window,
       useValue: window,
+    },
+    {
+      provide: HIGHLIGHT_OPTIONS,
+      useValue: {
+        coreLibraryLoader: () => import('highlight.js/lib/highlight'),
+        languages: {
+          json: () => import('highlight.js/lib/languages/json'),
+        },
+      },
     },
   ],
   bootstrap: [AppComponent],
