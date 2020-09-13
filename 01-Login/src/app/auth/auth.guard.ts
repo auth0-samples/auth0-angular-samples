@@ -7,7 +7,7 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
-import { tap } from 'rxjs/operators';
+import { skipWhile, switchMap, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -20,13 +20,14 @@ export class AuthGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean|UrlTree> | boolean {
-    return this.auth.isAuthenticated$.pipe(
+    return this.auth.isAuthInProgress$.pipe(
+      skipWhile((inProgress: boolean) => inProgress),
+      switchMap(inProgress => this.auth.isAuthenticated$),
       tap(loggedIn => {
         if (!loggedIn) {
           this.auth.login(state.url);
         }
-      })
-    );
+      }));
   }
 
 }
