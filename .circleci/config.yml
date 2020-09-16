@@ -55,7 +55,7 @@ jobs:
           name: Run unit tests
           working_directory: $SAMPLE_PATH
           command: |
-            yarn test
+            npm test
       - run:
           name: Run integration tests
           command: |
