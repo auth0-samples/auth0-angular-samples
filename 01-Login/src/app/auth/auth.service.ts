@@ -35,6 +35,9 @@ export class AuthService {
   // Create subject and public observable of user profile data
   private userProfileSubject$ = new BehaviorSubject<any>(null);
   userProfile$ = this.userProfileSubject$.asObservable();
+
+  isAuthInProgress$ = new BehaviorSubject<boolean>(false);
+
   // Create a local property for login status
   loggedIn: boolean = null;
 
@@ -89,6 +92,8 @@ export class AuthService {
     // Call when app reloads after user logs in with Auth0
     const params = window.location.search;
     if (params.includes('code=') && params.includes('state=')) {
+      this.isAuthInProgress$.next(true);
+
       let targetRoute: string; // Path to redirect to after login processsed
       const authComplete$ = this.handleRedirectCallback$.pipe(
         // Have client, now call method to handle auth callback redirect
@@ -107,6 +112,8 @@ export class AuthService {
       // Subscribe to authentication completion observable
       // Response will be an array of user and login status
       authComplete$.subscribe(([user, loggedIn]) => {
+        this.isAuthInProgress$.next(false);
+
         // Redirect to target route after callback processing
         this.router.navigateByUrl(targetRoute);
       });
