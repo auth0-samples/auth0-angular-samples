@@ -13,7 +13,7 @@ RUN npm install
 
 COPY . .
 
-RUN npm run build -- --prod
+RUN npm run build
 
 # -----------------
 
@@ -28,13 +28,16 @@ COPY package-lock.json .
 
 RUN npm install --production
 
-COPY --from=build ./app/dist/login-demo .
+COPY --from=build ./app/dist/login-demo ./dist
 COPY ./server.js .
+COPY ./api-server.js .
 COPY ./auth_config.json .
 
 ENV NODE_ENV=production
+ENV SERVER_PORT=4200
+ENV API_SERVER_PORT=3001
 
 EXPOSE 4200
 EXPOSE 3001
 
-CMD ["node", "server.js"]
+CMD ["npm", "run", "prod"]

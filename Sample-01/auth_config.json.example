@@ -2,5 +2,6 @@
   "domain": "AUTH0_DOMAIN",
   "clientId": "AUTH0_CLIENT_ID",
   "audience": "AUTH0_API_IDENTIFIER",
-  "apiUri": "http://localhost:3001"
+  "apiUri": "http://localhost:3001",
+  "appUri": "http://localhost:4200"
 }

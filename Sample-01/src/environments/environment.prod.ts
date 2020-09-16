@@ -1,4 +1,4 @@
-import { domain, clientId, audience } from '../../auth_config.json';
+import { domain, clientId, audience, apiUri } from '../../auth_config.json';
 
 export const environment = {
   production: true,
@@ -9,6 +9,6 @@ export const environment = {
     redirectUri: window.location.origin,
   },
   httpInterceptor: {
-    allowedList: ['/api/external'],
+    allowedList: [`${apiUri}/*`],
   },
 };

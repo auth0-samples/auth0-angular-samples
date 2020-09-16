@@ -1,38 +1,34 @@
 const express = require('express');
 const morgan = require('morgan');
 const helmet = require('helmet');
-const jwt = require('express-jwt');
-const jwksRsa = require('jwks-rsa');
+const { join } = require('path');
 const authConfig = require('./auth_config.json');
 
 const app = express();
 
-if (!authConfig.domain || !authConfig.audience) {
-  throw 'Please make sure that auth_config.json is in place and populated';
-}
+const port = process.env.SERVER_PORT || 4200;
 
 app.use(morgan('dev'));
-app.use(helmet());
 
-const checkJwt = jwt({
-  secret: jwksRsa.expressJwtSecret({
-    cache: true,
-    rateLimit: true,
-    jwksRequestsPerMinute: 5,
-    jwksUri: `https://${authConfig.domain}/.well-known/jwks.json`,
-  }),
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      // reportOnly: true,
+      directives: {
+        'default-src': ["'self'"],
+        'connect-src': ["'self'", 'https://*.auth0.com', authConfig.apiUri],
+        'frame-src': ["'self'", 'https://*.auth0.com'],
+        'base-uri': ["'self'"],
+        'block-all-mixed-content': [],
+        'font-src': ["'self'", 'https:', 'data:'],
+        'frame-ancestors': ["'self'"],
+        'img-src': ["'self'", 'data:', '*.gravatar.com'],
+        'style-src': ["'self'", 'https:', "'unsafe-inline'"],
+      },
+    },
+  })
+);
 
-  audience: authConfig.audience,
-  issuer: `https://${authConfig.domain}/`,
-  algorithms: ['RS256'],
-});
+app.use(express.static(join(__dirname, 'dist')));
 
-app.get('/api/external', checkJwt, (req, res) => {
-  res.send({
-    msg: 'Your access token was successfully validated!',
-  });
-});
-
-const port = process.env.PORT || 3001;
-
-app.listen(port, () => console.log(`Server started on port ${port}`));
+app.listen(port, () => console.log(`App server listening on port ${port}`));
