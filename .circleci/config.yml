@@ -44,10 +44,10 @@ jobs:
           working_directory: Sample-01
           command: npm run test:ci
       - run:
-        name: Build app for integration tests
-        command: |
-          docker build -t $CIRCLE_JOB ./Sample-01
-          docker run -d -p 4200:4200 -p 3001:3001 --name $CIRCLE_SHA1 $CIRCLE_JOB
+          name: Build app for integration tests
+          command: |
+            docker build -t $CIRCLE_JOB ./Sample-01
+            docker run -d -p 4200:4200 -p 3001:3001 --name $CIRCLE_SHA1 $CIRCLE_JOB
       - run:
           name: Wait for app to be available
           command: |
