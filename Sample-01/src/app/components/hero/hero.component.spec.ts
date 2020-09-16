@@ -8,9 +8,8 @@ describe('HeroComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HeroComponent ]
-    })
-    .compileComponents();
+      declarations: [HeroComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -21,5 +20,13 @@ describe('HeroComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should render title in a h1 tag', () => {
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('h1').textContent).toContain(
+      'Angular Sample Project'
+    );
   });
 });

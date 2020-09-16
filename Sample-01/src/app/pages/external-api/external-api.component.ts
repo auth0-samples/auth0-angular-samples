@@ -4,20 +4,18 @@ import { ApiService } from 'src/app/api.service';
 @Component({
   selector: 'app-external-api',
   templateUrl: './external-api.component.html',
-  styleUrls: ['./external-api.component.css']
+  styleUrls: ['./external-api.component.css'],
 })
-export class ExternalApiComponent implements OnInit {
+export class ExternalApiComponent {
   responseJson: string;
 
-  constructor(private api: ApiService) { }
-
-  ngOnInit() {
-  }
+  constructor(private api: ApiService) {}
 
   pingApi() {
-    this.api.ping$().subscribe(
-      res => this.responseJson = JSON.stringify(res, null, 2).trim()
-    );
+    this.api
+      .ping$()
+      .subscribe(
+        (res) => (this.responseJson = JSON.stringify(res, null, 2).trim())
+      );
   }
-
 }
