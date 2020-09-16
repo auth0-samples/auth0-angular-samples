@@ -38,12 +38,12 @@ jobs:
               -e "s/AUTH0_API_IDENTIFIER/$AUTH0_TEST_API_IDENTIFIER/g" \
               $AUTH0_EXAMPLE_CFG > $AUTH0_CFG
       - node/install-packages:
-        pkg-manager: npm
-        app-dir: $SAMPLE_PATH
+          pkg-manager: npm
+          app-dir: $SAMPLE_PATH
       - run:
-        name: Run unit tests
-        working_directory: $SAMPLE_PATH
-        command: npm test
+          name: Run unit tests
+          working_directory: $SAMPLE_PATH
+          command: npm test
       - run:
           name: Run app for integration tests
           command: npm run dev
