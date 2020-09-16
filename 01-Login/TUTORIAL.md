@@ -2,9 +2,8 @@
 
 This tutorial will guide you in modifying an Angular application demonstrating how users can log in and log out with Auth0 and view profile information. It will also show you how to protect routes from unauthenticated users.
 
-::: note
-This tutorial assumes that you're able to use the [Angular CLI](https://cli.angular.io/) to generate new components and services on your project. If not, please place the files where appropriate and ensure that any references to them regarding import paths are correct for your scenario.
-:::
+
+> This tutorial assumes that you're able to use the [Angular CLI](https://cli.angular.io/) to generate new components and services on your project. If not, please place the files where appropriate and ensure that any references to them regarding import paths are correct for your scenario.
 
 ## Create an Angular Application
 
@@ -34,9 +33,7 @@ By default, the Angular CLI serves your app on port `4200`. This should run on p
 "start": "ng serve --port 3000"
 ```
 
-:::note
-If you are following this tutorial using your own Angular application that runs on a different port, you should modify the URLs above when configuring Auth0 so that they match the host and port number of your own application.
-:::
+> If you are following this tutorial using your own Angular application that runs on a different port, you should modify the URLs above when configuring Auth0 so that they match the host and port number of your own application.
 
 ## Install the SDK
 
@@ -234,9 +231,7 @@ We also need to handle login redirects when the application loads. In the authen
 
 We can also call `handleAuthCallback()` from the `constructor`.
 
-:::note
-**Angular and the Auth0 SPA JS SDK:** `auth0-spa-js` is a promise-based library built using async/await, providing an agnostic approach for the highest volume of JavaScript apps. The Angular platform manages asynchronous code by [using reactive programming and observable streams with RxJS](https://angular.io/guide/rx-library). To enable the async/await library to work seamlessly with Angular’s stream-based approach, we have converted the async/await functionality to observables for you in this service. This improves the developer experience for interoperability between the SDK and the Angular platform.
-:::
+> **Angular and the Auth0 SPA JS SDK:** `auth0-spa-js` is a promise-based library built using async/await, providing an agnostic approach for the highest volume of JavaScript apps. The Angular platform manages asynchronous code by [using reactive programming and observable streams with RxJS](https://angular.io/guide/rx-library). To enable the async/await library to work seamlessly with Angular’s stream-based approach, we have converted the async/await functionality to observables for you in this service. This improves the developer experience for interoperability between the SDK and the Angular platform.
 
 ## Create a Navigation Bar Component
 
@@ -428,8 +423,6 @@ const routes: Routes = [
 ...
 ```
 
-::: note
-Guards are arrays because multiple guards can be added to the same route. They will run in the order declared in the array.
-:::
+> Guards are arrays because multiple guards can be added to the same route. They will run in the order declared in the array.
 
 > **Checkpoint:** Log out of your app and then navigate to `http://localhost:3000/profile`. You should be automatically redirected to the Auth0 login page. Once you've authenticated successfully, you should be redirected to the `/profile` page.
