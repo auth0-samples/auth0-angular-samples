@@ -1,4 +1,4 @@
-<!-- markdownlint-disable MD041 MD034 MD002 -->
+# Tutorial
 
 This tutorial will guide you in modifying an Angular application demonstrating how users can log in and log out with Auth0 and view profile information. It will also show you how to protect routes from unauthenticated users.
 
