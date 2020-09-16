@@ -42,7 +42,7 @@ jobs:
       - run:
           name: Run unit tests
           working_directory: Sample-01
-          command: npm test
+          command: npm run test:ci
       - run:
           name: Run app for integration tests
           command: npm run dev
