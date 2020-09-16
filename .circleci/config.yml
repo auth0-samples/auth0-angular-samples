@@ -37,25 +37,21 @@ jobs:
               -e "s/AUTH0_CLIENT_ID/$AUTH0_TEST_CLIENT_ID/g" \
               -e "s/AUTH0_API_IDENTIFIER/$AUTH0_TEST_API_IDENTIFIER/g" \
               $AUTH0_EXAMPLE_CFG > $AUTH0_CFG
-
+      - node/install-packages:
+        pkg-manager: npm
+        app-dir: $SAMPLE_PATH
       - run:
-          name: Build pull request
-          command: |
-            docker build -t $CIRCLE_JOB ./$SAMPLE_PATH
-            docker run -d -p 4200:4200 -p 3001:3001 --name $CIRCLE_SHA1 $CIRCLE_JOB
+        name: Run unit tests
+        working_directory: $SAMPLE_PATH
+        command: npm test
+      - run:
+          name: Run app for integration tests
+          command: npm run dev
       - run:
           name: Wait for app to be available
           command: |
             sleep 10
             docker run --network host --rm appropriate/curl --retry 8 --retry-connrefused -v localhost:4200
-      - node/install-packages:
-          pkg-manager: yarn
-          app-dir: $SAMPLE_PATH
-      - run:
-          name: Run unit tests
-          working_directory: $SAMPLE_PATH
-          command: |
-            npm test
       - run:
           name: Run integration tests
           command: |
