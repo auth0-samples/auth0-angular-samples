@@ -23,7 +23,6 @@ jobs:
     environment:
       - AUTH0_CFG: Sample-01/auth_config.json
       - AUTH0_EXAMPLE_CFG: Sample-01/auth_config.json.example
-      - SAMPLE_PATH: Sample-01
     steps:
       - node/install:
           node-version: latest
@@ -39,10 +38,10 @@ jobs:
               $AUTH0_EXAMPLE_CFG > $AUTH0_CFG
       - node/install-packages:
           pkg-manager: npm
-          app-dir: echo $SAMPLE_PATH
+          app-dir: Sample-01
       - run:
           name: Run unit tests
-          working_directory: echo $SAMPLE_PATH
+          working_directory: Sample-01
           command: npm test
       - run:
           name: Run app for integration tests
