@@ -45,6 +45,7 @@ jobs:
           command: npm run test:ci
       - run:
           name: Run app for integration tests
+          working_directory: Sample-01
           command: npm run dev
       - run:
           name: Wait for app to be available
