@@ -81,10 +81,6 @@ app.listen(3001, () => console.log("API listening on 3001"));
 
 The above API has one available endpoint, `/api/external`, that returns a JSON response to the caller. This endpoint uses the `checkJwt` middleware to validate the supplied bearer token using your tenant's [JSON Web Key Set](https://auth0.com/docs/jwks). If the token is valid, the request is allowed to continue. Otherwise, the server returns a 401 Unauthorized response.
 
-:::note
-If you are not logged in when viewing this tutorial, the sample above will show the `domain` and `audience` values as "YOUR_TENANT" and "YOUR_API_IDENTIFIER" respectively. These should be replaced with the values from your Auth0 application.
-:::
-
 Finally, modify `package.json` to add two new scripts: `dev` and `server`. Running the `dev` script will now start both the backend server and the serve the Angular application at the same time:
 
 ```json
@@ -374,7 +370,7 @@ Finally, add a link to the navigation bar. Open `src/app/nav-bar/nav-bar.compone
 
 ```html
 <header>
-  ... &nbsp;<a routerLink="external-api" *ngIf="auth.loggedIn">External API</a>
+  ... <a routerLink="external-api" *ngIf="auth.loggedIn">External API</a>
 </header>
 ```
 
