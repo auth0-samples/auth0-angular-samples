@@ -39,10 +39,10 @@ jobs:
               $AUTH0_EXAMPLE_CFG > $AUTH0_CFG
       - node/install-packages:
           pkg-manager: npm
-          app-dir: $SAMPLE_PATH
+          app-dir: echo $SAMPLE_PATH
       - run:
           name: Run unit tests
-          working_directory: $SAMPLE_PATH
+          working_directory: echo $SAMPLE_PATH
           command: npm test
       - run:
           name: Run app for integration tests
