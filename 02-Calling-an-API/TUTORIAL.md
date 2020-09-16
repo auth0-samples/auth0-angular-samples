@@ -127,9 +127,7 @@ Now open `angular.json` and add a reference to the proxy config. In the `serve` 
     ...
 ```
 
-::: note
-In order for these changes to take effect, you will need to stop and restart the run script.
-:::
+> In order for these changes to take effect, you will need to stop and restart the run script.
 
 ## Update the Authentication Service
 
@@ -164,11 +162,9 @@ getTokenSilently$(options?): Observable<string> {
 
 If you'd like to [pass options to `getTokenSilently`](https://auth0.github.io/auth0-spa-js/classes/auth0client.html#gettokensilently) when calling the method, you can do so.
 
-:::note
-**Why isn't the token stored in browser storage?** Historically, it was common to store tokens in local or session storage. However, browser storage is [not a secure place to store sensitive data](https://cheatsheetseries.owasp.org/cheatsheets/HTML5_Security_Cheat_Sheet.html#local-storage). The [`auth0-spa-js` SDK](https://auth0.com/docs/libraries/auth0-spa-js) manages session retrieval for you so that you no longer need to store sensitive data in browser storage in order to restore sessions after refreshing a Single Page Application.
+> **Why isn't the token stored in browser storage?** Historically, it was common to store tokens in local or session storage. However, browser storage is [not a secure place to store sensitive data](https://cheatsheetseries.owasp.org/cheatsheets/HTML5_Security_Cheat_Sheet.html#local-storage). The [`auth0-spa-js` SDK](https://auth0.com/docs/libraries/auth0-spa-js) manages session retrieval for you so that you no longer need to store sensitive data in browser storage in order to restore sessions after refreshing a Single Page Application.
 
 With `auth0-spa-js`, we can simply request the token from the SDK when we need it (e.g., in an HTTP interceptor) rather than storing it locally in the Angular app or browser. The SDK manages token freshness as well, so we don't need to worry about renewing tokens when they expire.
-:::
 
 ## Create an HTTP Interceptor
 
@@ -246,9 +242,7 @@ import { InterceptorService } from './interceptor.service';
 
 In the `providers` array, we're providing the `HTTP_INTERCEPTORS` injection token and our `InterceptorService` class. We then set `multi: true` because we could potentially use multiple interceptors (which would be called in the order provided).
 
-::: note
-The interceptor will now run on every outgoing HTTP request. If you have public endpoints as well as protected endpoints, you could use conditional logic in the interceptor to only add the token to requests that require it.
-:::
+> The interceptor will now run on every outgoing HTTP request. If you have public endpoints as well as protected endpoints, you could use conditional logic in the interceptor to only add the token to requests that require it.
 
 ## Call the API
 
@@ -331,9 +325,7 @@ export class ExternalApiComponent implements OnInit {
 
 The API service is provided and a named subscription to `api.ping$()` is created. The act of subscribing fires off the HTTP call, which we'll do on a button click in the UI. When data comes back from the API, the results are set in a local property (`responseJson`).
 
-:::note
-We do _not_ need to unsubscribe from the `api.ping$()` observable because it completes once the HTTP request is finished.
-:::
+> We do _not_ need to unsubscribe from the `api.ping$()` observable because it completes once the HTTP request is finished.
 
 Open `src/app/external-api/external-api.component.html` and replace its contents with the following:
 
@@ -374,8 +366,6 @@ Finally, add a link to the navigation bar. Open `src/app/nav-bar/nav-bar.compone
 </header>
 ```
 
-::: note
-If, at any time, the application isn't working as expected, the Angular CLI server may need to be restarted. Enter `Ctrl+C` in the terminal to stop the application, then run it again using `npm run dev`.
-:::
+> If, at any time, the application isn't working as expected, the Angular CLI server may need to be restarted. Enter `Ctrl+C` in the terminal to stop the application, then run it again using `npm run dev`.
 
 > **Checkpoint:** You should now be able to log in, browse to the External API page, and click the **Ping API** button to make an API request. The response should then display in the browser.
