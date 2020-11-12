@@ -8,10 +8,6 @@ version: 2.1
 orbs:
   node: circleci/node@3.0.0
 jobs:
-  checkout:
-    machine: true
-    steps:
-      - checkout
   sample-01:
     machine: true
     environment:
@@ -20,8 +16,7 @@ jobs:
     steps:
       - node/install:
           node-version: latest
-      - attach_workspace:
-          at: ~/
+      - checkout
       - run:
           name: ls
           command: ls
@@ -47,9 +42,5 @@ workflows:
   version: 2
   quickstarts_login:
     jobs:
-      - checkout:
-          context: Quickstart SPA Test
       - sample-01:
           context: Quickstart SPA Test
-          requires:
-            - checkout
