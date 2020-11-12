@@ -12,9 +12,9 @@ jobs:
     machine: true
     steps:
       - checkout
-      - persist_to_workspace:	
-          root: ~/	
-          paths:	
+      - persist_to_workspace:
+          root: ~/
+          paths:
             - project
   sample-01:
     machine: true
