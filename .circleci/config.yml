@@ -23,7 +23,7 @@ jobs:
       - AUTH0_EXAMPLE_CFG: Sample-01/auth_config.json.example
     steps:
       - node/install:
-          node-version: latest
+          node-version: 14.15.0
       - attach_workspace:
           at: ~/
       - run:
@@ -37,7 +37,6 @@ jobs:
       - node/install-packages:
           pkg-manager: npm
           app-dir: Sample-01
-          cache-version: v2
       - run:
           name: Run unit tests
           working_directory: Sample-01
