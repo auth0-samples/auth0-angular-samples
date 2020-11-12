@@ -12,6 +12,10 @@ jobs:
     machine: true
     steps:
       - checkout
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - project
   sample-01:
     machine: true
     environment:
@@ -19,7 +23,7 @@ jobs:
       - AUTH0_EXAMPLE_CFG: Sample-01/auth_config.json.example
     steps:
       - node/install:
-          node-version: latest
+          node-version: 14.15.0
       - attach_workspace:
           at: ~/
       - run:
