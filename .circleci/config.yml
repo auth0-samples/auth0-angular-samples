@@ -37,6 +37,7 @@ jobs:
       - node/install-packages:
           pkg-manager: npm
           app-dir: Sample-01
+          cache-version: v2
       - run:
           name: Run unit tests
           working_directory: Sample-01
