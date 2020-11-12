@@ -23,6 +23,9 @@ jobs:
       - attach_workspace:
           at: ~/
       - run:
+          name: ls
+          command: ls
+      - run:
           name: Ensure config file exists
           command: touch $AUTH0_CFG
       - run:
