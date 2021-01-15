@@ -26,6 +26,22 @@ Auth0 helps you to:
 1. Go to [Auth0](https://auth0.com/signup) and click Sign Up.
 2. Use Google, GitHub or Microsoft Account to login.
 
+### Auth0 Configuration for the Sample Application(s)
+The example application(s) require to be configured with your Auth0 information in order to run succesfully.
+This can be done by renaming `auth_config.json.example` (https://github.com/auth0-samples/auth0-angular-samples/blob/master/Sample-01/auth_config.json.example) to `auth_config.json` and replacing `{DOMAIN}`, `{CLIENT_ID}` and `{API_IDENTIFIER}` with your tenant specific values:
+
+```
+{
+  "domain": "YOUR_DOMAIN.auth0.com",
+  "clientId": "YOUR_CLIENT_ID",
+  "audience": "YOUR_API_IDENTIFIER",
+  "apiUri": "http://localhost:3001",
+  "appUri": "http://localhost:4200"
+}
+```
+
+Also ensure the Application in Auth0 is configured to allow **http://localhost:4200** as a `Callback URL`, `Logout URL` and `Allowed Web Origin`.
+
 ## Issue Reporting
 
 If you have found a bug or if you have a feature request, please report them at this repository issues section. Please do not report security vulnerabilities on the public GitHub issue tracker. The [Responsible Disclosure Program](https://auth0.com/whitehat) details the procedure for disclosing security issues.
