@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { AuthClientConfig } from '@auth0/auth0-angular';
 import { ApiService } from 'src/app/api.service';
 
 @Component({
@@ -8,8 +9,12 @@ import { ApiService } from 'src/app/api.service';
 })
 export class ExternalApiComponent {
   responseJson: string;
+  audience = this.configFactory.get()?.audience;
 
-  constructor(private api: ApiService) {}
+  constructor(
+    private api: ApiService,
+    private configFactory: AuthClientConfig
+  ) {}
 
   pingApi() {
     this.api
