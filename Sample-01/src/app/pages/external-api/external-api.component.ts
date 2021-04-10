@@ -10,6 +10,7 @@ import { ApiService } from 'src/app/api.service';
 export class ExternalApiComponent {
   responseJson: string;
   audience = this.configFactory.get()?.audience;
+  hasApiError = false;
 
   constructor(
     private api: ApiService,
@@ -17,10 +18,12 @@ export class ExternalApiComponent {
   ) {}
 
   pingApi() {
-    this.api
-      .ping$()
-      .subscribe(
-        (res) => (this.responseJson = JSON.stringify(res, null, 2).trim())
-      );
+    this.api.ping$().subscribe({
+      next: (res) => {
+        this.hasApiError = false;
+        this.responseJson = JSON.stringify(res, null, 2).trim();
+      },
+      error: () => this.hasApiError = true,
+    });
   }
 }
