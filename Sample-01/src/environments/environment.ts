@@ -7,7 +7,7 @@ const { domain, clientId, audience, apiUri, errorPath } = config as {
   domain: string;
   clientId: string;
   audience?: string;
-  apiUri: string;;
+  apiUri: string;
   errorPath: string;
 };
 
