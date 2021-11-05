@@ -60,7 +60,7 @@ import { environment as env } from '../environments/environment';
     {
       provide: HIGHLIGHT_OPTIONS,
       useValue: {
-        coreLibraryLoader: () => import('highlight.js/lib/highlight'),
+        coreLibraryLoader: () => import('highlight.js/lib/core'),
         languages: {
           json: () => import('highlight.js/lib/languages/json'),
         },
