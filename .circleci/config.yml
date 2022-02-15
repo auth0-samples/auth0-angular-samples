@@ -5,11 +5,16 @@
 
 # Jobs and Workflows
 version: 2.1
+parameters:
+  machine_image:
+    type: string
+    default: ubuntu-2004:202201-02
 orbs:
   node: circleci/node@3.0.0
 jobs:
   checkout:
-    machine: true
+    machine:
+      image: << pipeline.parameters.machine_image >>
     steps:
       - checkout
       - persist_to_workspace:
@@ -17,7 +22,8 @@ jobs:
           paths:
             - project
   sample-01:
-    machine: true
+    machine:
+      image: << pipeline.parameters.machine_image >>
     environment:
       - AUTH0_CFG: Sample-01/auth_config.json
       - AUTH0_EXAMPLE_CFG: Sample-01/auth_config.json.example
