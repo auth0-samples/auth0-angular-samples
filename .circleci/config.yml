@@ -28,8 +28,6 @@ jobs:
       - AUTH0_CFG: Sample-01/auth_config.json
       - AUTH0_EXAMPLE_CFG: Sample-01/auth_config.json.example
     steps:
-      - node/install:
-          node-version: 14.15.0
       - attach_workspace:
           at: ~/
       - run:
