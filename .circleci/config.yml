@@ -38,6 +38,9 @@ jobs:
               -e "s/AUTH0_CLIENT_ID/$AUTH0_TEST_CLIENT_ID/g" \
               -e "s/AUTH0_API_IDENTIFIER/$AUTH0_TEST_API_IDENTIFIER/g" \
               $AUTH0_EXAMPLE_CFG > $AUTH0_CFG
+      - node/install:
+          install-yarn: true
+          node-version: '9'
       - node/install-packages:
           pkg-manager: npm
           app-dir: Sample-01
