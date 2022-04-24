@@ -10,7 +10,7 @@ parameters:
     type: string
     default: ubuntu-2004:202201-02
 orbs:
-  node: circleci/node@3.0.0
+  node: circleci/node@5.0
 jobs:
   checkout:
     machine:
@@ -39,7 +39,6 @@ jobs:
               -e "s/AUTH0_API_IDENTIFIER/$AUTH0_TEST_API_IDENTIFIER/g" \
               $AUTH0_EXAMPLE_CFG > $AUTH0_CFG
       - node/install:
-          install-yarn: true
           node-version: '9'
       - node/install-packages:
           pkg-manager: npm
