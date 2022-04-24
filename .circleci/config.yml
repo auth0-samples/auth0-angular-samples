@@ -10,7 +10,7 @@ parameters:
     type: string
     default: ubuntu-2004:202201-02
 orbs:
-  node: circleci/node@3.0.0
+  node: circleci/node@5.0
 jobs:
   checkout:
     machine:
