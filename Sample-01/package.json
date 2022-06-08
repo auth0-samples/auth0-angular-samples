@@ -51,7 +51,7 @@
     "@ng-bootstrap/ng-bootstrap": "^7.0.0",
     "@types/jasmine": "^3.10.6",
     "@types/jasminewd2": "^2.0.10",
-    "@types/node": "^12.20.54",
+    "@types/node": "^12.20.55",
     "codelyzer": "^6.0.2",
     "copyfiles": "^2.4.1",
     "jasmine-core": "~3.99.1",
