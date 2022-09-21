@@ -27,6 +27,16 @@
           <li class="nav-item" *ngIf="auth.isAuthenticated$ | async">
             <a routerLink="external-api" class="nav-link">External API</a>
           </li>
+          <li class="nav-item" *ngIf="auth.isAuthenticated$ | async">
+            <button
+              class="btn btn-link p-0"
+              style="min-width: unset"
+              id="qsLogoutBtn"
+              (click)="logout()"
+            >
+              Log out
+            </button>
+          </li>
         </ul>
 
         <ul class="navbar-nav d-none d-md-block">
@@ -44,6 +54,7 @@
             </button>
           </li>
           <!-- / Login button -->
+
 
           <!-- Fullsize dropdown: show if authenticated -->
           <li
@@ -76,7 +87,6 @@
               <button
                 (click)="logout()"
                 class="btn btn-link dropdown-item"
-                id="qsLogoutBtn"
               >
                 <fa-icon [icon]="faPowerOff" class="mr-3"></fa-icon> Log out
               </button>
@@ -97,6 +107,7 @@
           >
             Log in
           </button>
+
         </ul>
         <!-- /Responsive login button -->
 
@@ -128,7 +139,6 @@
             <fa-icon [icon]="faPowerOff" class="mr-3"></fa-icon>
             <button
               class="btn btn-link p-0"
-              id="qsLogoutBtn"
               (click)="logout()"
             >
               Log out
