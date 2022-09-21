@@ -1,0 +1,77 @@
+<div class="container mt-5">
+  <h1>External API</h1>
+  
+  <div *ngIf="hasApiError" class="alert alert-danger" role="alert">
+    An error occured when trying to call the local API on port 3001. Ensure the local API is started using either `npm run dev` or `npm run
+    server:api`.
+  </div>
+
+  <p class="lead">Ping an external API by clicking the button below.</p>
+
+  <p>
+    This will call a local API on port 3001 that would have been started if you
+    run <code>npm run dev</code> (or <code>npm run server:api</code>). An access token is sent as part of the
+    request's `Authorization` header and the API will validate it using the
+    API's audience value.
+  </p>
+
+  <ng-container *ngIf="!audience">
+    <div class="alert alert-warning" role="alert">
+      <p>
+        You can't call the API at the moment because your application does not
+        have any configuration for <code>audience</code>, or it is using the
+        default value of <code>YOUR_API_IDENTIFIER</code>. You might get this
+        default value if you used the "Download Sample" feature of
+        <a href="https://auth0.com/docs/quickstart/spa/angular">
+          the quickstart guide </a
+        >, but have not set an API up in your Auth0 Tenant. You can find out
+        more information on
+        <a href="https://auth0.com/docs/api">setting up APIs</a> in the Auth0
+        Docs.
+      </p>
+      <p>
+        The audience is the identifier of the API that you want to call (see
+        <a
+          href="https://auth0.com/docs/get-started/dashboard/tenant-settings#api-authorization-settings"
+        >
+          API Authorization Settings
+        </a>
+        for more info).
+      </p>
+
+      <p>
+        In this sample, you can configure the audience by specifying it in the
+        <code>auth_config.json</code> file (see the
+        <code>auth_config.json.example</code> file for an example of where it
+        should go)
+      </p>
+      <p>
+        Once you have configured the value for <code>audience</code>, please
+        restart the app and try to use the "Ping API" button below.
+      </p>
+    </div>
+  </ng-container>
+
+  <p class="mb-5">
+    Ping an external API by clicking the button below. This will call the
+    external API using an access token, and the API will validate it using the
+    API's audience value.
+  </p>
+
+  <button
+    class="btn btn-primary mb-5"
+    [disabled]="!audience"
+    (click)="pingApi()"
+  >
+    Ping API
+  </button>
+
+  <div class="result-block-container" *ngIf="responseJson">
+    <div class="result-block" [ngClass]="{ show: !!responseJson }">
+      <h6 class="muted">Result</h6>
+      <pre>
+        <code class="js rounded" [highlight]="responseJson"></code>
+      </pre>
+    </div>
+  </div>
+</div>
