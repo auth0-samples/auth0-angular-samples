@@ -27,7 +27,7 @@
     "@angular/platform-browser": "^14.0.1",
     "@angular/platform-browser-dynamic": "^14.0.1",
     "@angular/router": "^14.0.1",
-    "@auth0/auth0-angular": "^1.10.0",
+    "@auth0/auth0-angular": "^1.10.1",
     "@fortawesome/angular-fontawesome": "^0.11.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
@@ -41,7 +41,7 @@
     "npm-run-all": "^4.1.5",
     "rxjs": "^6.6.7",
     "tslib": "^2.4.0",
-    "zone.js": "~0.11.4"
+    "zone.js": "~0.11.7"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^14.0.1",
@@ -56,7 +56,7 @@
     "copyfiles": "^2.4.1",
     "jasmine-core": "~3.99.1",
     "jasmine-spec-reporter": "~5.0.0",
-    "karma": "^6.3.20",
+    "karma": "^6.4.0",
     "karma-chrome-launcher": "~3.1.1",
     "karma-coverage-istanbul-reporter": "~3.0.2",
     "karma-jasmine": "~4.0.2",
