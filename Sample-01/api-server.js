@@ -2,8 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const helmet = require('helmet');
 const cors = require('cors');
-const jwt = require('express-jwt');
-const jwksRsa = require('jwks-rsa');
+const { auth } = require('express-oauth2-jwt-bearer');
 const authConfig = require('./auth_config.json');
 
 const app = express();
@@ -28,17 +27,9 @@ app.use(
   })
 );
 
-const checkJwt = jwt({
-  secret: jwksRsa.expressJwtSecret({
-    cache: true,
-    rateLimit: true,
-    jwksRequestsPerMinute: 5,
-    jwksUri: `https://${authConfig.domain}/.well-known/jwks.json`,
-  }),
-
+const checkJwt = auth({
   audience: authConfig.audience,
-  issuer: `https://${authConfig.domain}/`,
-  algorithms: ['RS256'],
+  issuerBaseURL: `https://${authConfig.domain}`,
 });
 
 app.get('/api/external', checkJwt, (req, res) => {
