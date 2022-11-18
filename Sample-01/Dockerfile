@@ -9,7 +9,7 @@ WORKDIR /app
 COPY package.json .
 COPY package-lock.json .
 
-RUN npm install
+RUN npm install --legacy-peer-deps
 
 COPY . .
 
@@ -26,7 +26,7 @@ WORKDIR /app
 COPY package.json .
 COPY package-lock.json .
 
-RUN npm install --production
+RUN npm install --production --legacy-peer-deps
 
 COPY --from=build ./app/dist/login-demo ./dist
 COPY ./server.js .
