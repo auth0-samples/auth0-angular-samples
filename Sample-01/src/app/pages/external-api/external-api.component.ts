@@ -9,7 +9,7 @@ import { ApiService } from 'src/app/api.service';
 })
 export class ExternalApiComponent {
   responseJson: string;
-  audience = this.configFactory.get()?.audience;
+  audience = this.configFactory.get()?.authorizationParams.audience;
   hasApiError = false;
 
   constructor(
