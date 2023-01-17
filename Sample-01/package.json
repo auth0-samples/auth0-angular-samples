@@ -63,7 +63,7 @@
     "karma-jasmine-html-reporter": "^1.7.0",
     "protractor": "~7.0.0",
     "tslint": "~6.1.0",
-    "typescript": "^4.9.4"
+    "typescript": "~4.8.4"
   },
   "prettier": {
     "singleQuote": true
