@@ -19,15 +19,15 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "^15.1.0",
-    "@angular/common": "^15.0.0",
-    "@angular/compiler": "^15.0.0",
-    "@angular/core": "^15.0.0",
+    "@angular/common": "^15.1.0",
+    "@angular/compiler": "^15.1.0",
+    "@angular/core": "^15.1.0",
     "@angular/forms": "^15.1.0",
     "@angular/localize": "^15.1.0",
-    "@angular/platform-browser": "^15.0.0",
+    "@angular/platform-browser": "^15.1.0",
     "@angular/platform-browser-dynamic": "^15.1.0",
     "@angular/router": "^15.1.0",
-    "@auth0/auth0-angular": "^1.11.1",
+    "@auth0/auth0-angular": "^2.0.0",
     "@fortawesome/angular-fontawesome": "^0.12.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
@@ -46,9 +46,9 @@
   "devDependencies": {
     "@angular-devkit/build-angular": "^15.1.0",
     "@angular/cli": "^15.0.0",
-    "@angular/compiler-cli": "^15.0.0",
+    "@angular/compiler-cli": "^15.1.0",
     "@angular/language-service": "^15.1.0",
-    "@ng-bootstrap/ng-bootstrap": "^14.0.0",
+    "@ng-bootstrap/ng-bootstrap": "^14.0.1",
     "@types/jasmine": "^3.10.6",
     "@types/jasminewd2": "^2.0.10",
     "@types/node": "^12.20.55",
@@ -63,7 +63,7 @@
     "karma-jasmine-html-reporter": "^1.7.0",
     "protractor": "~7.0.0",
     "tslint": "~6.1.0",
-    "typescript": "^4.9.4"
+    "typescript": "~4.8.4"
   },
   "prettier": {
     "singleQuote": true

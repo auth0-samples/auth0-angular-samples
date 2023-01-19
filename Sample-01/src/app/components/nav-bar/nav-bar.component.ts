@@ -25,6 +25,6 @@ export class NavBarComponent implements OnInit {
   }
 
   logout() {
-    this.auth.logout({ returnTo: this.doc.location.origin });
+    this.auth.logout({ logoutParams: { returnTo: this.doc.location.origin } });
   }
 }
