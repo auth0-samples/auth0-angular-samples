@@ -7,6 +7,7 @@ import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-error',
   templateUrl: './error.component.html',
+  standalone: true
 })
 export class ErrorComponent {
 

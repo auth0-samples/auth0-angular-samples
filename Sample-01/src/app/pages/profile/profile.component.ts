@@ -1,10 +1,14 @@
+import { AsyncPipe, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
+import { HighlightModule } from 'ngx-highlightjs';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
+  standalone: true,
+  imports: [HighlightModule, AsyncPipe, NgIf],
 })
 export class ProfileComponent implements OnInit {
   profileJson: string = null;
