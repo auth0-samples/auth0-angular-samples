@@ -24,10 +24,11 @@ jobs:
             - project
             - scripts
   test:
-    app-directory:
-      type: string
-      default: "Sample-01"
-      description: "The root directory of the application to run"
+    parameters:
+      app-directory:
+        type: string
+        default: "Sample-01"
+        description: "The root directory of the application to run"
     machine:
       image: << pipeline.parameters.machine_image >>
     environment:
@@ -52,10 +53,11 @@ jobs:
           working_directory: <<parameters.app-directory>>
           command: npm run test:ci
   login:
-    app-directory:
-      type: string
-      default: "Sample-01"
-      description: "The root directory of the application to run"
+    parameters:
+      app-directory:
+        type: string
+        default: "Sample-01"
+        description: "The root directory of the application to run"
     machine:
       image: << pipeline.parameters.machine_image >>
     environment:
