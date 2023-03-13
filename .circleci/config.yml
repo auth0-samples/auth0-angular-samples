@@ -110,19 +110,23 @@ workflows:
       - checkout:
           context: Quickstart SPA Test
       - test:
+          name: Unit Test Sample Application
           app-directory: Sample-01
           requires:
             - checkout
       - test:
+          name: Unit Test Standalone Application
           app-directory: Standalone
           requires:
             - checkout
       - login:
+          name: E2E Test Sample Application
           context: Quickstart SPA Test
           app-directory: Sample-01
           requires:
             - checkout
       - login:
+          name: E2E Test Standalone Application
           context: Quickstart SPA Test
           app-directory: Standalone
           requires:
