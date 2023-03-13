@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { filter, mergeMap } from 'rxjs/operators';
+import { AuthService, GenericError } from '@auth0/auth0-angular';
 
 @Component({
   selector: 'app-root',

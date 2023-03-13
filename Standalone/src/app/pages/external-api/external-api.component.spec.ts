@@ -13,7 +13,7 @@ describe('ExternalApiComponent', () => {
     authServiceSpy = jasmine.createSpyObj('AuthService', ['loginWithRedirect']);
 
     TestBed.configureTestingModule({
-      declarations: [ExternalApiComponent],
+      declarations: [],
       imports: [HttpClientTestingModule],
       providers: [{ provide: AuthService, useValue: authServiceSpy }],
     }).compileComponents();

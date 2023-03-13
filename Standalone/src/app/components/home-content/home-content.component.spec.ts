@@ -8,7 +8,7 @@ describe('HomeContentComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ HomeContentComponent ]
+      declarations: [ ]
     })
     .compileComponents();
   }));
