@@ -124,7 +124,7 @@ workflows:
           requires:
             - checkout
       - login:
-          name: login standalone
+          name: login-standalone
           context: Quickstart SPA Test
           app-directory: Standalone
           requires:
