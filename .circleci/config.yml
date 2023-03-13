@@ -129,3 +129,4 @@ workflows:
           app-directory: Standalone
           requires:
             - checkout
+            - login
