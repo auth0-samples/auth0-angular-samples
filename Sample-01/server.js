@@ -29,6 +29,6 @@ app.use(
   })
 );
 
-app.use(express.static(join(__dirname, 'dist/login-demo')));
+app.use(express.static(join(__dirname, 'dist')));
 
 app.listen(port, () => console.log(`App server listening on port ${port}`));
