@@ -1,16 +1,25 @@
-import { importProvidersFrom } from '@angular/core';
+import { importProvidersFrom, inject } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
 import { routes } from './app/app-routing.module';
 import { AuthHttpInterceptor, AuthModule } from '@auth0/auth0-angular';
 import { environment as env } from './environments/environment';
-import { HTTP_INTERCEPTORS, provideHttpClient } from '@angular/common/http';
+import {
+  HttpHandlerFn,
+  HttpRequest,
+  provideHttpClient,
+  withInterceptors,
+} from '@angular/common/http';
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { provideRouter } from '@angular/router';
 
+const authInterceptor = (req: HttpRequest<any>, handle: HttpHandlerFn) =>
+  inject(AuthHttpInterceptor).intercept(req, { handle });
+
 bootstrapApplication(AppComponent, {
   providers: [
-    provideHttpClient(),
+    AuthHttpInterceptor,
+    provideHttpClient(withInterceptors([authInterceptor])),
     provideRouter(routes),
     importProvidersFrom(
       AuthModule.forRoot({
@@ -20,11 +29,6 @@ bootstrapApplication(AppComponent, {
         },
       })
     ),
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthHttpInterceptor,
-      multi: true,
-    },
     {
       provide: HIGHLIGHT_OPTIONS,
       useValue: {
