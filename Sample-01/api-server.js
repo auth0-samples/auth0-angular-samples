@@ -9,8 +9,8 @@ const app = express();
 
 if (
   !authConfig.domain ||
-  !authConfig.audience ||
-  authConfig.audience === "YOUR_API_IDENTIFIER"
+  !authConfig.authorizationParams.audience ||
+  authConfig.authorizationParams.audience === "YOUR_API_IDENTIFIER"
 ) {
   console.log(
     "Exiting: Please make sure that auth_config.json is in place and populated with valid domain and audience values"
@@ -28,7 +28,7 @@ app.use(
 );
 
 const checkJwt = auth({
-  audience: authConfig.audience,
+  audience: authConfig.authorizationParams.audience,
   issuerBaseURL: `https://${authConfig.domain}`,
 });
 
