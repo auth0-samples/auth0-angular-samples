@@ -13,7 +13,7 @@ describe('ProfileComponent', () => {
     auth0ClientSpy = jasmine.createSpyObj('Auth0Client', ['loginWithRedirect']);
 
     TestBed.configureTestingModule({
-      declarations: [ProfileComponent],
+      declarations: [],
       imports: [],
       providers: [
         {

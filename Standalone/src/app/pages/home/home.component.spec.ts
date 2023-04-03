@@ -11,7 +11,7 @@ describe('HomeComponent', () => {
     authServiceSpy = jasmine.createSpyObj('AuthService', ['loginWithRedirect']);
 
     TestBed.configureTestingModule({
-      declarations: [HomeComponent],
+      declarations: [],
       providers: [
         {
           provide: AuthService,
