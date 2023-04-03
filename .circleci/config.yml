@@ -24,11 +24,16 @@ jobs:
             - project
             - scripts
   sample-01:
+    parameters:
+      app-directory:
+        type: string
+        default: "Sample-01"
+        description: "The root directory of the application to run"
     machine:
       image: << pipeline.parameters.machine_image >>
     environment:
-      - AUTH0_CFG: Sample-01/auth_config.json
-      - AUTH0_EXAMPLE_CFG: Sample-01/auth_config.json.example
+      - AUTH0_CFG: <<parameters.app-directory>>/auth_config.json
+      - AUTH0_EXAMPLE_CFG: <<parameters.app-directory>>/auth_config.json.example
     steps:
       - attach_workspace:
           at: ~/
@@ -42,18 +47,23 @@ jobs:
               $AUTH0_EXAMPLE_CFG > $AUTH0_CFG
       - node/install-packages:
           pkg-manager: npm
-          app-dir: Sample-01
+          app-dir: <<parameters.app-directory>>
       - run:
           name: Run unit tests
-          working_directory: Sample-01
+          working_directory: <<parameters.app-directory>>
           command: npm run test:ci
   login:
+    parameters:
+      app-directory:
+        type: string
+        default: "Sample-01"
+        description: "The root directory of the application to run"
     machine:
       image: << pipeline.parameters.machine_image >>
     environment:
-      - AUTH0_CFG: Sample-01/auth_config.json
-      - AUTH0_EXAMPLE_CFG: Sample-01/auth_config.json.example
-      - SAMPLE_PATH: Sample-01
+      - AUTH0_CFG: <<parameters.app-directory>>/auth_config.json
+      - AUTH0_EXAMPLE_CFG: <<parameters.app-directory>>/auth_config.json.example
+      - SAMPLE_PATH: <<parameters.app-directory>>
     steps:
       - attach_workspace:
           at: ~/
@@ -100,10 +110,23 @@ workflows:
       - checkout:
           context: Quickstart SPA Test
       - sample-01:
-          context: Quickstart SPA Test
+          app-directory: Sample-01
+          requires:
+            - checkout
+      - sample-01:
+          name: standalone
+          app-directory: Standalone
           requires:
             - checkout
       - login:
           context: Quickstart SPA Test
+          app-directory: Sample-01
           requires:
             - checkout
+      - login:
+          name: login-standalone
+          context: Quickstart SPA Test
+          app-directory: Standalone
+          requires:
+            - checkout
+            - login
