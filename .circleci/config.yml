@@ -45,6 +45,8 @@ jobs:
               -e "s/{CLIENT_ID}/$AUTH0_TEST_CLIENT_ID/g" \
               -e "s/{API_IDENTIFIER}/$AUTH0_TEST_API_IDENTIFIER/g" \
               $AUTH0_EXAMPLE_CFG > $AUTH0_CFG
+      - node/install:
+          node-version: '18'
       - node/install-packages:
           pkg-manager: npm
           app-dir: <<parameters.app-directory>>
