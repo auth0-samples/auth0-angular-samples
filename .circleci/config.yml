@@ -50,7 +50,6 @@ jobs:
       - node/install-packages:
           pkg-manager: npm
           app-dir: <<parameters.app-directory>>
-          override-ci-command: npm i --force
       - run:
           name: Run unit tests
           working_directory: <<parameters.app-directory>>
