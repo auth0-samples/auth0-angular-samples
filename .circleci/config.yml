@@ -48,6 +48,7 @@ jobs:
       - node/install-packages:
           pkg-manager: npm
           app-dir: <<parameters.app-directory>>
+          with-cache: false
       - run:
           name: Run unit tests
           working_directory: <<parameters.app-directory>>
