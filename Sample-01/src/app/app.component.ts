@@ -7,6 +7,4 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Auth0 Angular SDK Sample';
-
-  constructor() {}
 }

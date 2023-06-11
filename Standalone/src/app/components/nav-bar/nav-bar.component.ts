@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { faUser, faPowerOff } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '@auth0/auth0-angular';
 import { AsyncPipe, DOCUMENT, NgIf } from '@angular/common';
@@ -27,7 +27,7 @@ import { RouterLink } from '@angular/router';
     RouterLink,
   ],
 })
-export class NavBarComponent implements OnInit {
+export class NavBarComponent {
   isCollapsed = true;
   faUser = faUser;
   faPowerOff = faPowerOff;
@@ -36,8 +36,6 @@ export class NavBarComponent implements OnInit {
     public auth: AuthService,
     @Inject(DOCUMENT) private doc: Document
   ) {}
-
-  ngOnInit() {}
 
   loginWithRedirect() {
     this.auth.loginWithRedirect();
