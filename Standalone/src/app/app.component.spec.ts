@@ -4,7 +4,7 @@ import { AuthService } from '@auth0/auth0-angular';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
-  let authServiceSpy: any;
+  let authServiceSpy: unknown;
   beforeEach(() => {
     authServiceSpy = jasmine.createSpyObj('AuthService', ['loginWithRedirect']);
     TestBed.configureTestingModule({

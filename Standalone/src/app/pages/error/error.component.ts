@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '@auth0/auth0-angular';
-import { Observable, timer } from 'rxjs';
+import { timer } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -9,9 +9,9 @@ import { takeUntil } from 'rxjs/operators';
   templateUrl: './error.component.html',
   standalone: true
 })
-export class ErrorComponent {
+export class ErrorComponent implements OnInit {
 
-  public error$: Observable<any> = this.auth.error$;
+  public error$ = this.auth.error$;
 
   constructor(private auth: AuthService, private router: Router) {}
 

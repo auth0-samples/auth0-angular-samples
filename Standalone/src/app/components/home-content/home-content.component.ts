@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faLink } from '@fortawesome/free-solid-svg-icons';
 
@@ -9,12 +9,6 @@ import { faLink } from '@fortawesome/free-solid-svg-icons';
   standalone: true,
   imports: [FontAwesomeModule]
 })
-export class HomeContentComponent implements OnInit {
+export class HomeContentComponent {
   faLink = faLink;
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
 }
