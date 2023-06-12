@@ -12,20 +12,7 @@ app.use(morgan('dev'));
 
 app.use(
   helmet({
-    contentSecurityPolicy: {
-      // reportOnly: true,
-      directives: {
-        'default-src': ["'self'"],
-        'connect-src': ["'self'", 'https://*.auth0.com', authConfig.apiUri],
-        'frame-src': ["'self'", 'https://*.auth0.com'],
-        'base-uri': ["'self'"],
-        'block-all-mixed-content': [],
-        'font-src': ["'self'", 'https:', 'data:'],
-        'frame-ancestors': ["'self'"],
-        'img-src': ["'self'", 'data:', '*.gravatar.com'],
-        'style-src': ["'self'", 'https:', "'unsafe-inline'"],
-      },
-    },
+    contentSecurityPolicy: false,
   })
 );
 
