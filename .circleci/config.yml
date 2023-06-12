@@ -88,14 +88,15 @@ jobs:
             docker run -d -p 4200:4200 --name $CIRCLE_SHA1 $CIRCLE_JOB
           background: true
       - run:
-          name: Wait for app to be available
-          command: |
-            sleep 70
-            curl --retry 8 --retry-connrefused -v localhost:4200
-      - run:
           name: Connect to Docker Network
           command: |
             docker network connect qs-sample $CIRCLE_SHA1
+      - run:
+          name: Wait for app to be available
+          command: |
+            sleep 70
+            docker run --network qs-sample --rm appropriate/curl --retry 8 --retry-connrefused -v localhost:4200
+            curl --retry 8 --retry-connrefused -v localhost:4200
       - run:
           name: Run tests
           command: |
