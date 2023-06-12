@@ -86,11 +86,8 @@ jobs:
           command: |
             docker build -t $CIRCLE_JOB ./$SAMPLE_PATH
             docker run -d -p 4200:4200 --name $CIRCLE_SHA1 $CIRCLE_JOB
-          background: true
-      - run:
-          name: Connect to Docker Network
-          command: |
             docker network connect qs-sample $CIRCLE_SHA1
+          background: true
       - run:
           name: Wait for app to be available
           command: |
