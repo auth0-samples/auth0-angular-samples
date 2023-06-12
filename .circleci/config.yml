@@ -87,7 +87,7 @@ jobs:
           name: Wait for app to be available
           command: |
             sleep 70
-            docker run --network host --rm appropriate/curl --retry 8 --retry-connrefused --retry-all-errors -v localhost:4200
+            docker run --network host --rm curlimages/curl --retry 8 --retry-connrefused --retry-all-errors -v localhost:4200
       - run:
           name: Run tests
           command: |
