@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import config from '../../auth_config.json';
 
 @Injectable({
@@ -9,8 +8,7 @@ import config from '../../auth_config.json';
 export class ApiService {
   constructor(private http: HttpClient) {}
 
-  ping$(): Observable<any> {
-    console.log(config.apiUri);
+  ping$() {
     return this.http.get(`${config.apiUri}/api/external`);
   }
 }

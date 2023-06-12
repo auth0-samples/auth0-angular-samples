@@ -5,7 +5,7 @@ import { HomeComponent } from './home.component';
 describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
-  let authServiceSpy: any;
+  let authServiceSpy: unknown;
 
   beforeEach(() => {
     authServiceSpy = jasmine.createSpyObj('AuthService', ['loginWithRedirect']);

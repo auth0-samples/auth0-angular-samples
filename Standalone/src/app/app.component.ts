@@ -12,6 +12,4 @@ import { FooterComponent } from './components/footer/footer.component';
 })
 export class AppComponent {
   title = 'Auth0 Angular SDK Sample';
-
-  constructor() {}
 }

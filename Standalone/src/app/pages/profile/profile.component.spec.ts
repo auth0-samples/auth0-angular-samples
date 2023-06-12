@@ -7,14 +7,14 @@ import { ProfileComponent } from './profile.component';
 describe('ProfileComponent', () => {
   let component: ProfileComponent;
   let fixture: ComponentFixture<ProfileComponent>;
-  let auth0ClientSpy: any;
+  let auth0ClientSpy: unknown;
 
   beforeEach(() => {
     auth0ClientSpy = jasmine.createSpyObj('Auth0Client', ['loginWithRedirect']);
 
     TestBed.configureTestingModule({
       declarations: [],
-      imports: [],
+      imports: [HighlightModule],
       providers: [
         {
           provide: HIGHLIGHT_OPTIONS,
