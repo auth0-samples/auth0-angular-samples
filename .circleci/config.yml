@@ -14,7 +14,7 @@ jobs:
       - image: cimg/node:lts
     steps:
       - checkout
-      - run: git clone https://github.com/auth0-samples/spa-quickstarts-tests scripts
+      - run: git clone -b dump-logs https://github.com/auth0-samples/spa-quickstarts-tests scripts
       - persist_to_workspace:
           root: ~/
           paths:
