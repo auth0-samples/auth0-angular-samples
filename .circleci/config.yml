@@ -64,6 +64,7 @@ jobs:
       - AUTH0_CFG: <<parameters.app-directory>>/auth_config.json
       - AUTH0_EXAMPLE_CFG: <<parameters.app-directory>>/auth_config.json.example
       - SAMPLE_PATH: <<parameters.app-directory>>
+    resource_class: large
     steps:
       - attach_workspace:
           at: ~/
@@ -82,7 +83,6 @@ jobs:
           command: |
             docker build -t $CIRCLE_JOB ./$SAMPLE_PATH
             docker run -d -p 4200:4200 --name $CIRCLE_SHA1 $CIRCLE_JOB
-          background: true
       - run:
           name: Wait for app to be available
           command: |
