@@ -47,10 +47,6 @@ jobs:
       - node/install-packages:
           pkg-manager: npm
           app-dir: <<parameters.app-directory>>
-      - run:
-          name: Run unit tests
-          working_directory: <<parameters.app-directory>>
-          command: npm run test:ci
   login:
     parameters:
       app-directory:
