@@ -78,6 +78,10 @@ jobs:
               -e "s/{API_IDENTIFIER}/$AUTH0_TEST_API_IDENTIFIER/g" \
               $AUTH0_EXAMPLE_CFG > $AUTH0_CFG
       - run:
+          name: Create Docker network
+          command: |
+            docker network create qs-sample
+      - run:
           name: Build pull request
           command: |
             docker build -t $CIRCLE_JOB ./$SAMPLE_PATH
@@ -89,9 +93,13 @@ jobs:
             sleep 70
             curl --retry 8 --retry-connrefused -v localhost:4200
       - run:
+          name: Connect to Docker Network
+          command: |
+            docker network connect qs-sample $CIRCLE_SHA1
+      - run:
           name: Run tests
           command: |
-            docker create --env "SAMPLE_PORT=4200" --network host --name tester codeception/codeceptjs codeceptjs run-multiple --all --steps 
+            docker create --env "SAMPLE_PORT=4200" --network qs-sample --name tester codeception/codeceptjs codeceptjs run-multiple --all --steps 
             docker cp $(pwd)/lock_login_test.js tester:/tests/lock_login_test.js
             docker cp $(pwd)/codecept.conf.js tester:/tests/codecept.conf.js
             docker start -i tester
