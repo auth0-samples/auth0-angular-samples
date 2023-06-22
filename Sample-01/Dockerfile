@@ -1,4 +1,4 @@
-FROM node:16-alpine AS build
+FROM node:18-alpine AS build
 
 RUN apk update && apk add git
 
@@ -17,7 +17,7 @@ RUN npm run build
 
 # -----------------
 
-FROM node:16-alpine
+FROM node:18-alpine
 
 RUN mkdir -p /app
 
