@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { ExternalApiComponent } from './external-api.component';
-import { AuthService } from '@auth0/auth0-angular';
+import { AuthClientConfig, AuthService } from '@auth0/auth0-angular';
 
 describe('ExternalApiComponent', () => {
   let component: ExternalApiComponent;
@@ -15,7 +15,15 @@ describe('ExternalApiComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ExternalApiComponent],
       imports: [HttpClientTestingModule],
-      providers: [{ provide: AuthService, useValue: authServiceSpy }],
+      providers: [
+        { provide: AuthService, useValue: authServiceSpy },
+        {
+          provide: AuthClientConfig,
+          useValue: {
+            get: () => ({ authorizationParams: { audience: 'TestAudience' } }),
+          },
+        },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ExternalApiComponent);

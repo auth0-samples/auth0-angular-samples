@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { HomeContentComponent } from './home-content.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 describe('HomeContentComponent', () => {
   let component: HomeContentComponent;
@@ -8,7 +9,8 @@ describe('HomeContentComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ HomeContentComponent ]
+      declarations: [ HomeContentComponent ],
+      imports: [ FontAwesomeModule ],
     })
     .compileComponents();
   }));
