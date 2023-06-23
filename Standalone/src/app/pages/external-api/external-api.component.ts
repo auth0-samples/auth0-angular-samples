@@ -13,13 +13,15 @@ import { ApiService } from 'src/app/api.service';
 })
 export class ExternalApiComponent {
   responseJson: string;
-  audience = this.configFactory.get()?.authorizationParams.audience;
+  audience: string | undefined;
   hasApiError = false;
 
   constructor(
     private api: ApiService,
     private configFactory: AuthClientConfig
-  ) {}
+  ) {
+    this.audience = this.configFactory.get()?.authorizationParams.audience;
+  }
 
   pingApi() {
     this.api.ping$().subscribe({
