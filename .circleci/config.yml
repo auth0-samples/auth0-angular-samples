@@ -111,7 +111,7 @@ jobs:
       - run:
           name: Run tests
           command: |
-            docker create --env "SAMPLE_PORT=4200" --network host --name tester codeception/codeceptjs codeceptjs run-multiple --all --steps 
+            docker create --env "SAMPLE_PORT=4200" --network host --name tester codeceptjs/codeceptjs codeceptjs run-multiple --all --steps 
             docker cp $(pwd)/lock_login_test.js tester:/tests/lock_login_test.js
             docker cp $(pwd)/codecept.conf.js tester:/tests/codecept.conf.js
             docker start -i tester
