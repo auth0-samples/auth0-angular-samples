@@ -7,8 +7,8 @@
 version: 2.1
 
 orbs:
-  node: circleci/node@5.0.2
-  docker: circleci/docker@2.0.3
+  node: circleci/node@5.1.0
+  docker: circleci/docker@2.2.0
   browser-tools: circleci/browser-tools@1.4.3
 
 jobs:
