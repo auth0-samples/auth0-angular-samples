@@ -60,6 +60,7 @@ jobs:
           pkg-manager: npm
           app-dir: <<parameters.app-directory>>
           with-cache: false
+          override-ci-command: npm ci --force
       - run:
           name: Run unit tests
           working_directory: <<parameters.app-directory>>
