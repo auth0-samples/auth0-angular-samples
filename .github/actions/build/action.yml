@@ -1,0 +1,43 @@
+name: Build application
+description: Build the example application
+
+inputs:
+  working-directory:
+    description: The current working directory
+    required: true
+
+runs:
+  using: composite
+
+  steps:
+    - name: Setup Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+
+    - name: Install dependencies
+      shell: bash
+      run: npm ci
+      working-directory: ${{ inputs.working-directory }}
+
+    - name: Replace Auth0 test credentials
+      shell: bash
+      env:
+        AUTH0_CFG: ${{ inputs.working-directory }}/auth_config.json
+        AUTH0_EXAMPLE_CFG: ${{ inputs.working-directory }}/auth_config.json.example
+      run: |
+        sed \
+          -e "s/{DOMAIN}/$AUTH0_TEST_DOMAIN/g" \
+          -e "s/{CLIENT_ID}/$AUTH0_TEST_CLIENT_ID/g" \
+          -e "s/{API_IDENTIFIER}/$AUTH0_TEST_API_IDENTIFIER/g" \
+          $AUTH0_EXAMPLE_CFG > $AUTH0_CFG
+
+    - name: Build
+      shell: bash
+      run: npm run build
+      working-directory: ${{ inputs.working-directory }}
+
+    - name: Tests
+      shell: bash
+      run: npm run test:ci
+      working-directory: ${{ inputs.working-directory }}

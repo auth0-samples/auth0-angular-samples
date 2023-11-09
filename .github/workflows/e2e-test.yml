@@ -1,0 +1,70 @@
+name: E2E Test
+
+on:
+  merge_group:
+  workflow_dispatch:
+  pull_request_target:
+    types:
+      - opened
+      - synchronize
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/master' }}
+
+env:
+  NODE_VERSION: 18
+  CACHE_KEY: '${{ github.ref }}-${{ github.run_id }}-${{ github.run_attempt }}'
+
+jobs:
+  authorize:
+    name: Authorize
+    environment: ${{ github.actor != 'dependabot[bot]' && github.event_name == 'pull_request_target' && github.event.pull_request.head.repo.full_name != github.repository && 'external' || 'internal' }}
+    runs-on: ubuntu-latest
+    steps:
+      - run: true
+
+  sample-01:
+    needs: authorize
+    name: E2E Test Sample
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.ref }}
+
+      - name: E2E Test Sample
+        uses: ./.github/actions/test
+        with:
+          working-directory: Sample-01
+          domain: ${{ secrets.AUTH0_TEST_DOMAIN }}
+          client-id: ${{ secrets.AUTH0_TEST_CLIENT_ID }}
+          api-identifier: ${{ secrets.AUTH0_TEST_API_IDENTIFIER }}
+
+  standalone:
+    needs: authorize
+    name: E2E Test Standalone
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.ref }}
+
+      - name: E2E Test Standalone
+        uses: ./.github/actions/test
+        with:
+          working-directory: Standalone
+          domain: ${{ secrets.AUTH0_TEST_DOMAIN }}
+          client-id: ${{ secrets.AUTH0_TEST_CLIENT_ID }}
+          api-identifier: ${{ secrets.AUTH0_TEST_API_IDENTIFIER }}
+  
