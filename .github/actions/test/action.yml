@@ -19,6 +19,12 @@ runs:
   using: composite
 
   steps:
+    - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          repository: auth0-samples/spa-quickstarts-tests
+          path: scripts
+
     - name: Replace Auth0 test credentials
       shell: bash
       env:
