@@ -1,0 +1,76 @@
+name: E2E test
+description: Run E2E tests against the example application
+
+inputs:
+  working-directory:
+    description: The current working directory
+    required: true
+  domain:
+    description: The Auth0 domain to use
+    required: true
+  client-id:
+    description: The Auth0 client id to use
+    required: true
+  api-identifier:
+    description: The Auth0 API identifier to use
+    required: true
+
+runs:
+  using: composite
+
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        repository: auth0-samples/spa-quickstarts-tests
+        path: scripts
+
+    - name: Replace Auth0 test credentials
+      shell: bash
+      env:
+        AUTH0_CFG: ${{ inputs.working-directory }}/auth_config.json
+        AUTH0_EXAMPLE_CFG: ${{ inputs.working-directory }}/auth_config.json.example
+        AUTH0_TEST_DOMAIN: ${{ inputs.domain }}
+        AUTH0_TEST_CLIENT_ID: ${{ inputs.client-id }}
+        AUTH0_TEST_API_IDENTIFIER: ${{ inputs.api-identifier }}
+      run: |
+        sed \
+          -e "s/{DOMAIN}/$AUTH0_TEST_DOMAIN/g" \
+          -e "s/{CLIENT_ID}/$AUTH0_TEST_CLIENT_ID/g" \
+          -e "s/{API_IDENTIFIER}/$AUTH0_TEST_API_IDENTIFIER/g" \
+          $AUTH0_EXAMPLE_CFG > $AUTH0_CFG
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Build pull request
+      env:
+        SAMPLE_PATH: ${{ inputs.working-directory }}
+        IMAGE_NAME: ${{ github.event.pull_request.head.sha || github.sha }}
+        CONTAINER_NAME: ${{ github.event.pull_request.head.sha || github.sha }}
+      shell: bash
+      run: |
+        docker build -t $IMAGE_NAME ./$SAMPLE_PATH
+        docker run -d -p 4200:4200 --name $CONTAINER_NAME $IMAGE_NAME
+    - name: Wait for app to be available
+      shell: bash
+      run: |
+        sleep 10
+        docker run --network host --rm appropriate/curl --retry 8 --retry-connrefused -v localhost:4200
+    - name: Run tests
+      shell: bash
+      run: |
+        docker create --env "SAMPLE_PORT=4200" --network host --name tester codeceptjs/codeceptjs codeceptjs run-multiple --all --steps 
+        docker cp $(pwd)/lock_login_test.js tester:/tests/lock_login_test.js
+        docker cp $(pwd)/codecept.conf.js tester:/tests/codecept.conf.js
+        docker start -i tester
+      working-directory: scripts
+    - name: Copy app container logs
+      env:
+        CONTAINER_NAME: ${{ github.event.pull_request.head.sha || github.sha }}
+      shell: bash
+      run: |
+        mkdir -p /tmp/out
+        docker logs $CONTAINER_NAME > /tmp/out/app_logs.log
+        docker cp tester:/tests/out /tmp/
+      if: failure()
