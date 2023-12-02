@@ -17,7 +17,7 @@ runs:
 
     - name: Install dependencies
       shell: bash
-      run: npm ci --force
+      run: npm ci
       working-directory: ${{ inputs.working-directory }}
 
     - name: Replace Auth0 test credentials
