@@ -28,7 +28,7 @@ Auth0 helps you to:
 
 ### Auth0 Configuration for the Sample Application(s)
 The example application(s) require to be configured with your Auth0 information in order to run succesfully.
-This can be done by renaming `auth_config.json.example` (https://github.com/auth0-samples/auth0-angular-samples/blob/master/Sample-01/auth_config.json.example) to `auth_config.json` and replacing `{DOMAIN}`, `{CLIENT_ID}` and `{API_IDENTIFIER}` with your tenant specific values:
+This can be done by renaming `auth_config.json.example` (https://github.com/auth0-samples/auth0-angular-samples/blob/main/Sample-01/auth_config.json.example) to `auth_config.json` and replacing `{DOMAIN}`, `{CLIENT_ID}` and `{API_IDENTIFIER}` with your tenant specific values:
 
 ```
 {
