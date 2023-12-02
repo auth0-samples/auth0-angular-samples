@@ -8,7 +8,7 @@ body:
     attributes:
       label: Checklist
       options:
-        - label: I have looked into the Readme ([Quickstart sample](https://github.com/auth0-samples/auth0-angular-samples/tree/master/Sample-01#readme)/[Standalone sample](https://github.com/auth0-samples/auth0-angular-samples/tree/master/Standalone#readme)) and have not found a suitable solution or answer.
+        - label: I have looked into the Readme ([Quickstart sample](https://github.com/auth0-samples/auth0-angular-samples/tree/main/Sample-01#readme)/[Standalone sample](https://github.com/auth0-samples/auth0-angular-samples/tree/main/Standalone#readme)) and have not found a suitable solution or answer.
           required: true
         - label: I have searched the [issues](https://github.com/auth0-samples/auth0-angular-samples/issues) and have not found a suitable solution or answer.
           required: true
