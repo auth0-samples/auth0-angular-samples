@@ -34,11 +34,15 @@ This can be done by renaming `auth_config.json.example` (https://github.com/auth
 {
   "domain": "YOUR_DOMAIN",
   "clientId": "YOUR_CLIENT_ID",
-  "audience": "YOUR_API_IDENTIFIER",
+  "authorizationParams": {
+    "audience": "YOUR_API_IDENTIFIER",
+  },
   "apiUri": "http://localhost:3001",
   "appUri": "http://localhost:4200"
 }
 ```
+
+> **Domain** and **Client Id** can be found in the corresponding Application in the Auth0 Dashboard, while **Audience** needs to be set to the identifier of the API, found in the Auth0 Dashboard.
 
 Also ensure the Application in Auth0 is configured to allow **http://localhost:4200** as a `Callback URL`, `Logout URL` and `Allowed Web Origin`.
 
