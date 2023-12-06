@@ -1,3 +1,4 @@
+import { AsyncPipe, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '@auth0/auth0-angular';
@@ -7,7 +8,11 @@ import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-error',
   templateUrl: './error.component.html',
-  standalone: true
+  standalone: true,
+  imports: [
+    AsyncPipe,
+    NgIf
+  ]
 })
 export class ErrorComponent implements OnInit {
 
