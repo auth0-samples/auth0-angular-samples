@@ -10,7 +10,7 @@ const app = express();
 if (
   !authConfig.domain ||
   !authConfig.authorizationParams.audience ||
-  authConfig.authorizationParams.audience === "YOUR_API_IDENTIFIER"
+  ["YOUR_API_IDENTIFIER", "{API_IDENTIFIER}"].includes(authConfig.authorizationParams.audience)
 ) {
   console.log(
     "Exiting: Please make sure that auth_config.json is in place and populated with valid domain and audience values"
