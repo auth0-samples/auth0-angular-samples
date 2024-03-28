@@ -34,7 +34,7 @@
     "@ng-bootstrap/ng-bootstrap": "^16.0.0",
     "@popperjs/core": "^2.11.6",
     "cors": "^2.8.5",
-    "express": "^4.18.1",
+    "express": "^4.19.2",
     "express-oauth2-jwt-bearer": "^1.6.0",
     "helmet": "^4.6.0",
     "morgan": "^1.10.0",
