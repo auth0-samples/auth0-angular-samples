@@ -1,10 +1,10 @@
 {
-  "domain": "{DOMAIN}",
-  "clientId": "{CLIENT_ID}",
+  "domain": "{dev-chlnrr0pco2fi4iu.us.auth0.com}",
+  "clientId": "{FiNzbHmU8jJeEORv2Zg6RWBRvB8gSlE6}",
   "authorizationParams": {
-    "audience": "{API_IDENTIFIER}"
+    "audience": "{https://dev-chlnrr0pco2fi4iu.us.auth0.com/api/v2/}"
   },
   "apiUri": "http://localhost:3001",
   "appUri": "http://localhost:4200",
-  "errorPath": "/error"
+  
 }
