@@ -35,7 +35,7 @@ This can be done by renaming `auth_config.json.example` (https://github.com/auth
   "domain": "YOUR_DOMAIN",
   "clientId": "YOUR_CLIENT_ID",
   "authorizationParams": {
-    "audience": "YOUR_API_IDENTIFIER",
+    "audience": "{yourApiIdentifier}",
   },
   "apiUri": "http://localhost:3001",
   "appUri": "http://localhost:4200"
