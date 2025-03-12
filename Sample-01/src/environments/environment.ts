@@ -19,7 +19,7 @@ export const environment = {
     domain,
     clientId,
     authorizationParams: {
-      ...(audience && audience !== 'YOUR_API_IDENTIFIER' ? { audience } : null),
+      ...(audience && audience !== '{yourApiIdentifier}' ? { audience } : null),
       redirect_uri: window.location.origin,
     },
     errorPath,

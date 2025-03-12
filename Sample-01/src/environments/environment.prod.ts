@@ -13,7 +13,7 @@ export const environment = {
   auth: {
     domain,
     clientId,
-    ...(audience && audience !== "YOUR_API_IDENTIFIER" ? { audience } : null),
+    ...(audience && audience !== "{yourApiIdentifier}" ? { audience } : null),
     redirectUri: window.location.origin,
     errorPath,
   },
