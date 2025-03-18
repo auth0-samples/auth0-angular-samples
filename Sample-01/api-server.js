@@ -10,7 +10,7 @@ const app = express();
 if (
   !authConfig.domain ||
   !authConfig.authorizationParams.audience ||
-  ['{yourApiIdentifier}', '{API_IDENTIFIER}'].includes(
+  ["{yourApiIdentifier}", "{API_IDENTIFIER}"].includes(
     authConfig.authorizationParams.audience
   )
 ) {
