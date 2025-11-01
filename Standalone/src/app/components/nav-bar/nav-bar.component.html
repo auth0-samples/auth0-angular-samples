@@ -24,26 +24,28 @@
           <li class="nav-item">
             <a routerLink="/" class="nav-link">Home</a>
           </li>
-          <li class="nav-item" *ngIf="auth.isAuthenticated$ | async">
-            <a routerLink="external-api" class="nav-link">External API</a>
-          </li>
-          <li class="nav-item" *ngIf="auth.isAuthenticated$ | async">
-            <button
-              class="btn btn-link p-0"
-              style="min-width: unset"
-              id="qsLogoutBtn"
-              (click)="logout()"
-            >
-              Log out
-            </button>
-          </li>
+          @if (auth.isAuthenticated$ | async) {
+            <li class="nav-item">
+              <a routerLink="external-api" class="nav-link">External API</a>
+            </li>
+            <li class="nav-item">
+              <button
+                class="btn btn-link p-0"
+                style="min-width: unset"
+                id="qsLogoutBtn"
+                (click)="logout()"
+              >
+                Log out
+              </button>
+            </li>
+          }
         </ul>
 
         <ul class="navbar-nav d-none d-md-block">
           <!-- Login button: show if NOT authenticated -->
+          @if ((auth.isAuthenticated$ | async) === false) {
           <li
             class="nav-item"
-            *ngIf="(auth.isAuthenticated$ | async) === false"
           >
             <button
               id="qsLoginBtn"
@@ -53,13 +55,13 @@
               Log in
             </button>
           </li>
+        }
           <!-- / Login button -->
 
-
           <!-- Fullsize dropdown: show if authenticated -->
+          @if (auth.user$ | async; as user) {
           <li
             class="nav-item dropdown"
-            *ngIf="auth.user$ | async as user"
             ngbDropdown
           >
             <a
@@ -92,13 +94,14 @@
               </button>
             </div>
           </li>
+          }
           <!-- /Fullsize dropdown -->
         </ul>
 
         <!-- Responsive login button: show if NOT authenticated -->
+        @if ((auth.isAuthenticated$ | async) === false) {
         <ul
           class="navbar-nav d-md-none"
-          *ngIf="(auth.isAuthenticated$ | async) === false"
         >
           <button
             class="btn btn-primary btn-block"
@@ -109,12 +112,13 @@
           </button>
 
         </ul>
+        }
         <!-- /Responsive login button -->
 
         <!-- Responsive profile dropdown: show if authenticated -->
+        @if (auth.user$ | async; as user) {
         <ul
           class="navbar-nav d-md-none justify-content-between"
-          *ngIf="auth.user$ | async as user"
           style="min-height: 170px;"
         >
           <li class="nav-item">
@@ -145,6 +149,7 @@
             </button>
           </li>
         </ul>
+        }
       </div>
     </div>
   </nav>
