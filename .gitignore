@@ -42,3 +42,6 @@ __screenshots__/
 .DS_Store
 Thumbs.db
 
+# Environment variables
+public/config.js
+
