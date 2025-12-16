@@ -9,26 +9,10 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, CommonModule],
-  // highlight-start auth0-usage
-  template: `
-    <main>
-      @if (auth.isLoading$ | async) { Loading... } @else if (auth.isAuthenticated$ | async) { @if
-      (auth.user$ | async; as user) {
-      <p>Logged in as {{ user.email }}</p>
-      <h1>User Profile</h1>
-      <pre>{{ user | json }}</pre>
-      <button (click)="auth.logout()">Logout</button>
-      } } @else {
-      <button (click)="auth.loginWithRedirect({ authorizationParams: { screen_hint: 'signup' } })">
-        Sign Up
-      </button>
-      <button (click)="auth.loginWithRedirect()">Log In</button>
-      }
-      <router-outlet />
-    </main>
-  `,
-  // highlight-end auth0-usage
+  templateUrl: './app.component.html',
 })
 export class App {
+  /* highlight-start auth0-inject */
   protected auth = inject(AuthService);
+  /* highlight-end auth0-inject */
 }

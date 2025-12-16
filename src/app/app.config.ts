@@ -8,6 +8,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
+    /* highlight-start provider-config */
     provideAuth0({
       domain: window.AUTH0_DOMAIN,
       clientId: window.AUTH0_CLIENT_ID,
@@ -15,5 +16,6 @@ export const appConfig: ApplicationConfig = {
         redirect_uri: window.location.origin,
       },
     }),
+    /* highlight-end provider-config */
   ],
 };
