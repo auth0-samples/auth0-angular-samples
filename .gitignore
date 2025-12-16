@@ -44,4 +44,5 @@ Thumbs.db
 
 # Environment variables
 public/config.js
+.auth0.config.json
 
