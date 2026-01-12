@@ -1,0 +1,25 @@
+@if (auth.isLoading$ | async) {
+
+<div>Loading...</div>
+
+} @else if ((auth.isAuthenticated$ | async) && (auth.user$ | async); as user) {
+
+<p>Logged in as {{ user.email }}</p>
+<h1>User Profile</h1>
+<pre>{{ user | json }}</pre>
+<button (click)="auth.logout()">Logout</button>
+
+} @else {
+
+@if (auth.error$ | async; as error) {
+<p>Error: {{ error.message }}</p>
+}
+
+<button (click)="auth.loginWithRedirect({ authorizationParams: { screen_hint: 'signup' } })">
+  Sign Up
+</button>
+<button (click)="auth.loginWithRedirect()">Log In</button>
+
+}
+
+<router-outlet />
