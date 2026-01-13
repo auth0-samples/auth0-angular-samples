@@ -117,3 +117,10 @@ steps:
       - type: snippet
         <<: *appTemplate
   - <<: *tryOutStep
+
+nextSteps:
+  links:
+    - label: "Calling Protected APIs"
+      url: "https://auth0.com/docs/quickstart/spa/angular#calling-protected-apis"
+    - label: "Auth0 Angular SDK"
+      url: "https://github.com/auth0/auth0-angular"
