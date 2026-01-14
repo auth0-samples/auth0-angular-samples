@@ -19,6 +19,7 @@ import { CommonModule } from '@angular/common';
 })
 export class App {
   /* highlight-start auth0-inject */
+  protected readonly window = window;
   protected auth = inject(AuthService);
   /* highlight-end auth0-inject */
 }
