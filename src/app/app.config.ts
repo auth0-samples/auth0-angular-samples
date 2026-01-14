@@ -2,7 +2,9 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
+/* highlight-start import-provide-auth0 */
 import { provideAuth0 } from '@auth0/auth0-angular';
+/* highlight-end import-provide-auth0 */
 
 export const appConfig: ApplicationConfig = {
   providers: [

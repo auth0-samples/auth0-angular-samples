@@ -65,7 +65,7 @@ snippets:
     source: 'src/app/app.ts'
     language: 'typescript'
   app-template: &appTemplate
-    source: 'src/app/app.component.html'
+    source: 'src/app/app.html'
     language: 'html'
 
 tryOutStep: &tryOutStep
